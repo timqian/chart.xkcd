@@ -1,0 +1,21 @@
+{
+  "name": "chart.xkcd",
+  "version": "1.0.0",
+  "description": "xkcd style chart lib",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timqian/chart.xkcd"
+  },
+  "keywords": [
+    "chart",
+    "graph",
+    "xkcd",
+    "hand-written"
+  ],
+  "author": "timqian",
+  "license": "MIT"
+}
