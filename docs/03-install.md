@@ -7,13 +7,13 @@ You can install chart.xkcd via npm or download the latest version on GitHub.
 Via Script Tag
 
 ```js
-<script src="path/to/chartjs/dist/Chart.js"></script>
+<script src="https://github.com/timqian/chart.xkcd/releases/download/1.0.1/chart.xkcd.js"></script>
 <script>
-    var myChart = new Chart(ctx, {...});
+    const myChart = new chartXkcd.Line(ctx, {...});
 </script>
 ```
 
-Via npm
+Via npm(unfinished)
 
 ```bash
 npm i chart.xkcd

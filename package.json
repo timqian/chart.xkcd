@@ -8,7 +8,8 @@
   "unpkg": "dist/chart.xkcd.umd.js",
   "scripts": {
     "build": "rm -r dist && parcel build src/chart.xkcd.js --global chartXkcd",
-    "start": "parcel watch src/chart.xkcd.js --global chartXkcd"
+    "start": "parcel watch src/chart.xkcd.js --global chartXkcd",
+    "deploy": "gh-pages -d docs-dist"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-private-methods": "^7.4.4"
+    "@babel/plugin-proposal-private-methods": "^7.4.4",
+    "gh-pages": "^2.1.1"
   },
   "dependencies": {
     "d3": "^5.9.7"

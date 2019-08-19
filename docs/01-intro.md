@@ -10,3 +10,7 @@ When precise numbers
 We already have lots of great chart libraries like [chart.js](), [echart](), [chartist-js](https://github.com/gionkunz/chartist-js) etc. One of the problems I've had with them is  that everything they draw is so precise and perfect. Sometimes I want the plots looks less precise to d -->
 
 Chart.xkcd is a chart library plots "sketchy", "cartoony" or "hand-drawn" styled charts.
+
+[![donate](https://flat.badgen.net/badge/support%20me/donate/orange)](https://patreon.com/timqian)
+[![slack](https://flat.badgen.net/badge/chat%20with%20us/slack/green)](https://join.slack.com/t/t9tio/shared_invite/enQtNjgzMzkwMDM0NTE3LTE5ZTUzYjU4Y2I0YzRiZjNkYTkzMzE1ZmM0NDdmYzRlZmMxNGY1MzZlN2EwYjYyNWVlMWY0Nzk2MDBhNWZlY2I)
+[![stars](https://flat.badgen.net/github/stars/timqian/chart.xkcd?icon=github)](https://github.com/timqian/chart.xkcd)

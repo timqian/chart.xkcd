@@ -1,10 +1,10 @@
-[![chart.xkcd](https://raw.githubusercontent.com/timqian/images/master/20190817164203.png)](https://chart.xkcd.t9t.io)
+[![chart.xkcd](https://raw.githubusercontent.com/timqian/images/master/20190817164203.png)](https://timqian.com/chart.xkcd/)
 
 ## About
 
 Chart.xkcd is a chart library plots “sketchy”, “cartoony” or “hand-drawn” styled charts.
 
-Check out the [documentation](https://chart.xkcd.t9t.io) for more instructions and links, or try out the [examples](./examples), or chat with us in [Slack](https://join.slack.com/t/t9tio/shared_invite/enQtNjgzMzkwMDM0NTE3LTE5ZTUzYjU4Y2I0YzRiZjNkYTkzMzE1ZmM0NDdmYzRlZmMxNGY1MzZlN2EwYjYyNWVlMWY0Nzk2MDBhNWZlY2I)
+Check out the [documentation](https://timqian.com/chart.xkcd/) for more instructions and links, or try out the [examples](./examples), or chat with us in [Slack](https://join.slack.com/t/t9tio/shared_invite/enQtNjgzMzkwMDM0NTE3LTE5ZTUzYjU4Y2I0YzRiZjNkYTkzMzE1ZmM0NDdmYzRlZmMxNGY1MzZlN2EwYjYyNWVlMWY0Nzk2MDBhNWZlY2I)
 
 ## Quick start
 
