@@ -11,9 +11,7 @@ Check out the [documentation](https://chart.xkcd.t9t.io) for more instructions a
 
 It’s easy to get started with chart.xkcd. All that’s required is the script included in your page along with a single `<svg>` node to render the chart.
 
-In the following example we create a bar chart and render that in our page.
-
-> [Preview the reslut on codepen](https://codepen.io/timqian/pen/GRKqLaL)
+In the following example we create a line chart.
 
 ```html
 <svg class="line-chart"></svg>
@@ -38,5 +36,7 @@ In the following example we create a bar chart and render that in our page.
   });
 </script>
 ```
+
+> [Preview the reslut on codepen](https://codepen.io/timqian/pen/GRKqLaL)
 
 
