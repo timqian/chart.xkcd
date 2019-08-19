@@ -1,4 +1,4 @@
-[![chart.xkcd](https://raw.githubusercontent.com/timqian/images/master/20190817164203.png)](https://timqian.com/chart.xkcd/)
+[![](https://raw.githubusercontent.com/timqian/images/master/20190819131226.gif)](https://timqian.com/chart.xkcd/)
 
 ## About
 
