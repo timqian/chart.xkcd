@@ -1,6 +1,6 @@
 [![](https://raw.githubusercontent.com/timqian/images/master/20190819131226.gif)](https://timqian.com/chart.xkcd/)
 
-> This repo is in its early stage, lots of bugs need to be fixed an new charts will be added. Watch this repo to be notified of new versions 
+> This repo is in its early stage, lots of bugs need to be fixed and new charts will be added. Watch this repo to be notified of new versions 
 
 ## About
 
