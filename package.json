@@ -1,10 +1,14 @@
 {
   "name": "chart.xkcd",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "xkcd style chart lib",
-  "main": "index.js",
+  "source": "src/chart.xkcd.js",
+  "main": "dist/chart.xkcd.js",
+  "module": "dist/chart.xkcd.mjs",
+  "unpkg": "dist/chart.xkcd.umd.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -r dist && parcel build src/chart.xkcd.js --global chartXkcd",
+    "start": "parcel watch src/chart.xkcd.js --global chartXkcd"
   },
   "repository": {
     "type": "git",
@@ -14,8 +18,15 @@
     "chart",
     "graph",
     "xkcd",
-    "hand-written"
+    "hand-drawn"
   ],
   "author": "timqian",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-private-methods": "^7.4.4"
+  },
+  "dependencies": {
+    "d3": "^5.9.7"
+  }
 }

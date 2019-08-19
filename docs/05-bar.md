@@ -1,0 +1,5 @@
+---
+title: Bar chart
+---
+
+asdfasdf

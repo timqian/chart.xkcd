@@ -1,0 +1,5 @@
+---
+title: Pie chart
+---
+
+asdfasdf
