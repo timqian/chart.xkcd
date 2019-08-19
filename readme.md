@@ -1,44 +1,42 @@
-![](https://raw.githubusercontent.com/timqian/images/master/20190817164203.png)
+[![chart.xkcd](https://raw.githubusercontent.com/timqian/images/master/20190817164203.png)](https://chart.xkcd.t9t.io)
 
-# chart.xkcd
+## About
 
-xkcd styled chart lib
+Chart.xkcd is a chart library plots “sketchy”, “cartoony” or “hand-drawn” styled charts.
+
+Check out the [documentation](https://chart.xkcd.t9t.io) for more instructions and links, or try out the [examples](./examples), or chat with us in [Slack](https://join.slack.com/t/t9tio/shared_invite/enQtNjgzMzkwMDM0NTE3LTE5ZTUzYjU4Y2I0YzRiZjNkYTkzMzE1ZmM0NDdmYzRlZmMxNGY1MzZlN2EwYjYyNWVlMWY0Nzk2MDBhNWZlY2I)
+
 
 ## Quick start
 
-```html
-<svg class="bar-chart" width="600" height="400" ></svg>
-<script src="../dist/chart.xkcd.js"></script>
-<script>
-  const svg = document.querySelector('.bar-chart')
+It’s easy to get started with chart.xkcd. All that’s required is the script included in your page along with a single `<svg>` node to render the chart.
 
-  new chartXkcd.Bar(svg, {
+In the following example we create a bar chart and render that in our page.
+
+> [Preview the reslut on codepen](https://codepen.io/timqian/pen/GRKqLaL)
+
+```html
+<svg class="line-chart"></svg>
+<script src="https://github.com/timqian/chart.xkcd/releases/download/1.0.1/chart.xkcd.js"></script>
+<script>
+  const svg = document.querySelector('.line-chart')
+
+  new chartXkcd.Line(svg, {
+    title: 'Monthly income of an indie developer',
+    xLabel: 'Month',
+    yLabel: '$ Dollors',
     data: {
-      labels:['github stars', 'patrons'],
+      labels:['1', '2', '3', '4', '5', '6','7', '8', '9', '10'],
       datasets: [{
-        data: [100, 2],
+        label: 'Plan',
+        data: [30, 70, 200, 300, 500 ,800, 1500, 2900, 5000, 8000],
+      }, {
+        label: 'Reality',
+        data: [0, 1, 30, 70, 80, 100, 50, 80, 40, 150],
       }]
     },
   });
 </script>
 ```
 
-## Install
-
-Install via npm
-
-```bash
-npm i chart.xkcd
-```
-
-Or using script tag
-
-```html
-<script src="path/to/chartjs/dist/Chart.js"></script>
-<script>
-    var myChart = new chartXkcd.Bar(svg, {...});
-</script>
-```
-
-## Document
 
