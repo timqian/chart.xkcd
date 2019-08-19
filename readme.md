@@ -6,12 +6,13 @@ Chart.xkcd is a chart library plots “sketchy”, “cartoony” or “hand-dra
 
 Check out the [documentation](https://chart.xkcd.t9t.io) for more instructions and links, or try out the [examples](./examples), or chat with us in [Slack](https://join.slack.com/t/t9tio/shared_invite/enQtNjgzMzkwMDM0NTE3LTE5ZTUzYjU4Y2I0YzRiZjNkYTkzMzE1ZmM0NDdmYzRlZmMxNGY1MzZlN2EwYjYyNWVlMWY0Nzk2MDBhNWZlY2I)
 
-
 ## Quick start
 
 It’s easy to get started with chart.xkcd. All that’s required is the script included in your page along with a single `<svg>` node to render the chart.
 
 In the following example we create a line chart.
+
+> **[Preview and edit on codepen](https://codepen.io/timqian/pen/GRKqLaL)**
 
 ```html
 <svg class="line-chart"></svg>
@@ -36,7 +37,3 @@ In the following example we create a line chart.
   });
 </script>
 ```
-
-> [Preview the reslut on codepen](https://codepen.io/timqian/pen/GRKqLaL)
-
-
