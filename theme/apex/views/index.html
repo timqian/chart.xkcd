@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{.Title}} | {{.Subtitle}}</title>
+    <link rel="stylesheet" href="theme/apex/css/index.css">
+  </head>
+  <body>
+    <div class="Wrapper">
+      <div class="Container">
+        <div class="Header">
+          <div class="Title center">
+            <span class="text">{{.Title}}</span>
+            <span class="subtext">{{.Subtitle}}</span>
+          </div>
+        </div>
+
+        <div class="Content-wrapper">
+          <div class="Sidebar">
+            <div class="Menu">
+              {{range .Pages}}
+                <div class="item">
+                  <a href="#{{.Slug}}">{{.Title}}</a>
+                </div>
+              {{end}}
+            </div>
+          </div>
+
+          <div class="Content">
+            {{range .Pages}}
+              <div class="Page" id="{{.Slug}}">
+                <h1>{{.Title}}</h1>
+                {{.Content}}
+              </div>
+            {{end}}
+            <div class="Footer"></div>
+            <script src="theme/apex/js/index.js"></script>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
