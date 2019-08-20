@@ -1,4 +1,10 @@
-import { select, selectAll, scaleBand, scaleLinear, axisBottom, axisLeft, mouse} from 'd3';
+import select from 'd3-selection/src/select';
+import selectAll from 'd3-selection/src/selectAll';
+import mouse from 'd3-selection/src/mouse';
+import scaleBand from 'd3-scale/src/band';
+import scaleLinear from 'd3-scale/src/linear';
+import { axisBottom, axisLeft } from 'd3-axis/src/axis';
+
 import Tooltip from './components/Tooltip';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';

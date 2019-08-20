@@ -4,19 +4,26 @@ title: Getting started
 
 It's easy to get started with chart.xkcd. All that's required is the script included in your page along with a single `<svg>` node to render the chart.
 
-In the following example we create a line chart and render that in our page.
+In the following example we create a line chart.
 
 ```html
-<svg class="bar-chart" width="600" height="400" ></svg>
-<script src="../dist/chart.xkcd.js"></script>
+<svg class="line-chart"></svg>
+<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1/dist/chart.xkcd.min.js"></script>
 <script>
-  const svg = document.querySelector('.bar-chart')
+  const svg = document.querySelector('.line-chart')
 
-  new chartXkcd.Bar(svg, {
+  new chartXkcd.Line(svg, {
+    title: 'Monthly income of an indie developer',
+    xLabel: 'Month',
+    yLabel: '$ Dollors',
     data: {
-      labels:['github stars', 'patrons'],
+      labels:['1', '2', '3', '4', '5', '6','7', '8', '9', '10'],
       datasets: [{
-        data: [100, 2],
+        label: 'Plan',
+        data: [30, 70, 200, 300, 500 ,800, 1500, 2900, 5000, 8000],
+      }, {
+        label: 'Reality',
+        data: [0, 1, 30, 70, 80, 100, 50, 80, 40, 150],
       }]
     },
   });

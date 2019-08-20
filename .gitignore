@@ -1,5 +1,5 @@
 /.cache
-/node_modules
+node_modules
 /dist
 /docs-dist
 /previous-works

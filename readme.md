@@ -18,7 +18,7 @@ In the following example we create a line chart.
 
 ```html
 <svg class="line-chart"></svg>
-<script src="https://github.com/timqian/chart.xkcd/releases/download/1.0.1/chart.xkcd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1/dist/chart.xkcd.min.js"></script>
 <script>
   const svg = document.querySelector('.line-chart')
 
