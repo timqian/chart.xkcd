@@ -9,11 +9,12 @@
     "dist/*"
   ],
   "scripts": {
-    "build-umd": "parcel build src/chart.xkcd.js --target browser --out-file chart.xkcd.min.js --no-source-maps --experimental-scope-hoisting --global chartXkcd",
+    "buildUmd": "parcel build src/chart.xkcd.js --target browser --out-file chart.xkcd.min.js --no-source-maps --experimental-scope-hoisting --global chartXkcd",
     "build": "parcel build src/chart.xkcd.js --target node --bundle-node-modules --no-source-maps --experimental-scope-hoisting",
     "start": "parcel examples/npm/index.html",
-    "prepublish": "rm -r dist && npm run build-umd && npm run build",
-    "deploy-doc": "gh-pages -d docs-dist"
+    "prepublish": "rm -r dist && npm run buildUmd && npm run build",
+    "genDoc": "~/go/bin/static-docs --in docs --out docs-dist --title Chart.xkcd --subtitle 'xkcd styled chart lib'",
+    "deployDoc": "gh-pages -d docs-dist"
   },
   "repository": {
     "type": "git",
