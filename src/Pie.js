@@ -1,5 +1,7 @@
-import * as d3 from 'd3';
-import { select, scaleBand, scaleLinear, axisBottom, axisLeft, mouse} from 'd3';
+import select from 'd3-selection/src/select';
+import mouse from 'd3-selection/src/mouse';
+import pie from 'd3-shape/src/pie';
+import arc from 'd3-shape/src/arc';
 import Tooltip from './components/Tooltip';
 import Legend from './components/Legend';
 import addFont from './utils/addFont';
@@ -50,11 +52,11 @@ class Pie {
   
     const radius = Math.min(this.width, this.height) / 2 - margin;
 
-    const pie = d3.pie()
+    const thePie = pie()
 
-    const dataReady = pie(this.data.datasets[0].data);
+    const dataReady = thePie(this.data.datasets[0].data);
 
-    const arc = d3.arc()
+    const theArc = arc()
       .innerRadius(radius/2)
       .outerRadius(radius);
 
@@ -63,7 +65,7 @@ class Pie {
       .enter()
       .append('path')
       .attr('class', '.xkcd-chart-arc')
-      .attr('d', arc)
+      .attr('d', theArc)
       .attr('fill', 'none')
       .attr('stroke', 'black')
       .attr('stroke-width', 2)

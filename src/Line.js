@@ -1,5 +1,12 @@
-import * as d3 from 'd3';
-import { select, selectAll, scalePoint, scaleLinear, axisBottom, axisLeft, mouse} from 'd3';
+import line from 'd3-shape/src/line'
+import { monotoneX } from 'd3-shape/src/curve/monotone'
+import select from 'd3-selection/src/select';
+import selectAll from 'd3-selection/src/selectAll';
+import mouse from 'd3-selection/src/mouse';
+import { point as scalePoint } from 'd3-scale/src/band';
+import scaleLinear from 'd3-scale/src/linear';
+import {axisBottom, axisLeft } from 'd3-axis/src/axis';
+
 import Tooltip from './components/Tooltip';
 import Legend from './components/Legend';
 import addFont from './utils/addFont';
@@ -113,17 +120,17 @@ class Line {
     selectAll('.domain')
       .attr("filter", "url(#xkcdify)")
 
-    const line = d3.line()
+    const theLine = line()
       .x((d, i) => xScale(this.data.labels[i]))
       .y(d => yScale(d))
-      .curve(d3.curveMonotoneX)
+      .curve(monotoneX)
 
     graphPart.selectAll('.xkcd-chart-line')
       .data(this.data.datasets)
       .enter()
       .append('path')
       .attr('class', 'xkcd-chart-line')
-      .attr("d", d => line(d.data))
+      .attr("d", d => theLine(d.data))
       .attr('fill', 'none')
       .attr('stroke', (d, i) => colors[0][i])
       .attr("filter", "url(#xkcdify)")
