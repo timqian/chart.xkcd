@@ -1,0 +1,14 @@
+{
+  "extends": ["airbnb-base"],
+  "rules": {
+    "no-console": "warn",
+    "indent": ["warn", 2],
+    "no-new": "off",
+    "class-methods-use-this":"warn"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  }
+}

@@ -1,4 +1,4 @@
-export default function addFont (parent) {
+export default function addFont(parent) {
   parent.append('defs')
     .append('style')
     .attr('type', 'text/css')
