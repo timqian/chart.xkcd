@@ -1,6 +1,6 @@
-/.cache
+.cache
 node_modules
-/dist
+dist
 /docs-dist
 /previous-works
 /assets

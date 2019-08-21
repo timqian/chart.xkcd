@@ -1,18 +1,12 @@
 {
-  "name": "npm",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "parcel watch index.html"
+    "start": "parcel index.html"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "chart.xkcd": "^1.0.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5"
+    "@babel/core": "^7.5.5",
+    "parcel-bundler": "^1.12.3"
   }
 }
