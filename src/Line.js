@@ -37,7 +37,6 @@ class Line {
     .attr('width', svg.parentElement.clientWidth)
     .attr('height', Math.min(svg.parentElement.clientWidth * 2 / 3, window.innerHeight)); 
 
-    console.log(window.innerWidth, window.innerHeight, svg.parentElement.clientWidth, this.svgEl.select(function() { return this.parentNode; }).node().getBoundingClientRect(), this.svgEl.select(function() { return this.parentNode; }).style('width'))
     this.chart = this.svgEl.append('g')
       .attr("transform", 
         "translate(" + margin.left + "," + margin.top + ")");
