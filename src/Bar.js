@@ -5,6 +5,7 @@ import scaleBand from 'd3-scale/src/band';
 import scaleLinear from 'd3-scale/src/linear';
 import { axisBottom, axisLeft } from 'd3-axis/src/axis';
 
+import addLabels from './utils/addLabels';
 import Tooltip from './components/Tooltip';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
@@ -56,41 +57,9 @@ class Bar {
   }
 
   render() {
-    if (this.title) {
-      this.svgEl
-        .append('text')
-        .attr('font-family', 'xkcd')
-        .attr('font-size', '20')
-        .attr('font-weight', 'bold')
-        .attr('x', '50%')
-        .attr('y', 30)
-        .attr('text-anchor', 'middle')
-        .text(this.title);
-    }
-
-    if (this.xLabel) {
-      this.svgEl
-        .append('text')
-        .attr('font-family', 'xkcd')
-        .attr('font-size', 17)
-      // .attr('font-weight', 'bold')
-        .attr('x', '50%')
-        .attr('y', this.svgEl.attr('height') - 10)
-        .attr('text-anchor', 'middle')
-        .text(this.xLabel);
-    }
-
-    if (this.yLabel) {
-      this.svgEl.append('text')
-        .attr('text-anchor', 'end')
-        .attr('y', 6)
-        .attr('x', 0 - (this.height / 2))
-        .attr('dy', '.75em')
-        .attr('transform', 'rotate(-90)')
-        .attr('font-family', 'xkcd')
-        .attr('font-size', 17)
-        .text(this.yLabel);
-    }
+    if (this.title) addLabels.title(this.svgEl, this.title);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
 
     const xScale = scaleBand()
       .range([0, this.width])

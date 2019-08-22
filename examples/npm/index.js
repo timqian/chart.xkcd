@@ -1,25 +1,20 @@
 // import chartXkcd from 'chart.xkcd';
 // import chartXkcd from '../../dist/chart.xkcd';
-import chartXkcd from '../../src/index.js';
+import chartXkcd from '../../src';
 
 const svg = document.querySelector('.bar-chart');
 
-// github stars vs patrons
 new chartXkcd.Bar(svg, {
-  // title: 'Monthly income of an indie developer',
-  // xLabel: 'Month',
-  // yLabel: '$ Dollors',
+  title: 'Monthly income of an indie developer',
+  xLabel: 'Month',
+  yLabel: '$ Dollors',
   data: {
     labels: ['github stars', 'patrons'],
     datasets: [{
-      // label: 'Battle',
       data: [100, 2],
     }],
   },
 });
-
-// pie chart example: what does tim make of
-// javascript js JavaScript and JS
 
 const svgPie = document.querySelector('.pie-chart');
 new chartXkcd.Pie(svgPie, {
@@ -34,9 +29,9 @@ new chartXkcd.Pie(svgPie, {
 
 const svgLine = document.querySelector('.line-chart');
 new chartXkcd.Line(svgLine, {
-  // title: 'Monthly income of an indie developer',
-  // xLabel: 'Month',
-  // yLabel: '$ Dollors',
+  title: 'Monthly income of an indie developer',
+  xLabel: 'Month',
+  yLabel: '$ Dollors',
   data: {
     labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
     datasets: [{
@@ -45,12 +40,25 @@ new chartXkcd.Line(svgLine, {
     }, {
       label: 'Reality',
       data: [0, 1, 30, 70, 80, 100, 50, 80, 40, 150],
-    // // }, {
-    // //   label: 'vivi',
-    // //   data: [5, 12, 20, 7, 10,  35,15, 9, 20, 9, 10, 6],
-    // }, {
-      // label: 'weweyang',
-      // data: [10, 20, 7, 12,  10, 15, 9, 20, 35, 9, 6, 17],
     }],
+  },
+});
+
+const svgXY = document.querySelector('.xyline-chart');
+new chartXkcd.XY(svgXY, {
+  title: 'Github star history',
+  xLabel: 'Month',
+  yLabel: 'Stars abc',
+  data: {
+    datasets: [{
+      label: 'timqian/chart.xkcd',
+      data: [{ x: -1, y: 0 }, { x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 10 }, { x: 4, y: 122 }],
+    }, {
+      label: 'timqian/star-history',
+      data: [{ x: -3, y: 100 }, { x: 1, y: 1 }, { x: 1.5, y: 12 }, { x: 3, y: 122 }, { x: 4, y: 212 }],
+    }],
+  },
+  options: {
+    showLine: true,
   },
 });
