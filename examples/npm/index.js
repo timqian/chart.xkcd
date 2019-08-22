@@ -59,6 +59,6 @@ new chartXkcd.XY(svgXY, {
     }],
   },
   options: {
-    showLine: true,
+    showLine: false,
   },
 });

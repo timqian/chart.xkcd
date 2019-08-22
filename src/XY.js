@@ -1,10 +1,9 @@
 import line from 'd3-shape/src/line';
 import { monotoneX } from 'd3-shape/src/curve/monotone';
 import select from 'd3-selection/src/select';
-import selectAll from 'd3-selection/src/selectAll';
 import scaleLinear from 'd3-scale/src/linear';
-import { axisBottom, axisLeft } from 'd3-axis/src/axis';
 
+import addAxis from './utils/addAxis';
 import addLabels from './utils/addLabels';
 import Tooltip from './components/Tooltip';
 import Legend from './components/Legend';
@@ -21,6 +20,7 @@ class XY {
   constructor(svg, {
     title, xLabel, yLabel, data: { datasets }, options = { showLine: true, timeFormat: '' },
   }) {
+    // TODO: extract a function?
     if (title) {
       this.title = title;
       margin.top = 60;
@@ -31,7 +31,7 @@ class XY {
     }
     if (yLabel) {
       this.yLabel = yLabel;
-      margin.left = 80;
+      margin.left = 70;
     }
     this.data = {
       datasets,
@@ -62,7 +62,6 @@ class XY {
     if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
     if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
 
-
     const allData = this.data.datasets
       .reduce((pre, cur) => pre.concat(cur.data), []);
 
@@ -81,30 +80,8 @@ class XY {
       .attr('pointer-events', 'all');
 
     // axis
-    graphPart.append('g')
-      .attr('transform', `translate(0,${this.height})`)
-      .call(
-        axisBottom(xScale)
-          .tickSize(0)
-          .tickPadding(6)
-          .ticks(3),
-      )
-      .attr('font-family', 'xkcd')
-      .attr('font-size', '16');
-
-    graphPart.append('g')
-      .call(
-        axisLeft(yScale)
-          .tickSize(0)
-          .tickPadding(10)
-          .ticks(3),
-      )
-      .attr('font-family', 'xkcd')
-      .attr('font-size', '16');
-
-    selectAll('.domain')
-      .attr('filter', 'url(#xkcdify)');
-
+    addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
+    addAxis.yAxis(graphPart, { yScale, tickCount: 3 });
 
     // lines
     if (this.options.showLine) {

@@ -1,10 +1,9 @@
 import select from 'd3-selection/src/select';
-import selectAll from 'd3-selection/src/selectAll';
 import mouse from 'd3-selection/src/mouse';
 import scaleBand from 'd3-scale/src/band';
 import scaleLinear from 'd3-scale/src/linear';
-import { axisBottom, axisLeft } from 'd3-axis/src/axis';
 
+import addAxis from './utils/addAxis';
 import addLabels from './utils/addLabels';
 import Tooltip from './components/Tooltip';
 import addFont from './utils/addFont';
@@ -13,7 +12,7 @@ import colors from './utils/colors';
 import config from './config';
 
 const margin = {
-  top: 50, right: 50, bottom: 50, left: 50,
+  top: 50, right: 30, bottom: 50, left: 50,
 };
 
 class Bar {
@@ -30,7 +29,7 @@ class Bar {
     }
     if (yLabel) {
       this.yLabel = yLabel;
-      margin.left = 80;
+      margin.left = 70;
     }
     this.data = {
       labels,
@@ -75,6 +74,11 @@ class Bar {
 
     const graphPart = this.chart.append('g');
 
+    // axis
+    addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
+    addAxis.yAxis(graphPart, { yScale, tickCount: 3 });
+
+    // Bars
     graphPart.selectAll('.xkcd-chart-bar')
       .data(this.data.datasets[0].data)
       .enter()
@@ -125,20 +129,6 @@ class Bar {
           },
         });
       });
-
-    graphPart.append('g')
-      .attr('transform', `translate(0,${this.height})`)
-      .call(axisBottom(xScale).tickSize(0).tickPadding(6))
-      .attr('font-family', 'xkcd')
-      .attr('font-size', '16');
-
-    graphPart.append('g')
-      .call(axisLeft(yScale).tickSize(0).tickPadding(10).ticks(6))
-      .attr('font-family', 'xkcd')
-      .attr('font-size', '16');
-
-    selectAll('.domain')
-      .attr('filter', 'url(#xkcdify)');
   }
 
   // TODO: update chart

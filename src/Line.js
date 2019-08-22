@@ -5,8 +5,8 @@ import selectAll from 'd3-selection/src/selectAll';
 import mouse from 'd3-selection/src/mouse';
 import { point as scalePoint } from 'd3-scale/src/band';
 import scaleLinear from 'd3-scale/src/linear';
-import { axisBottom, axisLeft } from 'd3-axis/src/axis';
 
+import addAxis from './utils/addAxis';
 import addLabels from './utils/addLabels';
 import Tooltip from './components/Tooltip';
 import Legend from './components/Legend';
@@ -33,7 +33,7 @@ class Line {
     }
     if (yLabel) {
       this.yLabel = yLabel;
-      margin.left = 80;
+      margin.left = 70;
     }
     this.data = {
       labels,
@@ -65,8 +65,8 @@ class Line {
     if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
 
     const xScale = scalePoint()
-      .range([0, this.width])
-      .domain(this.data.labels);
+      .domain(this.data.labels)
+      .range([0, this.width]);
 
     const allData = this.data.datasets
       .reduce((pre, cur) => pre.concat(cur.data), []);
@@ -80,20 +80,8 @@ class Line {
       .attr('pointer-events', 'all');
 
     // axis
-    graphPart.append('g')
-      .attr('transform', `translate(0,${this.height})`)
-      .call(
-        axisBottom(xScale)
-          .tickSize(0)
-          .tickPadding(6),
-      )
-      .attr('font-family', 'xkcd')
-      .attr('font-size', '16');
-
-    graphPart.append('g')
-      .call(axisLeft(yScale).tickSize(0).tickPadding(10).ticks(3))
-      .attr('font-family', 'xkcd')
-      .attr('font-size', '16');
+    addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
+    addAxis.yAxis(graphPart, { yScale, tickCount: 2 });
 
     selectAll('.domain')
       .attr('filter', 'url(#xkcdify)');
@@ -169,7 +157,7 @@ class Line {
 
         const tooltipItems = this.data.datasets.map((dataset, j) => ({
           color: colors[0][j],
-          text: `${this.data.datasets[i].label || ''}: ${this.data.datasets[i].data[mostNearLabelIndex]}`,
+          text: `${this.data.datasets[j].label || ''}: ${this.data.datasets[j].data[mostNearLabelIndex]}`,
         }));
 
         let tooltipPositionType = config.positionType.downRight;
