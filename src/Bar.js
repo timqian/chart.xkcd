@@ -18,6 +18,9 @@ const margin = {
 class Bar {
   constructor(svg, {
     title, xLabel, yLabel, data: { labels, datasets },
+    options = {
+      yTickCount: 3,
+    },
   }) {
     if (title) {
       this.title = title;
@@ -35,6 +38,7 @@ class Bar {
       labels,
       datasets,
     };
+    this.options = options;
     this.svgEl = select(svg).style('stroke-width', '3')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
@@ -76,7 +80,7 @@ class Bar {
 
     // axis
     addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
-    addAxis.yAxis(graphPart, { yScale, tickCount: 3 });
+    addAxis.yAxis(graphPart, { yScale, tickCount: this.options.yTickCount || 3 });
 
     // Bars
     graphPart.selectAll('.xkcd-chart-bar')

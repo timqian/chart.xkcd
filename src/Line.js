@@ -22,6 +22,9 @@ const margin = {
 class Line {
   constructor(svg, {
     title, xLabel, yLabel, data: { labels, datasets },
+    options = {
+      yTickCount: 3, legendPosition: config.positionType.upLeft,
+    },
   }) {
     if (title) {
       this.title = title;
@@ -39,6 +42,7 @@ class Line {
       labels,
       datasets,
     };
+    this.options = options;
     this.svgEl = select(svg).style('stroke-width', '3')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
@@ -81,7 +85,7 @@ class Line {
 
     // axis
     addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
-    addAxis.yAxis(graphPart, { yScale, tickCount: 2 });
+    addAxis.yAxis(graphPart, { yScale, tickCount: this.options.yTickCount || 3 });
 
     selectAll('.domain')
       .attr('filter', 'url(#xkcdify)');
@@ -180,13 +184,27 @@ class Line {
         });
       });
 
-    new Legend({
-      parent: graphPart,
-      items: this.data.datasets.map((dataset, i) => ({ color: colors[0][i], text: dataset.label })),
-      position: { x: 3, y: 3, type: config.positionType.downRight },
-    });
+    // Legend
+    const legendItems = this.data.datasets.map(
+      (dataset, i) => ({ color: colors[0][i], text: dataset.label }),
+    );
+    if (this.options.legendPosition === config.positionType.upLeft
+      || !this.options.legendPosition) {
+      new Legend({
+        parent: graphPart,
+        items: legendItems,
+        position: { x: 3, y: 3, type: config.positionType.downRight },
+      });
+    } else if (this.options.legendPosition === config.positionType.upRight) {
+      new Legend({
+        parent: graphPart,
+        items: legendItems,
+        position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
+      });
+    } else {
+      throw new Error('legendPosition only support upLeft and upRight for now');
+    }
   }
-
 
   // TODO: update chart
   update() {

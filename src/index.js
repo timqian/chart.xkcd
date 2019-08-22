@@ -2,7 +2,8 @@ import Bar from './Bar';
 import Pie from './Pie';
 import Line from './Line';
 import XY from './XY';
+import config from './config';
 
 module.exports = {
-  Bar, Pie, Line, XY,
+  config, Bar, Pie, Line, XY,
 };

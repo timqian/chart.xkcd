@@ -14,16 +14,23 @@ new chartXkcd.Bar(svg, {
       data: [100, 2],
     }],
   },
+  options: {
+    yTickCount: 2,
+  },
 });
 
 const svgPie = document.querySelector('.pie-chart');
 new chartXkcd.Pie(svgPie, {
-  // title: 'What Tim made of',
+  title: 'What Tim made of',
   data: {
     labels: ['a', 'b', 'e', 'f', 'g'],
     datasets: [{
       data: [500, 200, 80, 90, 100],
     }],
+  },
+  options: {
+    innerRadius: 0,
+    legendPosition: chartXkcd.config.positionType.upRight,
   },
 });
 
@@ -46,19 +53,45 @@ new chartXkcd.Line(svgLine, {
 
 const svgXY = document.querySelector('.xyline-chart');
 new chartXkcd.XY(svgXY, {
-  title: 'Github star history',
-  xLabel: 'Month',
-  yLabel: 'Stars abc',
+  title: 'stars',
+  xLabel: 'wo',
+  yLabel: 'Stars count',
   data: {
     datasets: [{
-      label: 'timqian/chart.xkcd',
-      data: [{ x: -1, y: 0 }, { x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 10 }, { x: 4, y: 122 }],
+      label: 'timqian',
+      data: [{ x: 3, y: 10 }, { x: 4, y: 122 }, { x: 10, y: 100 }, { x: 1, y: 2 }, { x: 2, y: 4 }],
     }, {
-      label: 'timqian/star-history',
-      data: [{ x: -3, y: 100 }, { x: 1, y: 1 }, { x: 1.5, y: 12 }, { x: 3, y: 122 }, { x: 4, y: 212 }],
+      label: 'wewean',
+      data: [{ x: 3, y: 122 }, { x: 4, y: 212 }, { x: -3, y: 100 }, { x: 1, y: 1 }, { x: 1.5, y: 12 }],
     }],
   },
   options: {
+    xTickCount: 5,
+    yTickCount: 5,
+    legendPosition: chartXkcd.config.positionType.upRight,
     showLine: false,
   },
 });
+
+// const svgXY2 = document.querySelector('.xyline-chart2');
+// new chartXkcd.XY(svgXY2, {
+//   title: 'Github star history',
+//   xLabel: 'Month',
+//   yLabel: 'Stars abc',
+//   data: {
+//     datasets: [{
+//       label: 'timqian/chart.xkcd',
+//       data: [{ x: '2015-03-01', y: 0 }, { x: '2015-04-01', y: 2 }, { x: '2015-05-01', y: 4 }, { x: '2015-06-01', y: 10 }, { x: '2015-07-01', y: 122 }],
+//     }, {
+//       label: 'timqian/star-history',
+//       data: [{ x: '2014-03-01', y: 0 }, { x: '2015-03-01', y: 1 }, { x: '2015-04-01', y: 12 }, { x:'2015-05-01', y: 122 }, { x: '2015-06-01', y: 212 }],
+//     }],
+//   },
+//   options: {
+//     xTickCount: 3,
+//     yTickCount: 3,
+//     legendPosition: chartXkcd.config.positionType.upLeft,
+//     showLine: false,
+//     timeFormat: 'MM/DD/YYYY',
+//   },
+// });

@@ -18,7 +18,10 @@ const margin = {
 
 class XY {
   constructor(svg, {
-    title, xLabel, yLabel, data: { datasets }, options = { showLine: true, timeFormat: '' },
+    title, xLabel, yLabel, data: { datasets },
+    options = {
+      showLine: false, timeFormat: '', xTickCount: 3, yTickCount: 3, legendPosition: config.positionType.upLeft,
+    },
   }) {
     // TODO: extract a function?
     if (title) {
@@ -80,8 +83,8 @@ class XY {
       .attr('pointer-events', 'all');
 
     // axis
-    addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
-    addAxis.yAxis(graphPart, { yScale, tickCount: 3 });
+    addAxis.xAxis(graphPart, { xScale, tickCount: this.options.xTickCount || 3, moveDown: this.height });
+    addAxis.yAxis(graphPart, { yScale, tickCount: this.options.yTickCount || 3 });
 
     // lines
     if (this.options.showLine) {
@@ -163,11 +166,27 @@ class XY {
         this.tooltip.hide();
       });
 
-    new Legend({
-      parent: graphPart,
-      items: this.data.datasets.map((dataset, i) => ({ color: colors[0][i], text: dataset.label })),
-      position: { x: 3, y: 3, type: config.positionType.downRight },
-    });
+
+    // Legend
+    const legendItems = this.data.datasets.map(
+      (dataset, i) => ({ color: colors[0][i], text: dataset.label }),
+    );
+    if (this.options.legendPosition === config.positionType.upLeft
+       || !this.options.legendPosition) {
+      new Legend({
+        parent: graphPart,
+        items: legendItems,
+        position: { x: 3, y: 3, type: config.positionType.downRight },
+      });
+    } else if (this.options.legendPosition === config.positionType.upRight) {
+      new Legend({
+        parent: graphPart,
+        items: legendItems,
+        position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
+      });
+    } else {
+      throw new Error('legendPosition only support upLeft and upRight for now');
+    }
   }
 
   // TODO: update chart

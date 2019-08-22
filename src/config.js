@@ -1,4 +1,4 @@
-export default {
+const config = {
   positionType: {
     upLeft: 1,
     upRight: 2,
@@ -6,3 +6,5 @@ export default {
     downRight: 4,
   },
 };
+
+export default config;
