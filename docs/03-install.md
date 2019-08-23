@@ -2,9 +2,9 @@
 title: Installation
 ---
 
-You can install chart.xkcd via npm or download the latest version on GitHub.
+You can install chart.xkcd via script tag in HTML or via npm
 
-**Via Script Tag**
+## Via Script Tag
 
 ```js
 <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1/dist/chart.xkcd.min.js"></script>
@@ -13,11 +13,15 @@ You can install chart.xkcd via npm or download the latest version on GitHub.
 </script>
 ```
 
-**Via npm**
+## Via npm
+
+**Install**
 
 ```bash
 npm i chart.xkcd
 ```
+
+**Usage**
 
 ```js
 import chartXkcd from 'chart.xkcd';
@@ -26,4 +30,5 @@ const myChart = new chartXkcd.Line(svg, {...});
 
 **Other ways**
 
-React wrapper: [chart.xkcd-react](https://github.com/obiwankenoobi/chart.xkcd-react)
+React wrapper: [chart.xkcd-react](https://github.com/obiwankenoobi/chart.xkcd-react) <br/>
+Vue wrapper: [chart.xkcd-vue-wrapper](https://github.com/wistcc/chart.xkcd-vue-wrapper)

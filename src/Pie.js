@@ -12,12 +12,18 @@ import config from './config';
 const margin = 50;
 
 class Pie {
-  constructor(svg, { title, data: { labels, datasets } }) {
+  constructor(svg, {
+    title, data: { labels, datasets },
+    options = {
+      innerRadius: 0.5, legendPosition: config.positionType.upLeft,
+    },
+  }) {
     this.title = title;
     this.data = {
       labels,
       datasets,
     };
+    this.options = options;
     this.svgEl = select(svg).style('stroke-width', '3')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
@@ -60,7 +66,7 @@ class Pie {
     const dataReady = thePie(this.data.datasets[0].data);
 
     const theArc = arc()
-      .innerRadius(radius / 2)
+      .innerRadius(radius * (this.options.innerRadius || 0.5))
       .outerRadius(radius);
 
     this.chart.selectAll('.xkcd-chart-arc')
@@ -101,13 +107,25 @@ class Pie {
         });
       });
 
-
-    new Legend({
-      parent: this.svgEl,
-      items: this.data.datasets[0].data
-        .map((data, i) => ({ color: colors[0][i], text: this.data.labels[i] })),
-      position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
-    });
+    // Legend
+    const legendItems = this.data.datasets[0].data
+      .map((data, i) => ({ color: colors[0][i], text: this.data.labels[i] }));
+    if (this.options.legendPosition === config.positionType.upLeft
+      || !this.options.legendPosition) {
+      new Legend({
+        parent: this.svgEl,
+        items: legendItems,
+        position: { x: 3, y: 3, type: config.positionType.downRight },
+      });
+    } else if (this.options.legendPosition === config.positionType.upRight) {
+      new Legend({
+        parent: this.svgEl,
+        items: legendItems,
+        position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
+      });
+    } else {
+      throw new Error('legendPosition only support upLeft and upRight for now');
+    }
   }
 
   // TODO: update chart
