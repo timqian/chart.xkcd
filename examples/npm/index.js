@@ -49,6 +49,9 @@ new chartXkcd.Line(svgLine, {
       data: [0, 1, 30, 70, 80, 100, 50, 80, 40, 150],
     }],
   },
+  options: {
+
+  },
 });
 
 const svgXY = document.querySelector('.xyline-chart');
@@ -73,25 +76,26 @@ new chartXkcd.XY(svgXY, {
   },
 });
 
-// const svgXY2 = document.querySelector('.xyline-chart2');
-// new chartXkcd.XY(svgXY2, {
-//   title: 'Github star history',
-//   xLabel: 'Month',
-//   yLabel: 'Stars abc',
-//   data: {
-//     datasets: [{
-//       label: 'timqian/chart.xkcd',
-//       data: [{ x: '2015-03-01', y: 0 }, { x: '2015-04-01', y: 2 }, { x: '2015-05-01', y: 4 }, { x: '2015-06-01', y: 10 }, { x: '2015-07-01', y: 122 }],
-//     }, {
-//       label: 'timqian/star-history',
-//       data: [{ x: '2014-03-01', y: 0 }, { x: '2015-03-01', y: 1 }, { x: '2015-04-01', y: 12 }, { x:'2015-05-01', y: 122 }, { x: '2015-06-01', y: 212 }],
-//     }],
-//   },
-//   options: {
-//     xTickCount: 3,
-//     yTickCount: 3,
-//     legendPosition: chartXkcd.config.positionType.upLeft,
-//     showLine: false,
-//     timeFormat: 'MM/DD/YYYY',
-//   },
-// });
+const svgXY2 = document.querySelector('.xyline-chart2');
+new chartXkcd.XY(svgXY2, {
+  title: 'Github star history',
+  xLabel: 'Month',
+  yLabel: 'Stars abc',
+  data: {
+    datasets: [{
+      label: 'timqian/chart.xkcd',
+      data: [{ x: '2015-03-01', y: 0 }, { x: '2015-04-01', y: 2 }, { x: '2015-05-01', y: 4 }, { x: '2015-06-01', y: 10 }, { x: '2015-07-01', y: 122 }],
+    }, {
+      label: 'timqian/star-history',
+      data: [{ x: '2015-01-01', y: 0 }, { x: '2015-03-01', y: 1 }, { x: '2015-04-01', y: 12 }, { x: '2015-05-01', y: 122 }, { x: '2015-06-01', y: 212 }],
+    }],
+  },
+  options: {
+    xTickCount: 3,
+    yTickCount: 4,
+    legendPosition: chartXkcd.config.positionType.upLeft,
+    showLine: true,
+    timeFormat: 'MM/DD/YYYY',
+    dotSize: 0.5,
+  },
+});

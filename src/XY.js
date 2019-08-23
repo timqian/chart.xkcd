@@ -2,6 +2,8 @@ import line from 'd3-shape/src/line';
 import { monotoneX } from 'd3-shape/src/curve/monotone';
 import select from 'd3-selection/src/select';
 import scaleLinear from 'd3-scale/src/linear';
+import scaleTime from 'd3-scale/src/time';
+import dayjs from 'dayjs';
 
 import addAxis from './utils/addAxis';
 import addLabels from './utils/addLabels';
@@ -20,7 +22,7 @@ class XY {
   constructor(svg, {
     title, xLabel, yLabel, data: { datasets },
     options = {
-      showLine: false, timeFormat: '', xTickCount: 3, yTickCount: 3, legendPosition: config.positionType.upLeft,
+      dotSize: 1, showLine: false, timeFormat: '', xTickCount: 3, yTickCount: 3, legendPosition: config.positionType.upLeft,
     },
   }) {
     // TODO: extract a function?
@@ -65,15 +67,30 @@ class XY {
     if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
     if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
 
+    if (this.options.timeFormat) {
+      this.data.datasets.forEach((dataset) => {
+        dataset.data.forEach((d) => {
+          // eslint-disable-next-line no-param-reassign
+          d.x = dayjs(d.x);
+        });
+      });
+    }
+
     const allData = this.data.datasets
       .reduce((pre, cur) => pre.concat(cur.data), []);
 
     const allDataX = allData.map((d) => d.x);
     const allDataY = allData.map((d) => d.y);
 
-    const xScale = scaleLinear()
+    let xScale = scaleLinear()
       .domain([Math.min(...allDataX), Math.max(...allDataX)])
       .range([0, this.width]);
+
+    if (this.options.timeFormat) {
+      xScale = scaleTime()
+        .domain([Math.min(...allDataX), Math.max(...allDataX)])
+        .range([0, this.width]);
+    }
 
     const yScale = scaleLinear()
       .domain([Math.min(...allDataY), Math.max(...allDataY)])
@@ -105,6 +122,8 @@ class XY {
     }
 
     // dots
+    const dotInitSize = 3.5 * (this.options.dotSize === undefined ? 1 : this.options.dotSize);
+    const dotHoverSize = 6 * (this.options.dotSize === undefined ? 1 : this.options.dotSize);
     graphPart.selectAll('.xkcd-chart-xycircle-group')
       .data(this.data.datasets)
       .enter()
@@ -126,14 +145,14 @@ class XY {
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
         return colors[0][xyGroupIndex];
       })
-      .attr('r', 3.5)
+      .attr('r', dotInitSize)
       .attr('cx', (d) => xScale(d.x))
       .attr('cy', (d) => yScale(d.y))
       .attr('pointer-events', 'all')
       .on('mouseover', (d, i, nodes) => {
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
         select(nodes[i])
-          .attr('r', 6);
+          .attr('r', dotHoverSize);
 
         const tipX = xScale(d.x) + margin.left + 5;
         const tipY = yScale(d.y) + margin.top + 5;
@@ -146,7 +165,7 @@ class XY {
           tooltipPositionType = config.positionType.upRight;
         }
         this.tooltip.update({
-          title: `${this.data.datasets[xyGroupIndex].data[i].x}`,
+          title: this.options.timeFormat ? dayjs(this.data.datasets[xyGroupIndex].data[i].x).format(this.options.timeFormat) : `${this.data.datasets[xyGroupIndex].data[i].x}`,
           items: [{
             color: colors[0][xyGroupIndex],
             text: `${this.data.datasets[xyGroupIndex].label || ''}: ${d.y}`,
@@ -161,7 +180,7 @@ class XY {
       })
       .on('mouseout', (d, i, nodes) => {
         select(nodes[i])
-          .attr('r', 3.5);
+          .attr('r', dotInitSize);
 
         this.tooltip.hide();
       });
