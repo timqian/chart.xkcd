@@ -4,6 +4,6 @@ export default function addFont(parent) {
     .attr('type', 'text/css')
     .text(`@font-face {
       font-family: "xkcd";
-      src: url('https://github.com/tonyrewin/chart.xkcd/raw/master/assets/xkcd-script-extended.woff');
+      src: url('/fonts/xkcd-script-extended.woff');
     }`);
 }

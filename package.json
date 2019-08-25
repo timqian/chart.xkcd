@@ -12,10 +12,11 @@
     "buildUmd": "parcel build src/index.js --target browser --out-file chart.xkcd.min.js --no-source-maps --experimental-scope-hoisting --global chartXkcd",
     "build": "parcel build src/index.js --target node --bundle-node-modules --no-source-maps --experimental-scope-hoisting",
     "start": "parcel examples/npm/index.html",
-    "prepublish": "rm -r dist && npm run buildUmd && npm run build",
+    "prepublish": "rm -r dist && npm run buildUmd && npm run build && npm run font",
     "genDoc": "~/go/bin/static-docs --in docs --out docs-dist --title Chart.xkcd --subtitle 'xkcd styled chart lib'",
     "deployDoc": "gh-pages -d docs-dist",
-    "lint": "./node_modules/.bin/eslint ./src"
+    "lint": "./node_modules/.bin/eslint ./src",
+    "font": "mkdir dist/fonts && cp assets/* dist/fonts/."
   },
   "repository": {
     "type": "git",
