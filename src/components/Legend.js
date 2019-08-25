@@ -24,48 +24,48 @@ class Legend {
   constructor({ parent, items, position }) {
     this.items = items;
     this.position = position;
+    
+    if(this.position!=config.positionType.hidden) {
+      this.svg = parent.append('svg')
+        .attr('x', this._getUpLeftX())
+        .attr('y', this._getUpLeftY());
 
-    if(this.position==config.positionType.hidden) return 
-      
-    this.svg = parent.append('svg')
-      .attr('x', this._getUpLeftX())
-      .attr('y', this._getUpLeftY());
-
-    this.tipBackground = this.svg.append('rect')
-      .style('fill', 'white')
-      .attr('fill-opacity', 0.85)
-      .attr('stroke', 'black')
-      .attr('stroke-width', 2)
-      .attr('rx', 5)
-      .attr('ry', 5)
-      .attr('filter', 'url(#xkcdify)')
-      .attr('width', this._getBackgroundWidth())
-      .attr('height', this._getBackgroundHeight())
-      .attr('x', 5)
-      .attr('y', 5);
-
-    this.tipItems = items.map((item, i) => {
-      const g = this.svg.append('g');
-      g.append('rect')
-        .style('fill', item.color)
-        .attr('width', 8)
-        .attr('height', 8)
-        .attr('rx', 2)
-        .attr('ry', 2)
+      this.tipBackground = this.svg.append('rect')
+        .style('fill', 'white')
+        .attr('fill-opacity', 0.85)
+        .attr('stroke', 'black')
+        .attr('stroke-width', 2)
+        .attr('rx', 5)
+        .attr('ry', 5)
         .attr('filter', 'url(#xkcdify)')
-        .attr('x', 15)
-        .attr('y', 17 + 20 * i);
+        .attr('width', this._getBackgroundWidth())
+        .attr('height', this._getBackgroundHeight())
+        .attr('x', 5)
+        .attr('y', 5);
 
-      g.append('text')
-        .attr('font-family', 'xkcd')
-        .attr('font-size', '15')
-        .attr('font-weight', 'lighter')
-        .attr('x', 15 + 12)
-        .attr('y', 17 + 20 * i + 8)
-        .text(item.text);
+      this.tipItems = items.map((item, i) => {
+        const g = this.svg.append('g');
+        g.append('rect')
+          .style('fill', item.color)
+          .attr('width', 8)
+          .attr('height', 8)
+          .attr('rx', 2)
+          .attr('ry', 2)
+          .attr('filter', 'url(#xkcdify)')
+          .attr('x', 15)
+          .attr('y', 17 + 20 * i);
 
-      return g;
-    });
+        g.append('text')
+          .attr('font-family', 'xkcd')
+          .attr('font-size', 12)
+          .attr('font-weight', 'lighter')
+          .attr('x', 15 + 12)
+          .attr('y', 17 + 20 * i + 8)
+          .text(item.text);
+
+        return g;
+      });
+    }
   }
 
   _getBackgroundWidth() {

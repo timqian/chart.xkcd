@@ -19,21 +19,6 @@ new chartXkcd.Bar(svg, {
   },
 });
 
-const svgPie = document.querySelector('.pie-chart');
-new chartXkcd.Pie(svgPie, {
-  title: 'What Tim made of',
-  data: {
-    labels: ['a', 'b', 'e', 'f', 'g'],
-    datasets: [{
-      data: [500, 200, 80, 90, 100],
-    }],
-  },
-  options: {
-    innerRadius: 0,
-    legendPosition: chartXkcd.config.positionType.upRight,
-  },
-});
-
 const svgLine = document.querySelector('.line-chart');
 new chartXkcd.Line(svgLine, {
   title: 'Monthly income of an indie developer',
@@ -97,5 +82,20 @@ new chartXkcd.XY(svgXY2, {
     showLine: true,
     timeFormat: 'MM/DD/YYYY',
     dotSize: 0.5,
+  },
+});
+
+const svgPie = document.querySelector('.pie-chart');
+new chartXkcd.Pie(svgPie, {
+  title: 'Из чего сделан борщ',
+  data: {
+    labels: ['Поджарка', 'Бульон', 'Приправы', 'Картохи', 'Любовь'],
+    datasets: [{
+      data: [500, 700, 20, 350, 1700],
+    }],
+  },
+  options: {
+    innerRadius: 0.001,
+    legendPosition: chartXkcd.config.positionType.hidden,
   },
 });
