@@ -1,5 +1,6 @@
 const config = {
   positionType: {
+    hidden: 0,
     upLeft: 1,
     upRight: 2,
     downLeft: 3,

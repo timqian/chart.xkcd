@@ -25,6 +25,8 @@ class Legend {
     this.items = items;
     this.position = position;
 
+    if(this.position==config.positionType.hidden) return 
+      
     this.svg = parent.append('svg')
       .attr('x', this._getUpLeftX())
       .attr('y', this._getUpLeftY());
