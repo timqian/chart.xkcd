@@ -95,7 +95,7 @@ new chartXkcd.Pie(svgPie, {
     }],
   },
   options: {
-    innerRadius: 0.001,
+    innerRadius: 0,
     legendPosition: chartXkcd.config.positionType.hidden,
   },
 });
