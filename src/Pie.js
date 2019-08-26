@@ -66,7 +66,8 @@ class Pie {
     const dataReady = thePie(this.data.datasets[0].data);
 
     const theArc = arc()
-      .innerRadius(radius * (this.options.innerRadius || 0.5))
+      .innerRadius(radius
+        * (this.options.innerRadius === undefined ? 0.5 : this.options.innerRadius))
       .outerRadius(radius);
 
     this.chart.selectAll('.xkcd-chart-arc')

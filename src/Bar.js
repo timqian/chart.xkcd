@@ -80,7 +80,9 @@ class Bar {
 
     // axis
     addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
-    addAxis.yAxis(graphPart, { yScale, tickCount: this.options.yTickCount || 3 });
+    addAxis.yAxis(graphPart, {
+      yScale, tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
+    });
 
     // Bars
     graphPart.selectAll('.xkcd-chart-bar')

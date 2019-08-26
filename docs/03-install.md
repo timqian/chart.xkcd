@@ -30,5 +30,7 @@ const myChart = new chartXkcd.Line(svg, {...});
 
 **Other ways**
 
-React wrapper: [chart.xkcd-react](https://github.com/obiwankenoobi/chart.xkcd-react) <br/>
-Vue wrapper: [chart.xkcd-vue-wrapper](https://github.com/wistcc/chart.xkcd-vue-wrapper)
+- React wrapper: [chart.xkcd-react](https://github.com/obiwankenoobi/chart.xkcd-react) <br/>
+- Vue wrapper:
+    - [chart.xkcd-vue](https://github.com/shiyiya/chart.xkcd-vue)
+    - [chart.xkcd-vue-wrapper](https://github.com/wistcc/chart.xkcd-vue-wrapper)

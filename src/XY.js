@@ -100,8 +100,15 @@ class XY {
       .attr('pointer-events', 'all');
 
     // axis
-    addAxis.xAxis(graphPart, { xScale, tickCount: this.options.xTickCount || 3, moveDown: this.height });
-    addAxis.yAxis(graphPart, { yScale, tickCount: this.options.yTickCount || 3 });
+    addAxis.xAxis(graphPart, {
+      xScale,
+      tickCount: this.options.xTickCount === undefined ? 3 : this.options.xTickCount,
+      moveDown: this.height,
+    });
+    addAxis.yAxis(graphPart, {
+      yScale,
+      tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
+    });
 
     // lines
     if (this.options.showLine) {

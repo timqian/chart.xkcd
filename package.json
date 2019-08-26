@@ -1,6 +1,6 @@
 {
   "name": "chart.xkcd",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "xkcd style chart lib",
   "jsdelivr": "dist/chart.xkcd.min.js",
   "unpkg": "dist/chart.xkcd.min.js",
@@ -41,7 +41,6 @@
     "d3-scale": "^3.0.1",
     "d3-selection": "^1.4.0",
     "d3-shape": "^1.3.5",
-    "dayjs": "^1.8.15",
-    "github-release-cli": "^1.3.1"
+    "dayjs": "^1.8.15"
   }
 }
