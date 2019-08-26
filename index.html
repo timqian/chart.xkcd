@@ -146,8 +146,15 @@ We already have lots of great chart libraries like [chart.js](), [echart](), [ch
 
 <p><strong>Other ways</strong></p>
 
-<p>React wrapper: <a href="https://github.com/obiwankenoobi/chart.xkcd-react">chart.xkcd-react</a> <br/>
-Vue wrapper: <a href="https://github.com/wistcc/chart.xkcd-vue-wrapper">chart.xkcd-vue-wrapper</a></p>
+<ul>
+<li>React wrapper: <a href="https://github.com/obiwankenoobi/chart.xkcd-react">chart.xkcd-react</a> <br/></li>
+<li>Vue wrapper:
+
+<ul>
+<li><a href="https://github.com/shiyiya/chart.xkcd-vue">chart.xkcd-vue</a></li>
+<li><a href="https://github.com/wistcc/chart.xkcd-vue-wrapper">chart.xkcd-vue-wrapper</a></li>
+</ul></li>
+</ul>
 
               </div>
             
@@ -212,7 +219,7 @@ Possible values:
 </a>XY chart</h1>
                 <p>XY chart is used to plot points by specifing there XY coordinates.</p>
 
-<p>You can also plot XY line chart by connecting the points <code>opitons.showLine</code></p>
+<p>You can also plot XY line chart by connecting the points.</p>
 
 <p></p><p class="codepen" data-height="445" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="ExYZvZY" style="height: 445px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd XY">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/ExYZvZY/">
@@ -226,7 +233,7 @@ Possible values:
 </a>JS part</h2>
 
 <pre class="chroma">  <span class="kr">const</span> <span class="nx">svg</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.xy-chart&#39;</span><span class="p">);</span>
- 
+
   <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">XY</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Pokemon farms&#39;</span><span class="p">,</span> <span class="c1">//optional
 </span><span class="c1"></span>    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;Coodinate&#39;</span><span class="p">,</span> <span class="c1">//optional
@@ -271,7 +278,7 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 <li><code>dotSize</code>: you can change size of the dots if you want (default <code>1</code>)</li>
 </ul>
 
-<p><strong>Another example of XY chart: XY line chart</strong></p>
+<p><strong>Another example of XY chart: XY line chart with <code>timeFormat</code></strong></p>
 
 <p></p><p class="codepen" data-height="472" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="ZEzLJaN" style="height: 472px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd XY line">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/ZEzLJaN/">
