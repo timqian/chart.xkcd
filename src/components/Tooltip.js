@@ -49,9 +49,9 @@ class Tooltip {
       .attr('y', 5);
 
     this.tipTitle = this.svg.append('text')
-      .attr('font-family', 'xkcd')
-      .attr('font-size', 15)
-      .attr('font-weight', 'bold')
+      .style('font-family', 'xkcd')
+      .style('font-size', 15)
+      .style('font-weight', 'bold')
       .attr('x', 15)
       .attr('y', 25)
       .text(title);
@@ -69,9 +69,9 @@ class Tooltip {
         .attr('y', 37 + 20 * i);
 
       g.append('text')
-        .attr('font-family', 'xkcd')
-        .attr('font-size', '15')
-        .attr('font-weight', 'lighter')
+        .style('font-family', 'xkcd')
+        .style('font-size', '15')
+        .style('font-weight', 'lighter')
         .attr('x', 15 + 12)
         .attr('y', 37 + 20 * i + 8)
         .text(item.text);
@@ -114,9 +114,9 @@ class Tooltip {
           .attr('y', 37 + 20 * i);
 
         g.append('text')
-          .attr('font-family', 'xkcd')
-          .attr('font-size', '15')
-          .attr('font-weight', 'lighter')
+          .style('font-family', 'xkcd')
+          .style('font-size', '15')
+          .style('font-weight', 'lighter')
           .attr('x', 15 + 12)
           .attr('y', 37 + 20 * i + 8)
           .text(item.text);

@@ -27,6 +27,8 @@ class Pie {
     this.svgEl = select(svg).style('stroke-width', '3')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
+    this.svgEl.selectAll('*').remove();
+
     this.width = this.svgEl.attr('width');
     this.height = this.svgEl.attr('height');
 
@@ -50,9 +52,9 @@ class Pie {
     if (this.title) {
       this.svgEl
         .append('text')
-        .attr('font-family', 'xkcd')
-        .attr('font-size', '20')
-        .attr('font-weight', 'bold')
+        .style('font-family', 'xkcd')
+        .style('font-size', '20')
+        .style('font-weight', 'bold')
         .attr('x', '50%')
         .attr('y', 30)
         .attr('text-anchor', 'middle')

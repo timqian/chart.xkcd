@@ -1,9 +1,9 @@
 const title = (parent, text) => {
   parent
     .append('text')
-    .attr('font-family', 'xkcd')
-    .attr('font-size', '20')
-    .attr('font-weight', 'bold')
+    .style('font-family', 'xkcd')
+    .style('font-size', '20')
+    .style('font-weight', 'bold')
     .attr('x', '50%')
     .attr('y', 30)
     .attr('text-anchor', 'middle')
@@ -13,14 +13,13 @@ const title = (parent, text) => {
 const xLabel = (parent, text) => {
   parent
     .append('text')
-    .attr('font-family', 'xkcd')
-    .attr('font-size', 17)
+    .style('font-family', 'xkcd')
+    .style('font-size', 17)
     .attr('x', '50%')
     .attr('y', parent.attr('height') - 10)
     .attr('text-anchor', 'middle')
     .text(text);
 };
-
 
 const yLabel = (parent, text) => {
   parent
@@ -28,8 +27,8 @@ const yLabel = (parent, text) => {
     .attr('text-anchor', 'end')
     .attr('dy', '.75em')
     .attr('transform', 'rotate(-90)')
-    .attr('font-family', 'xkcd')
-    .attr('font-size', 17)
+    .style('font-family', 'xkcd')
+    .style('font-size', 17)
     .text(text)
     .attr('y', 6)
     .call((f) => {

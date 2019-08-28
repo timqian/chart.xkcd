@@ -9,12 +9,14 @@ const yAxis = (parent, { yScale, tickCount }) => {
         .tickSize(0)
         .tickPadding(10)
         .ticks(tickCount, 's'),
-    )
-    .attr('font-family', 'xkcd')
-    .attr('font-size', '16');
+    );
 
   selectAll('.domain')
     .attr('filter', 'url(#xkcdify)');
+
+  selectAll('.tick > text')
+    .style('font-family', 'xkcd')
+    .style('font-size', '16');
 };
 
 const xAxis = (parent, { xScale, tickCount, moveDown }) => {
@@ -26,12 +28,14 @@ const xAxis = (parent, { xScale, tickCount, moveDown }) => {
         .tickSize(0)
         .tickPadding(6)
         .ticks(tickCount),
-    )
-    .attr('font-family', 'xkcd')
-    .attr('font-size', '16');
+    );
 
   selectAll('.domain')
     .attr('filter', 'url(#xkcdify)');
+
+  selectAll('.tick > text')
+    .style('font-family', 'xkcd')
+    .style('font-size', '16');
 };
 
 export default {

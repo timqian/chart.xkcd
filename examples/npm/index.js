@@ -29,7 +29,7 @@ new chartXkcd.Pie(svgPie, {
     }],
   },
   options: {
-    innerRadius: 0,
+    innerRadius: 0.6,
     legendPosition: chartXkcd.config.positionType.upRight,
   },
 });
@@ -77,7 +77,7 @@ new chartXkcd.XY(svgXY, {
 });
 
 const svgXY2 = document.querySelector('.xyline-chart2');
-new chartXkcd.XY(svgXY2, {
+const xy2Chart = new chartXkcd.XY(svgXY2, {
   title: 'Github star history',
   xLabel: 'Month',
   yLabel: 'Stars abc',
@@ -99,3 +99,4 @@ new chartXkcd.XY(svgXY2, {
     dotSize: 0.5,
   },
 });
+

@@ -46,6 +46,7 @@ class Line {
     this.svgEl = select(svg).style('stroke-width', '3')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
+    this.svgEl.selectAll('*').remove();
 
     this.chart = this.svgEl.append('g')
       .attr('transform',
