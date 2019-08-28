@@ -1,6 +1,6 @@
 [![](https://raw.githubusercontent.com/timqian/images/master/20190819131226.gif)](https://timqian.com/chart.xkcd/)
 
-> [Who is using chart.xkcd](https://github.com/timqian/chart.xkcd/issues/14)
+> [Who is using chart.xkcd?](https://github.com/timqian/chart.xkcd/issues/14)
 
 ## About
 
