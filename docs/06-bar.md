@@ -33,3 +33,5 @@ const barChart = new chartXkcd.Bar(svg, {
 ## Customize chart by defining options
 
 - `yTickCount`: customize tick numbers you want to see on the y axis
+- `dataColors`: array of colors for different datasets
+- `fontFamily`: customize font family used in the chart

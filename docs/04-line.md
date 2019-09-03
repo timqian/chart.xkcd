@@ -42,3 +42,5 @@ const lineChart = new chartXkcd.Line(svg, {
   Possible values:
     - up left: `chart.Xkcd.positionType.upLeft`
     - up right: `chart.Xkcd.positionType.upLeft`
+- `dataColors`: array of colors for different datasets
+- `fontFamily`: customize font family used in the chart

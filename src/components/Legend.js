@@ -55,7 +55,6 @@ class Legend {
         .attr('y', 17 + 20 * i);
 
       g.append('text')
-        .style('font-family', 'xkcd')
         .style('font-size', '15')
         .style('font-weight', 'lighter')
         .attr('x', 15 + 12)

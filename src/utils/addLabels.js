@@ -1,7 +1,6 @@
 const title = (parent, text) => {
   parent
     .append('text')
-    .style('font-family', 'xkcd')
     .style('font-size', '20')
     .style('font-weight', 'bold')
     .attr('x', '50%')
@@ -13,7 +12,6 @@ const title = (parent, text) => {
 const xLabel = (parent, text) => {
   parent
     .append('text')
-    .style('font-family', 'xkcd')
     .style('font-size', 17)
     .attr('x', '50%')
     .attr('y', parent.attr('height') - 10)
@@ -27,7 +25,6 @@ const yLabel = (parent, text) => {
     .attr('text-anchor', 'end')
     .attr('dy', '.75em')
     .attr('transform', 'rotate(-90)')
-    .style('font-family', 'xkcd')
     .style('font-size', 17)
     .text(text)
     .attr('y', 6)

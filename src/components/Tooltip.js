@@ -49,7 +49,6 @@ class Tooltip {
       .attr('y', 5);
 
     this.tipTitle = this.svg.append('text')
-      .style('font-family', 'xkcd')
       .style('font-size', 15)
       .style('font-weight', 'bold')
       .attr('x', 15)
@@ -69,7 +68,6 @@ class Tooltip {
         .attr('y', 37 + 20 * i);
 
       g.append('text')
-        .style('font-family', 'xkcd')
         .style('font-size', '15')
         .style('font-weight', 'lighter')
         .attr('x', 15 + 12)
@@ -114,7 +112,6 @@ class Tooltip {
           .attr('y', 37 + 20 * i);
 
         g.append('text')
-          .style('font-family', 'xkcd')
           .style('font-size', '15')
           .style('font-weight', 'lighter')
           .attr('x', 15 + 12)

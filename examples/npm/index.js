@@ -77,7 +77,7 @@ new chartXkcd.XY(svgXY, {
 });
 
 const svgXY2 = document.querySelector('.xyline-chart2');
-const xy2Chart = new chartXkcd.XY(svgXY2, {
+new chartXkcd.XY(svgXY2, {
   title: 'Github star history',
   xLabel: 'Month',
   yLabel: 'Stars abc',
@@ -100,3 +100,23 @@ const xy2Chart = new chartXkcd.XY(svgXY2, {
   },
 });
 
+const svgLineCus = document.querySelector('.line-chart-cus');
+new chartXkcd.Line(svgLineCus, {
+  title: 'Customize Font & colors (定制外观)',
+  xLabel: 'this is x label',
+  yLabel: 'y label',
+  data: {
+    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    datasets: [{
+      label: 'font',
+      data: [30, 70, 200, 300, 500, 800, 100, 290, 500, 300],
+    }, {
+      label: 'color',
+      data: [0, 1, 30, 70, 80, 100, 500, 80, 40, 250],
+    }],
+  },
+  options: {
+    fontFamily: 'ZCOOL KuaiLe',
+    dataColors: ['black', '#aaa'],
+  },
+});

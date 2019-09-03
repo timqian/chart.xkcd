@@ -1,7 +1,8 @@
 import { axisBottom, axisLeft } from 'd3-axis/src/axis';
-import selectAll from 'd3-selection/src/selectAll';
 
-const yAxis = (parent, { yScale, tickCount }) => {
+const yAxis = (parent, {
+  yScale, tickCount, fontFamily,
+}) => {
   parent
     .append('g')
     .call(
@@ -11,15 +12,18 @@ const yAxis = (parent, { yScale, tickCount }) => {
         .ticks(tickCount, 's'),
     );
 
-  selectAll('.domain')
-    .attr('filter', 'url(#xkcdify)');
+  parent.selectAll('.domain')
+    .attr('filter', 'url(#xkcdify)')
+    .style('stroke', 'black');
 
-  selectAll('.tick > text')
-    .style('font-family', 'xkcd')
+  parent.selectAll('.tick > text')
+    .style('font-family', fontFamily)
     .style('font-size', '16');
 };
 
-const xAxis = (parent, { xScale, tickCount, moveDown }) => {
+const xAxis = (parent, {
+  xScale, tickCount, moveDown, fontFamily,
+}) => {
   parent
     .append('g')
     .attr('transform', `translate(0,${moveDown})`)
@@ -30,11 +34,12 @@ const xAxis = (parent, { xScale, tickCount, moveDown }) => {
         .ticks(tickCount),
     );
 
-  selectAll('.domain')
-    .attr('filter', 'url(#xkcdify)');
+  parent.selectAll('.domain')
+    .attr('filter', 'url(#xkcdify)')
+    .style('stroke', 'black');
 
-  selectAll('.tick > text')
-    .style('font-family', 'xkcd')
+  parent.selectAll('.tick > text')
+    .style('font-family', fontFamily)
     .style('font-size', '16');
 };
 

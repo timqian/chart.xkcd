@@ -24,7 +24,9 @@ class Pie {
       datasets,
     };
     this.options = options;
-    this.svgEl = select(svg).style('stroke-width', '3')
+    this.svgEl = select(svg)
+      .style('stroke-width', '3')
+      .style('font-family', this.options.fontFamily || 'xkcd')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -52,7 +54,7 @@ class Pie {
     if (this.title) {
       this.svgEl
         .append('text')
-        .style('font-family', 'xkcd')
+
         .style('font-size', '20')
         .style('font-weight', 'bold')
         .attr('x', '50%')
@@ -81,7 +83,7 @@ class Pie {
       .attr('fill', 'none')
       .attr('stroke', 'black')
       .attr('stroke-width', 2)
-      .attr('fill', (d, i) => colors[0][i])
+      .attr('fill', (d, i) => colors[i])
       .attr('filter', 'url(#xkcdify-pie)')
       // .attr("fill-opacity", 0.6)
       .on('mouseover', (d, i, nodes) => {
@@ -99,7 +101,7 @@ class Pie {
         this.tooltip.update({
           title: this.data.labels[i],
           items: [{
-            color: colors[0][i],
+            color: colors[i],
             text: `${this.data.datasets[0].label || ''}: ${d.data}`,
           }],
           position: {
@@ -112,7 +114,7 @@ class Pie {
 
     // Legend
     const legendItems = this.data.datasets[0].data
-      .map((data, i) => ({ color: colors[0][i], text: this.data.labels[i] }));
+      .map((data, i) => ({ color: colors[i], text: this.data.labels[i] }));
     if (this.options.legendPosition === config.positionType.upLeft
       || !this.options.legendPosition) {
       new Legend({

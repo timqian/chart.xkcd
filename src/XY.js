@@ -23,6 +23,7 @@ class XY {
     title, xLabel, yLabel, data: { datasets },
     options = {
       dotSize: 1, showLine: false, timeFormat: '', xTickCount: 3, yTickCount: 3, legendPosition: config.positionType.upLeft,
+
     },
   }) {
     // TODO: extract a function?
@@ -42,7 +43,9 @@ class XY {
       datasets,
     };
     this.options = options;
-    this.svgEl = select(svg).style('stroke-width', 3)
+    this.svgEl = select(svg)
+      .style('stroke-width', 3)
+      .style('font-family', this.options.fontFamily || 'xkcd')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -105,10 +108,12 @@ class XY {
       xScale,
       tickCount: this.options.xTickCount === undefined ? 3 : this.options.xTickCount,
       moveDown: this.height,
+      fontFamily: this.options.fontFamily || 'xkcd',
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
+      fontFamily: this.options.fontFamily || 'xkcd',
     });
 
     // lines
@@ -125,7 +130,7 @@ class XY {
         .attr('class', 'xkcd-chart-xyline')
         .attr('d', (d) => theLine(d.data))
         .attr('fill', 'none')
-        .attr('stroke', (d, i) => colors[0][i])
+        .attr('stroke', (d, i) => (this.options.dataColors ? this.options.dataColors[i] : colors[i]))
         .attr('filter', 'url(#xkcdify)');
     }
 
@@ -147,11 +152,11 @@ class XY {
         // FIXME: here I want to pass xyGroupIndex down to the circles by reading parent attrs
         // It might have perfomance issue with a large dataset, not sure there are better ways
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return colors[0][xyGroupIndex];
+        return colors[xyGroupIndex];
       })
       .style('fill', (d, i, nodes) => {
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return colors[0][xyGroupIndex];
+        return colors[xyGroupIndex];
       })
       .attr('r', dotInitSize)
       .attr('cx', (d) => xScale(d.x))
@@ -175,7 +180,7 @@ class XY {
         this.tooltip.update({
           title: this.options.timeFormat ? dayjs(this.data.datasets[xyGroupIndex].data[i].x).format(this.options.timeFormat) : `${this.data.datasets[xyGroupIndex].data[i].x}`,
           items: [{
-            color: colors[0][xyGroupIndex],
+            color: colors[xyGroupIndex],
             text: `${this.data.datasets[xyGroupIndex].label || ''}: ${d.y}`,
           }],
           position: {
@@ -196,7 +201,10 @@ class XY {
 
     // Legend
     const legendItems = this.data.datasets.map(
-      (dataset, i) => ({ color: colors[0][i], text: dataset.label }),
+      (dataset, i) => ({
+        color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
+        text: dataset.label,
+      }),
     );
     if (this.options.legendPosition === config.positionType.upLeft
        || !this.options.legendPosition) {

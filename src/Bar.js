@@ -20,6 +20,8 @@ class Bar {
     title, xLabel, yLabel, data: { labels, datasets },
     options = {
       yTickCount: 3,
+      dataColors: [],
+      fontFamily: 'xkcd',
     },
   }) {
     if (title) {
@@ -39,9 +41,12 @@ class Bar {
       datasets,
     };
     this.options = options;
-    this.svgEl = select(svg).style('stroke-width', '3')
+    this.svgEl = select(svg)
+      .style('stroke-width', '3')
+      .style('font-family', this.options.fontFamily || 'xkcd')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
+
     this.svgEl.selectAll('*').remove();
 
     this.chart = this.svgEl.append('g')
@@ -81,9 +86,16 @@ class Bar {
     const graphPart = this.chart.append('g');
 
     // axis
-    addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
+    addAxis.xAxis(graphPart, {
+      xScale,
+      tickCount: 3,
+      moveDown: this.height,
+      fontFamily: this.options.fontFamily || 'xkcd',
+    });
     addAxis.yAxis(graphPart, {
-      yScale, tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
+      yScale,
+      tickCount: this.options.yTickCount || 3,
+      fontFamily: this.options.fontFamily || 'xkcd',
     });
 
     // Bars
@@ -104,7 +116,7 @@ class Bar {
       // .attr('cursor','crosshair')
       .attr('filter', 'url(#xkcdify)')
       .on('mouseover', (d, i, nodes) => {
-        select(nodes[i]).attr('fill', colors[0][i]);
+        select(nodes[i]).attr('fill', this.options.dataColors ? this.options.dataColors[i] : colors[i]);
         // select(nodes[i]).attr('fill', 'url(#hatch00)');
         this.tooltip.show();
       })
@@ -127,7 +139,7 @@ class Bar {
         this.tooltip.update({
           title: this.data.labels[i],
           items: [{
-            color: colors[0][i],
+            color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
             text: `${this.data.datasets[0].label || ''}: ${d}`,
           }],
           position: {

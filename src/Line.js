@@ -23,7 +23,10 @@ class Line {
   constructor(svg, {
     title, xLabel, yLabel, data: { labels, datasets },
     options = {
-      yTickCount: 3, legendPosition: config.positionType.upLeft,
+      yTickCount: 3,
+      legendPosition: config.positionType.upLeft,
+      dataColors: [],
+      fontFamily: 'xkcd',
     },
   }) {
     if (title) {
@@ -43,7 +46,9 @@ class Line {
       datasets,
     };
     this.options = options;
-    this.svgEl = select(svg).style('stroke-width', '3')
+    this.svgEl = select(svg)
+      .style('stroke-width', '3')
+      .style('font-family', this.options.fontFamily || 'xkcd')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -85,9 +90,16 @@ class Line {
       .attr('pointer-events', 'all');
 
     // axis
-    addAxis.xAxis(graphPart, { xScale, tickCount: 3, moveDown: this.height });
+    addAxis.xAxis(graphPart, {
+      xScale,
+      tickCount: 3,
+      moveDown: this.height,
+      fontFamily: this.options.fontFamily || 'xkcd',
+    });
     addAxis.yAxis(graphPart, {
-      yScale, tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
+      yScale,
+      tickCount: this.options.yTickCount || 3,
+      fontFamily: this.options.fontFamily || 'xkcd',
     });
 
     selectAll('.domain')
@@ -105,7 +117,7 @@ class Line {
       .attr('class', 'xkcd-chart-line')
       .attr('d', (d) => theLine(d.data))
       .attr('fill', 'none')
-      .attr('stroke', (d, i) => colors[0][i])
+      .attr('stroke', (d, i) => this.options.dataColors ? this.options.dataColors[i] : colors[i])
       .attr('filter', 'url(#xkcdify)');
 
     // hover effect
@@ -121,8 +133,8 @@ class Line {
 
     const circles = this.data.datasets.map((dataset, i) => graphPart
       .append('circle')
-      .style('stroke', colors[0][i])
-      .style('fill', colors[0][i])
+      .style('stroke', this.options.dataColors ? this.options.dataColors[i] : colors[i])
+      .style('fill', this.options.dataColors ? this.options.dataColors[i] : colors[i])
       .attr('r', 3.5)
       .style('visibility', 'hidden'));
 
@@ -163,7 +175,7 @@ class Line {
         });
 
         const tooltipItems = this.data.datasets.map((dataset, j) => ({
-          color: colors[0][j],
+          color: this.options.dataColors ? this.options.dataColors[j] : colors[j],
           text: `${this.data.datasets[j].label || ''}: ${this.data.datasets[j].data[mostNearLabelIndex]}`,
         }));
 
@@ -189,7 +201,7 @@ class Line {
 
     // Legend
     const legendItems = this.data.datasets.map(
-      (dataset, i) => ({ color: colors[0][i], text: dataset.label }),
+      (dataset, i) => ({ color: this.options.dataColors ? this.options.dataColors[i] : colors[i], text: dataset.label }),
     );
     if (this.options.legendPosition === config.positionType.upLeft
       || !this.options.legendPosition) {
