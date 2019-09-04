@@ -22,8 +22,14 @@ class XY {
   constructor(svg, {
     title, xLabel, yLabel, data: { datasets },
     options = {
-      dotSize: 1, showLine: false, timeFormat: '', xTickCount: 3, yTickCount: 3, legendPosition: config.positionType.upLeft,
-
+      dotSize: 1,
+      showLine: false,
+      timeFormat: '',
+      xTickCount: 3,
+      yTickCount: 3,
+      legendPosition: config.positionType.upLeft,
+      dataColors: [],
+      fontFamily: 'xkcd',
     },
   }) {
     // TODO: extract a function?
@@ -180,7 +186,7 @@ class XY {
         this.tooltip.update({
           title: this.options.timeFormat ? dayjs(this.data.datasets[xyGroupIndex].data[i].x).format(this.options.timeFormat) : `${this.data.datasets[xyGroupIndex].data[i].x}`,
           items: [{
-            color: colors[xyGroupIndex],
+            color: this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex],
             text: `${this.data.datasets[xyGroupIndex].label || ''}: ${d.y}`,
           }],
           position: {

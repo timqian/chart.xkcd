@@ -15,7 +15,10 @@ class Pie {
   constructor(svg, {
     title, data: { labels, datasets },
     options = {
-      innerRadius: 0.5, legendPosition: config.positionType.upLeft,
+      innerRadius: 0.5,
+      legendPosition: config.positionType.upLeft,
+      dataColors: [],
+      fontFamily: 'xkcd',
     },
   }) {
     this.title = title;
@@ -101,7 +104,7 @@ class Pie {
         this.tooltip.update({
           title: this.data.labels[i],
           items: [{
-            color: colors[i],
+            color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
             text: `${this.data.datasets[0].label || ''}: ${d.data}`,
           }],
           position: {
