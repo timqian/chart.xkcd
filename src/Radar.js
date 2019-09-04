@@ -1,5 +1,7 @@
 import select from 'd3-selection/src/select';
 // import mouse from 'd3-selection/src/mouse';
+import line from 'd3-shape/src/line';
+import curveLinearClosed from 'd3-shape/src/curve/linearClosed';
 import scaleLinear from 'd3-scale/src/linear';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
@@ -8,6 +10,7 @@ import config from './config';
 
 const margin = 50;
 const angleOffset = -Math.PI / 2;
+const areaOpacity = .3;
 
 class Radar {
   constructor(svg, {
@@ -73,6 +76,11 @@ class Radar {
     const getX = (d, i) => valueScale(d) * Math.cos(angleStep * i + angleOffset);
     const getY = (d, i) => valueScale(d) * Math.sin(angleStep * i + angleOffset);
 
+    const theLine = line()
+      .x(getX)
+      .y(getY)
+      .curve(curveLinearClosed);
+
     // grid
     this.chart.selectAll('.xkcd-chart-radar-line')
       .data(allMaxData)
@@ -93,19 +101,25 @@ class Radar {
       .enter()
       .append('g')
       .attr('class', 'xkcd-chart-radar-group')
-      // .attr('filter', 'url(#xkcdify)')
+      .attr('filter', 'url(#xkcdify-pie)')
       .attr('stroke', (d, i) => colors[i])
       .attr('fill', (d, i) => colors[i]);
 
-    layers.selectAll('.xkcd-chart-radar-dot')
+    layers.selectAll('circle')
       .data((dataset) => dataset.data)
       .enter()
       .append('circle')
       .attr('pointer-events', 'all')
-      .attr('class', 'xkcd-chart-radar-dot')
       .attr('r', dotInitSize)
       .attr('cx', getX)
       .attr('cy', getY);
+
+    layers.selectAll('path')
+      .data((dataset) => ([dataset.data]))
+      .enter()
+      .append('path')
+      .attr('d', theLine)
+      .style('fill-opacity', areaOpacity);
   }
 
   update() {
