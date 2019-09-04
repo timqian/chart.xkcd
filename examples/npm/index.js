@@ -120,3 +120,14 @@ new chartXkcd.Line(svgLineCus, {
     dataColors: ['black', '#aaa'],
   },
 });
+
+const svgRadar = document.querySelector('.radar-chart');
+new chartXkcd.Radar(svgRadar, {
+  title: 'What Tim made of',
+  data: {
+    labels: ['a', 'b', 'e', 'f', 'g'],
+    datasets: [{
+      data: [500, 200, 80, 90, 100],
+    }],
+  },
+});
