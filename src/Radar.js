@@ -10,7 +10,8 @@ import config from './config';
 
 const margin = 50;
 const angleOffset = -Math.PI / 2;
-const areaOpacity = .3;
+const areaOpacity = 0.3;
+const ticksCount = 3;
 
 class Radar {
   constructor(svg, {
@@ -62,7 +63,7 @@ class Radar {
     }
 
     // FIXME: read from options or 1 by default
-    const dotInitSize = 3.5 * .5;
+    const dotInitSize = 3.5 * 0.5;
     const radius = Math.min(this.width, this.height) / 2 - margin;
     const angleStep = (Math.PI * 2) / this.directionsCount;
 
@@ -82,18 +83,44 @@ class Radar {
       .curve(curveLinearClosed);
 
     // grid
-    this.chart.selectAll('.xkcd-chart-radar-line')
+    const grid = this.chart.append('g')
+      .attr('class', 'xkcd-chart-radar-grid')
+      .attr('stroke-width', '1')
+      .attr('filter', 'url(#xkcdify-pie)');
+
+    grid.selectAll('.xkcd-chart-radar-level')
+      .data(valueScale.ticks(ticksCount))
+      .enter()
+      .append('path')
+      .attr('class', 'xkcd-chart-radar-level')
+      .attr('d', d => theLine(Array(this.directionsCount).fill(d)))
+      .style('fill', 'none')
+      .attr('stroke', '#aaa')
+      .attr('stroke-dasharray', '7,7');
+
+    grid.selectAll('.xkcd-chart-radar-line')
       .data(allMaxData)
       .enter()
       .append('line')
       .attr('class', '.xkcd-chart-radar-line')
-      .attr('stroke', '#aaa')
-      .attr('stroke-width', '1.5')
-      .attr('stroke-dasharray', '7,7')
+      .attr('stroke', 'black')
       .attr('x1', 0)
       .attr('y1', 0)
       .attr('x2', getX)
       .attr('y2', getY);
+
+    grid.selectAll('.xkcd-chart-radar-tick')
+      .data(valueScale.ticks(ticksCount))
+      .enter()
+      .append('text')
+      .attr('class', 'xkcd-chart-radar-tick')
+      .attr('x', (d) => getX(d, 0))
+      .attr('y', (d) => getY(d, 0))
+      .style('font-size', '12')
+      .attr('text-anchor', 'end')
+      .attr('dx', '-.125em')
+      .attr('dy', '-.125em')
+      .text(d => (d))
 
     // layers
     const layers = this.chart.selectAll('.xkcd-chart-radar-group')
