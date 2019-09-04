@@ -123,11 +123,13 @@ new chartXkcd.Line(svgLineCus, {
 
 const svgRadar = document.querySelector('.radar-chart');
 new chartXkcd.Radar(svgRadar, {
-  title: 'What Tim made of',
+  title: 'Letters in random words',
   data: {
-    labels: ['a', 'b', 'e', 'f', 'g'],
+    labels: ['c', 'h', 'a', 'r', 't'],
     datasets: [{
-      data: [500, 200, 80, 90, 100],
+      data: [2, 1, 1, 3, 1],
+    }, {
+      data: [1, 2, 2, 1, 1],
     }],
   },
 });
