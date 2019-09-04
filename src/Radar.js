@@ -116,10 +116,10 @@ class Radar {
       .attr('class', 'xkcd-chart-radar-tick')
       .attr('x', (d) => getX(d, 0))
       .attr('y', (d) => getY(d, 0))
-      .style('font-size', '12')
+      .style('font-size', '16')
       .attr('text-anchor', 'end')
       .attr('dx', '-.125em')
-      .attr('dy', '-.125em')
+      .attr('dy', '.35em')
       .text(d => (d))
 
     // layers
