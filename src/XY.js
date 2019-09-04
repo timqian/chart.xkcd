@@ -152,11 +152,11 @@ class XY {
         // FIXME: here I want to pass xyGroupIndex down to the circles by reading parent attrs
         // It might have perfomance issue with a large dataset, not sure there are better ways
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return colors[xyGroupIndex];
+        return this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex];
       })
       .style('fill', (d, i, nodes) => {
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return colors[xyGroupIndex];
+        return this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex];
       })
       .attr('r', dotInitSize)
       .attr('cx', (d) => xScale(d.x))
