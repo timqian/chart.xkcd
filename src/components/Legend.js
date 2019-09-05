@@ -21,9 +21,10 @@ class Legend {
    *    }
    * }
    */
-  constructor({ parent, items, position }) {
+  constructor({ parent, items, position, disableEffect }) {
     this.items = items;
     this.position = position;
+    this.filter = !disableEffect ? 'url(#xkcdify)' : null;
 
     this.svg = parent.append('svg')
       .attr('x', this._getUpLeftX())
@@ -36,7 +37,7 @@ class Legend {
       .attr('stroke-width', 2)
       .attr('rx', 5)
       .attr('ry', 5)
-      .attr('filter', 'url(#xkcdify)')
+      .attr('filter', this.filter)
       .attr('width', this._getBackgroundWidth())
       .attr('height', this._getBackgroundHeight())
       .attr('x', 5)
@@ -50,7 +51,7 @@ class Legend {
         .attr('height', 8)
         .attr('rx', 2)
         .attr('ry', 2)
-        .attr('filter', 'url(#xkcdify)')
+        .attr('filter', this.filter)
         .attr('x', 15)
         .attr('y', 17 + 20 * i);
 
