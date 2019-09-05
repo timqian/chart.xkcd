@@ -3,6 +3,7 @@ import select from 'd3-selection/src/select';
 import line from 'd3-shape/src/line';
 import curveLinearClosed from 'd3-shape/src/curve/linearClosed';
 import scaleLinear from 'd3-scale/src/linear';
+import Tooltip from './components/Tooltip';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
 import colors from './utils/colors';
@@ -45,7 +46,12 @@ class Radar {
       .attr('transform',
         `translate(${this.width / 2},${this.height / 2})`);
 
-    // this.tooltip = new Tooltip
+    this.tooltip = new Tooltip({
+      parent: this.svgEl,
+      title: '',
+      items: [],
+      position: { x: 0, y: 0, type: config.positionType.dowfnRight },
+    });
     addFont(this.svgEl);
     addFilter(this.svgEl);
     this.render();
@@ -64,6 +70,7 @@ class Radar {
 
     // FIXME: read from options or 1 by default
     const dotInitSize = 3.5 * 0.5;
+    const dotHoverSize = 6 * 0.5;
     const radius = Math.min(this.width, this.height) / 2 - margin;
     const angleStep = (Math.PI * 2) / this.directionsCount;
 
@@ -136,16 +143,49 @@ class Radar {
       .data((dataset) => dataset.data)
       .enter()
       .append('circle')
-      .attr('pointer-events', 'all')
       .attr('r', dotInitSize)
       .attr('cx', getX)
-      .attr('cy', getY);
+      .attr('cy', getY)
+      .attr('pointer-events', 'all')
+      .on('mouseover', (d, i, nodes) =>  {
+        select(nodes[i]).attr('r', dotHoverSize);
+
+        const tipX = getX(d, i) + this.width / 2;
+        const tipY = getY(d, i) + this.height / 2;
+        let tooltipPositionType = config.positionType.downRight;
+        if (tipX > this.width / 2 && tipY < this.height / 2) {
+          tooltipPositionType = config.positionType.downLeft;
+        } else if (tipX > this.width / 2 && tipY > this.height / 2) {
+          tooltipPositionType = config.positionType.upLeft;
+        } else if (tipX < this.width / 2 && tipY > this.height / 2) {
+          tooltipPositionType = config.positionType.upRight;
+        }
+        this.tooltip.update({
+          title: this.data.labels[i],
+          items: this.data.datasets.map((dataset, datasetIndex) => ({
+            color: colors[datasetIndex],
+            text: `${dataset.label || ''}: ${dataset.data[i]}`,
+          })),
+          position: {
+            x: tipX,
+            y: tipY,
+            type: tooltipPositionType,
+          },
+        });
+        this.tooltip.show();
+      })
+      .on('mouseout', (d, i, nodes) => {
+        select(nodes[i]).attr('r', dotInitSize);
+
+        this.tooltip.hide();
+      });
 
     layers.selectAll('path')
       .data((dataset) => ([dataset.data]))
       .enter()
       .append('path')
       .attr('d', theLine)
+      .attr('pointer-events', 'none')
       .style('fill-opacity', areaOpacity);
   }
 
