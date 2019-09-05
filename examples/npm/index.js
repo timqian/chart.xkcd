@@ -127,8 +127,10 @@ new chartXkcd.Radar(svgRadar, {
   data: {
     labels: ['c', 'h', 'a', 'r', 't'],
     datasets: [{
+      label: 'ccharrrt',
       data: [2, 1, 1, 3, 1],
     }, {
+      label: 'chhaart',
       data: [1, 2, 2, 1, 1],
     }],
   },
