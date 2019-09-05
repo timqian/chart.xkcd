@@ -1,7 +1,7 @@
 import { axisBottom, axisLeft } from 'd3-axis/src/axis';
 
 const yAxis = (parent, {
-  yScale, tickCount, fontFamily,
+  yScale, tickCount, fontFamily, disableEffect,
 }) => {
   parent
     .append('g')
@@ -13,7 +13,7 @@ const yAxis = (parent, {
     );
 
   parent.selectAll('.domain')
-    .attr('filter', 'url(#xkcdify)')
+    .attr('filter', !disableEffect ? 'url(#xkcdify)' : null)
     .style('stroke', 'black');
 
   parent.selectAll('.tick > text')
@@ -22,7 +22,7 @@ const yAxis = (parent, {
 };
 
 const xAxis = (parent, {
-  xScale, tickCount, moveDown, fontFamily,
+  xScale, tickCount, moveDown, fontFamily, disableEffect,
 }) => {
   parent
     .append('g')
@@ -35,7 +35,7 @@ const xAxis = (parent, {
     );
 
   parent.selectAll('.domain')
-    .attr('filter', 'url(#xkcdify)')
+    .attr('filter', !disableEffect ? 'url(#xkcdify)' : null)
     .style('stroke', 'black');
 
   parent.selectAll('.tick > text')
