@@ -1,5 +1,4 @@
 import select from 'd3-selection/src/select';
-// import mouse from 'd3-selection/src/mouse';
 import line from 'd3-shape/src/line';
 import curveLinearClosed from 'd3-shape/src/curve/linearClosed';
 import scaleLinear from 'd3-scale/src/linear';
@@ -106,7 +105,7 @@ class Radar {
       .enter()
       .append('path')
       .attr('class', 'xkcd-chart-radar-level')
-      .attr('d', d => theLine(Array(this.directionsCount).fill(d)))
+      .attr('d', (d) => theLine(Array(this.directionsCount).fill(d)))
       .style('fill', 'none')
       .attr('stroke', '#aaa')
       .attr('stroke-dasharray', '7,7');
@@ -133,11 +132,11 @@ class Radar {
       .attr('text-anchor', 'end')
       .attr('dx', '-.125em')
       .attr('dy', '.35em')
-      .text(d => (d))
+      .text((d) => d);
 
     if (this.options.showLabels) {
       grid.selectAll('.xkcd-chart-radar-label')
-        .data(allMaxData.map(d => d * 1.15))
+        .data(allMaxData.map((d) => d * 1.15))
         .enter()
         .append('text')
         .attr('class', 'xkcd-chart-radar-label')
@@ -167,7 +166,7 @@ class Radar {
       .attr('cx', getX)
       .attr('cy', getY)
       .attr('pointer-events', 'all')
-      .on('mouseover', (d, i, nodes) =>  {
+      .on('mouseover', (d, i, nodes) => {
         select(nodes[i]).attr('r', dotHoverSize);
 
         const tipX = getX(d, i) + this.width / 2;
