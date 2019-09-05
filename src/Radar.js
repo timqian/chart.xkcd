@@ -71,7 +71,6 @@ class Radar {
         .text(this.title);
     }
 
-    // FIXME: read from options or 1 by default
     const dotInitSize = 3.5 * (this.options.dotSize || 1);
     const dotHoverSize = 6 * (this.options.dotSize || 1);
     const dataColors = this.options.dataColors || colors;
