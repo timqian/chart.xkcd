@@ -10,3 +10,7 @@ assignees: ''
 **Chart type**
 
 **Example of how the chart looks in other chart libs**
+
+- link
+
+- screenshot
