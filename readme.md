@@ -45,4 +45,4 @@ In the following example we create a line chart.
 - Code: read the [contributing.md](./contributing.md) file
 - Financial:
   - [Become a patron of me](https://www.patreon.com/timqian) - chart.xkcd is an MIT-licensed open source project with its ongoing development made possible entirely by the support of my patreons. If you like this tool, please consider support my work by becomming a parton of me
-  - [Fund issues on issuehunt](https://issuehunt.io/r/timqian/chart.xkcd?tab=idle)
+  - [Fund issues on issuehunt](https://issuehunt.io/r/timqian/chart.xkcd?tab=idle) - Issues on chart.xkcd can be funded by anyone and the money will be distributed to contributors.
