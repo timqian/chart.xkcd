@@ -224,13 +224,21 @@ class Radar {
         new Legend({
           parent: this.svgEl,
           items: legendItems,
-          position: { x: 3, y: 30, type: config.positionType.downRight },
+          position: {
+            x: 3,
+            y: this.title ? 30 : 3,
+            type: config.positionType.downRight,
+          },
         });
       } else if (this.options.legendPosition === config.positionType.upRight) {
         new Legend({
           parent: this.svgEl,
           items: legendItems,
-          position: { x: this.width - 3, y: 30, type: config.positionType.downLeft },
+          position: {
+            x: this.width - 3,
+            y: this.title ? 30 : 3,
+            type: config.positionType.downLeft,
+          },
         });
       } else {
         throw new Error('legendPosition only support upLeft and upRight for now');
