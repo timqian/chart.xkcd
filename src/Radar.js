@@ -140,8 +140,8 @@ class Radar {
         .append('text')
         .attr('class', 'xkcd-chart-radar-label')
         .style('font-size', '16')
-        .attr('x', getX)
-        .attr('y', getY)
+        .attr('x', (d, i) => (radius + 10) * Math.cos(angleStep * i + angleOffset))
+        .attr('y', (d, i) => (radius + 10) * Math.sin(angleStep * i + angleOffset))
         .attr('dy', '.35em')
         .attr('text-anchor', 'middle')
         .text((d, i) => this.data.labels[i]);
