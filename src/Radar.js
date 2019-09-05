@@ -30,7 +30,7 @@ class Radar {
       labels,
       datasets,
     };
-    // TODO: find the longest dataset
+    // TODO: find the longest dataset or throw an error for inconsistent datasets
     this.directionsCount = datasets[0].data.length;
     this.options = options;
     this.svgEl = select(svg)
