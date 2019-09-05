@@ -12,17 +12,20 @@ import config from './config';
 
 const margin = 50;
 const angleOffset = -Math.PI / 2;
-const areaOpacity = 0.3;
-const ticksCount = 3;
+const areaOpacity = 0.2;
 
 class Radar {
   constructor(svg, {
     title,
     data: { labels, datasets },
     options = {
+      showLabels: false,
+      ticksCount: 3,
+      showLegend: false,
       legendPosition: config.positionType.upLeft,
       dataColors: [],
       fontFamily: 'xkcd',
+      dotSize: 1,
     },
   }) {
     this.title = title;
@@ -51,7 +54,7 @@ class Radar {
       parent: this.svgEl,
       title: '',
       items: [],
-      position: { x: 0, y: 0, type: config.positionType.dowfnRight },
+      position: { x: 0, y: 0, type: config.positionType.downRight },
     });
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -70,8 +73,9 @@ class Radar {
     }
 
     // FIXME: read from options or 1 by default
-    const dotInitSize = 3.5 * 0.5;
-    const dotHoverSize = 6 * 0.5;
+    const dotInitSize = 3.5 * (this.options.dotSize || 1);
+    const dotHoverSize = 6 * (this.options.dotSize || 1);
+    const dataColors = this.options.dataColors || colors;
     const radius = Math.min(this.width, this.height) / 2 - margin;
     const angleStep = (Math.PI * 2) / this.directionsCount;
 
@@ -91,13 +95,14 @@ class Radar {
       .curve(curveLinearClosed);
 
     // grid
+    const ticks = valueScale.ticks(this.options.ticksCount || 3);
     const grid = this.chart.append('g')
       .attr('class', 'xkcd-chart-radar-grid')
       .attr('stroke-width', '1')
       .attr('filter', 'url(#xkcdify-pie)');
 
     grid.selectAll('.xkcd-chart-radar-level')
-      .data(valueScale.ticks(ticksCount))
+      .data(ticks)
       .enter()
       .append('path')
       .attr('class', 'xkcd-chart-radar-level')
@@ -118,7 +123,7 @@ class Radar {
       .attr('y2', getY);
 
     grid.selectAll('.xkcd-chart-radar-tick')
-      .data(valueScale.ticks(ticksCount))
+      .data(ticks)
       .enter()
       .append('text')
       .attr('class', 'xkcd-chart-radar-tick')
@@ -130,17 +135,19 @@ class Radar {
       .attr('dy', '.35em')
       .text(d => (d))
 
-    grid.selectAll('.xkcd-chart-radar-label')
-      .data(allMaxData.map(d => d * 1.15))
-      .enter()
-      .append('text')
-      .attr('class', 'xkcd-chart-radar-label')
-      .style('font-size', '16')
-      .attr('x', getX)
-      .attr('y', getY)
-      .attr('dy', '.35em')
-      .attr('text-anchor', 'middle')
-      .text((d, i) => this.data.labels[i]);
+    if (this.options.showLabels) {
+      grid.selectAll('.xkcd-chart-radar-label')
+        .data(allMaxData.map(d => d * 1.15))
+        .enter()
+        .append('text')
+        .attr('class', 'xkcd-chart-radar-label')
+        .style('font-size', '16')
+        .attr('x', getX)
+        .attr('y', getY)
+        .attr('dy', '.35em')
+        .attr('text-anchor', 'middle')
+        .text((d, i) => this.data.labels[i]);
+    }
 
     // layers
     const layers = this.chart.selectAll('.xkcd-chart-radar-group')
@@ -149,8 +156,8 @@ class Radar {
       .append('g')
       .attr('class', 'xkcd-chart-radar-group')
       .attr('filter', 'url(#xkcdify-pie)')
-      .attr('stroke', (d, i) => colors[i])
-      .attr('fill', (d, i) => colors[i]);
+      .attr('stroke', (d, i) => dataColors[i])
+      .attr('fill', (d, i) => dataColors[i]);
 
     layers.selectAll('circle')
       .data((dataset) => dataset.data)
@@ -176,7 +183,7 @@ class Radar {
         this.tooltip.update({
           title: this.data.labels[i],
           items: this.data.datasets.map((dataset, datasetIndex) => ({
-            color: colors[datasetIndex],
+            color: dataColors[datasetIndex],
             text: `${dataset.label || ''}: ${dataset.data[i]}`,
           })),
           position: {
@@ -202,13 +209,26 @@ class Radar {
       .style('fill-opacity', areaOpacity);
 
     // legend
-    const legendItems = this.data.datasets
-      .map((data, i) => ({ color: colors[i], text: data.label || '' }));
-    new Legend({
-      parent: this.svgEl,
-      items: legendItems,
-      position: { x: this.width - 3, y: 30, type: config.positionType.downLeft },
-    });
+    if (this.options.showLegend) {
+      const legendItems = this.data.datasets
+        .map((data, i) => ({ color: dataColors[i], text: data.label || '' }));
+      if (this.options.legendPosition === config.positionType.upLeft
+        || !this.options.legendPosition) {
+        new Legend({
+          parent: this.svgEl,
+          items: legendItems,
+          position: { x: 3, y: 30, type: config.positionType.downRight },
+        });
+      } else if (this.options.legendPosition === config.positionType.upRight) {
+        new Legend({
+          parent: this.svgEl,
+          items: legendItems,
+          position: { x: this.width - 3, y: 30, type: config.positionType.downLeft },
+        });
+      } else {
+        throw new Error('legendPosition only support upLeft and upRight for now');
+      }
+    }
   }
 
   update() {
