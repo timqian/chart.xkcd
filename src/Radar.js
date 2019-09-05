@@ -143,7 +143,16 @@ class Radar {
         .attr('x', (d, i) => (radius + 10) * Math.cos(angleStep * i + angleOffset))
         .attr('y', (d, i) => (radius + 10) * Math.sin(angleStep * i + angleOffset))
         .attr('dy', '.35em')
-        .attr('text-anchor', 'middle')
+        .attr('text-anchor', (d, i, nodes) => {
+          const node = select(nodes[i]);
+          let anchor = 'start';
+
+          if (node.attr('x') < 0) {
+            anchor = 'end';
+          }
+
+          return anchor;
+        })
         .text((d, i) => this.data.labels[i]);
     }
 
