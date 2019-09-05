@@ -134,4 +134,10 @@ new chartXkcd.Radar(svgRadar, {
       data: [1, 2, 2, 1, 1],
     }],
   },
+  options: {
+    showLegend: true,
+    dotSize: .8,
+    showLabels: true,
+    legendPosition: chartXkcd.config.positionType.upRight,
+  },
 });
