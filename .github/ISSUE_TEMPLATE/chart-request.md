@@ -14,3 +14,9 @@ assignees: ''
 - link
 
 - screenshot
+
+<!--
+  To support us building this chart, please consider either
+    - be a patron of timqian: patreon.com/timqian
+    - fund this issue on issuehunt after you create it: issuehunt.io/r/timqian/chart.xkcd?tab=idle
+>

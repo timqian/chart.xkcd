@@ -18,3 +18,9 @@ code to reproduce the bug (Codepen link preferred)
 
 **Additional context**
 Add any other context about the problem here.
+
+<!--
+  To support us solving this issue, please consider either
+    - fund this issue on issuehunt after you create it: issuehunt.io/r/timqian/chart.xkcd?tab=idle
+    - be a patron of timqian: patreon.com/timqian
+>

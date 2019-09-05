@@ -18,3 +18,9 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+
+<!--
+  To support us for adding this feature, please consider either
+    - be a patron of timqian: patreon.com/timqian
+    - fund this issue on issuehunt after you create it: issuehunt.io/r/timqian/chart.xkcd?tab=idle
+>
