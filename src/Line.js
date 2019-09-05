@@ -23,6 +23,7 @@ class Line {
   constructor(svg, {
     title, xLabel, yLabel, data: { labels, datasets },
     options = {
+      disableEffect: false,
       yTickCount: 3,
       legendPosition: config.positionType.upLeft,
       dataColors: [],
@@ -46,6 +47,7 @@ class Line {
       datasets,
     };
     this.options = options;
+    this.filter = !options.disableEffect ? 'url(#xkcdify)' : null;
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.options.fontFamily || 'xkcd')
@@ -63,6 +65,7 @@ class Line {
       title: '',
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.dowfnRight },
+      disableEffect: options.disableEffect,
     });
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -95,15 +98,17 @@ class Line {
       tickCount: 3,
       moveDown: this.height,
       fontFamily: this.options.fontFamily || 'xkcd',
+      disableEffect: this.options.disableEffect,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.options.fontFamily || 'xkcd',
+      disableEffect: this.options.disableEffect,
     });
 
     this.svgEl.selectAll('.domain')
-      .attr('filter', 'url(#xkcdify)');
+      .attr('filter', this.filter);
 
     const theLine = line()
       .x((d, i) => xScale(this.data.labels[i]))
@@ -118,7 +123,7 @@ class Line {
       .attr('d', (d) => theLine(d.data))
       .attr('fill', 'none')
       .attr('stroke', (d, i) => this.options.dataColors ? this.options.dataColors[i] : colors[i])
-      .attr('filter', 'url(#xkcdify)');
+      .attr('filter', this.filter);
 
     // hover effect
     const verticalLine = graphPart.append('line')
@@ -209,12 +214,14 @@ class Line {
         parent: graphPart,
         items: legendItems,
         position: { x: 3, y: 3, type: config.positionType.downRight },
+        disableEffect: this.options.disableEffect,
       });
     } else if (this.options.legendPosition === config.positionType.upRight) {
       new Legend({
         parent: graphPart,
         items: legendItems,
         position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
+        disableEffect: this.options.disableEffect,
       });
     } else {
       throw new Error('legendPosition only support upLeft and upRight for now');
