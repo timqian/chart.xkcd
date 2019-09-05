@@ -24,11 +24,12 @@ class Tooltip {
    * }
    */
   constructor({
-    parent, title, items, position,
+    parent, title, items, position, disableEffect,
   }) {
     this.title = title;
     this.items = items;
     this.position = position;
+    this.filter = !disableEffect ? 'url(#xkcdify)' : null;
 
     this.svg = parent.append('svg')
       .attr('x', this._getUpLeftX())
@@ -42,7 +43,7 @@ class Tooltip {
       .attr('stroke-width', 2)
       .attr('rx', 5)
       .attr('ry', 5)
-      .attr('filter', 'url(#xkcdify)')
+      .attr('filter', this.filter)
       .attr('width', this._getBackgroundWidth())
       .attr('height', this._getBackgroundHeight())
       .attr('x', 5)
@@ -63,7 +64,7 @@ class Tooltip {
         .attr('height', 8)
         .attr('rx', 2)
         .attr('ry', 2)
-        .attr('filter', 'url(#xkcdify)')
+        .attr('filter', this.filter)
         .attr('x', 15)
         .attr('y', 37 + 20 * i);
 
