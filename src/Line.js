@@ -1,7 +1,6 @@
 import line from 'd3-shape/src/line';
 import { monotoneX } from 'd3-shape/src/curve/monotone';
 import select from 'd3-selection/src/select';
-import selectAll from 'd3-selection/src/selectAll';
 import mouse from 'd3-selection/src/mouse';
 import { point as scalePoint } from 'd3-scale/src/band';
 import scaleLinear from 'd3-scale/src/linear';
@@ -122,7 +121,9 @@ class Line {
       .attr('class', 'xkcd-chart-line')
       .attr('d', (d) => theLine(d.data))
       .attr('fill', 'none')
-      .attr('stroke', (d, i) => this.options.dataColors ? this.options.dataColors[i] : colors[i])
+      .attr('stroke', (d, i) => (this.options.dataColors
+        ? this.options.dataColors[i]
+        : colors[i]))
       .attr('filter', this.filter);
 
     // hover effect
@@ -205,9 +206,11 @@ class Line {
       });
 
     // Legend
-    const legendItems = this.data.datasets.map(
-      (dataset, i) => ({ color: this.options.dataColors ? this.options.dataColors[i] : colors[i], text: dataset.label }),
-    );
+    const legendItems = this.data.datasets
+      .map((dataset, i) => ({
+        color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
+        text: dataset.label,
+      }));
     if (this.options.legendPosition === config.positionType.upLeft
       || !this.options.legendPosition) {
       new Legend({

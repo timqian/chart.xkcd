@@ -163,11 +163,15 @@ class XY {
         // FIXME: here I want to pass xyGroupIndex down to the circles by reading parent attrs
         // It might have perfomance issue with a large dataset, not sure there are better ways
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex];
+        return this.options.dataColors
+          ? this.options.dataColors[xyGroupIndex]
+          : colors[xyGroupIndex];
       })
       .style('fill', (d, i, nodes) => {
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex];
+        return this.options.dataColors
+          ? this.options.dataColors[xyGroupIndex]
+          : colors[xyGroupIndex];
       })
       .attr('r', dotInitSize)
       .attr('cx', (d) => xScale(d.x))
@@ -191,7 +195,9 @@ class XY {
         this.tooltip.update({
           title: this.options.timeFormat ? dayjs(this.data.datasets[xyGroupIndex].data[i].x).format(this.options.timeFormat) : `${this.data.datasets[xyGroupIndex].data[i].x}`,
           items: [{
-            color: this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex],
+            color: this.options.dataColors
+              ? this.options.dataColors[xyGroupIndex]
+              : colors[xyGroupIndex],
             text: `${this.data.datasets[xyGroupIndex].label || ''}: ${d.y}`,
           }],
           position: {

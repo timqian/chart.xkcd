@@ -21,7 +21,9 @@ class Legend {
    *    }
    * }
    */
-  constructor({ parent, items, position, disableEffect }) {
+  constructor({
+    parent, items, position, disableEffect,
+  }) {
     this.items = items;
     this.position = position;
     this.filter = !disableEffect ? 'url(#xkcdify)' : null;
