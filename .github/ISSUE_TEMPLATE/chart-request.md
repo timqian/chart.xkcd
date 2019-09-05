@@ -2,7 +2,7 @@
 name: Chart request
 about: Suggest a new chart type for chart.xkcd
 title: "[new chart]: "
-labels: ''
+labels: new chart
 assignees: ''
 
 ---
