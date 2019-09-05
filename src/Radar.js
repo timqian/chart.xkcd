@@ -3,6 +3,7 @@ import select from 'd3-selection/src/select';
 import line from 'd3-shape/src/line';
 import curveLinearClosed from 'd3-shape/src/curve/linearClosed';
 import scaleLinear from 'd3-scale/src/linear';
+import Legend from './components/Legend';
 import Tooltip from './components/Tooltip';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
@@ -187,6 +188,15 @@ class Radar {
       .attr('d', theLine)
       .attr('pointer-events', 'none')
       .style('fill-opacity', areaOpacity);
+
+    // legend
+    const legendItems = this.data.datasets
+      .map((data, i) => ({ color: colors[i], text: data.label || '' }));
+    new Legend({
+      parent: this.svgEl,
+      items: legendItems,
+      position: { x: this.width - 3, y: 30, type: config.positionType.downLeft },
+    });
   }
 
   update() {
