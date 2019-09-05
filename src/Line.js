@@ -102,7 +102,7 @@ class Line {
       fontFamily: this.options.fontFamily || 'xkcd',
     });
 
-    selectAll('.domain')
+    this.svgEl.selectAll('.domain')
       .attr('filter', 'url(#xkcdify)');
 
     const theLine = line()
