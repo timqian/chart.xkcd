@@ -22,6 +22,7 @@ class XY {
   constructor(svg, {
     title, xLabel, yLabel, data: { datasets },
     options = {
+      disableEffect: false,
       dotSize: 1,
       showLine: false,
       timeFormat: '',
@@ -49,6 +50,7 @@ class XY {
       datasets,
     };
     this.options = options;
+    this.filter = !options.disableEffect ? 'url(#xkcdify)' : null;
     this.svgEl = select(svg)
       .style('stroke-width', 3)
       .style('font-family', this.options.fontFamily || 'xkcd')
@@ -66,6 +68,7 @@ class XY {
       title: '',
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.dowfnRight },
+      disableEffect: options.disableEffect,
     });
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -115,11 +118,13 @@ class XY {
       tickCount: this.options.xTickCount === undefined ? 3 : this.options.xTickCount,
       moveDown: this.height,
       fontFamily: this.options.fontFamily || 'xkcd',
+      disableEffect: this.options.disableEffect,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
       fontFamily: this.options.fontFamily || 'xkcd',
+      disableEffect: this.options.disableEffect,
     });
 
     // lines
@@ -137,7 +142,7 @@ class XY {
         .attr('d', (d) => theLine(d.data))
         .attr('fill', 'none')
         .attr('stroke', (d, i) => (this.options.dataColors ? this.options.dataColors[i] : colors[i]))
-        .attr('filter', 'url(#xkcdify)');
+        .attr('filter', this.filter);
     }
 
     // dots
@@ -148,7 +153,7 @@ class XY {
       .enter()
       .append('g')
       .attr('class', '.xkcd-chart-xycircle-group')
-      .attr('filter', 'url(#xkcdify)')
+      .attr('filter', this.filter)
       .attr('xy-group-index', (d, i) => i)
       .selectAll('.xkcd-chart-xycircle-circle')
       .data((dataset) => dataset.data)
@@ -218,12 +223,14 @@ class XY {
         parent: graphPart,
         items: legendItems,
         position: { x: 3, y: 3, type: config.positionType.downRight },
+        disableEffect: this.options.disableEffect,
       });
     } else if (this.options.legendPosition === config.positionType.upRight) {
       new Legend({
         parent: graphPart,
         items: legendItems,
         position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
+        disableEffect: this.options.disableEffect,
       });
     } else {
       throw new Error('legendPosition only support upLeft and upRight for now');
