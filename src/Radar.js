@@ -130,6 +130,18 @@ class Radar {
       .attr('dy', '.35em')
       .text(d => (d))
 
+    grid.selectAll('.xkcd-chart-radar-label')
+      .data(allMaxData.map(d => d * 1.15))
+      .enter()
+      .append('text')
+      .attr('class', 'xkcd-chart-radar-label')
+      .style('font-size', '16')
+      .attr('x', getX)
+      .attr('y', getY)
+      .attr('dy', '.35em')
+      .attr('text-anchor', 'middle')
+      .text((d, i) => this.data.labels[i]);
+
     // layers
     const layers = this.chart.selectAll('.xkcd-chart-radar-group')
       .data(this.data.datasets)
