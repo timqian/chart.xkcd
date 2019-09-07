@@ -22,7 +22,7 @@ class XY {
   constructor(svg, {
     title, xLabel, yLabel, data: { datasets },
     options = {
-      disableEffect: false,
+      unxkcdify: false,
       dotSize: 1,
       showLine: false,
       timeFormat: '',
@@ -50,7 +50,7 @@ class XY {
       datasets,
     };
     this.options = options;
-    this.filter = !options.disableEffect ? 'url(#xkcdify)' : null;
+    this.filter = !options.unxkcdify ? 'url(#xkcdify)' : null;
     this.svgEl = select(svg)
       .style('stroke-width', 3)
       .style('font-family', this.options.fontFamily || 'xkcd')
@@ -68,7 +68,7 @@ class XY {
       title: '',
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.dowfnRight },
-      disableEffect: options.disableEffect,
+      unxkcdify: options.unxkcdify,
     });
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -118,13 +118,13 @@ class XY {
       tickCount: this.options.xTickCount === undefined ? 3 : this.options.xTickCount,
       moveDown: this.height,
       fontFamily: this.options.fontFamily || 'xkcd',
-      disableEffect: this.options.disableEffect,
+      unxkcdify: this.options.unxkcdify,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
       fontFamily: this.options.fontFamily || 'xkcd',
-      disableEffect: this.options.disableEffect,
+      unxkcdify: this.options.unxkcdify,
     });
 
     // lines
@@ -229,14 +229,14 @@ class XY {
         parent: graphPart,
         items: legendItems,
         position: { x: 3, y: 3, type: config.positionType.downRight },
-        disableEffect: this.options.disableEffect,
+        unxkcdify: this.options.unxkcdify,
       });
     } else if (this.options.legendPosition === config.positionType.upRight) {
       new Legend({
         parent: graphPart,
         items: legendItems,
         position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
-        disableEffect: this.options.disableEffect,
+        unxkcdify: this.options.unxkcdify,
       });
     } else {
       throw new Error('legendPosition only support upLeft and upRight for now');

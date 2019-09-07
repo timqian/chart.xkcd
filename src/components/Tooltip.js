@@ -24,12 +24,12 @@ class Tooltip {
    * }
    */
   constructor({
-    parent, title, items, position, disableEffect,
+    parent, title, items, position, unxkcdify,
   }) {
     this.title = title;
     this.items = items;
     this.position = position;
-    this.filter = !disableEffect ? 'url(#xkcdify)' : null;
+    this.filter = !unxkcdify ? 'url(#xkcdify)' : null;
 
     this.svg = parent.append('svg')
       .attr('x', this._getUpLeftX())

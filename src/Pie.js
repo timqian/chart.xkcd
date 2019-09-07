@@ -15,7 +15,7 @@ class Pie {
   constructor(svg, {
     title, data: { labels, datasets },
     options = {
-      disableEffect: false,
+      unxkcdify: false,
       innerRadius: 0.5,
       legendPosition: config.positionType.upLeft,
       dataColors: [],
@@ -28,7 +28,7 @@ class Pie {
       datasets,
     };
     this.options = options;
-    this.filter = !options.disableEffect ? 'url(#xkcdify-pie)' : null;
+    this.filter = !options.unxkcdify ? 'url(#xkcdify-pie)' : null;
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.options.fontFamily || 'xkcd')
@@ -48,7 +48,7 @@ class Pie {
       title: 'tooltip',
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
-      disableEffect: options.disableEffect,
+      unxkcdify: options.unxkcdify,
     });
 
     addFont(this.svgEl);
@@ -127,14 +127,14 @@ class Pie {
         parent: this.svgEl,
         items: legendItems,
         position: { x: 3, y: 3, type: config.positionType.downRight },
-        disableEffect: this.options.disableEffect,
+        unxkcdify: this.options.unxkcdify,
       });
     } else if (this.options.legendPosition === config.positionType.upRight) {
       new Legend({
         parent: this.svgEl,
         items: legendItems,
         position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
-        disableEffect: this.options.disableEffect,
+        unxkcdify: this.options.unxkcdify,
       });
     } else {
       throw new Error('legendPosition only support upLeft and upRight for now');
