@@ -2,6 +2,13 @@
 title: Radar chart
 ---
 
+<p class="codepen" data-height="434" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="VwZQBoj" style="height: 434px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd radar">
+  <span>See the Pen <a href="https://codepen.io/timqian/pen/VwZQBoj/">
+  chart.xkcd radar</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
 ## JS part
 
 ```js
@@ -38,3 +45,4 @@ const radar = new chartXkcd.Radar(svg, {
     - up right: `chart.Xkcd.positionType.upRight`
 - `dataColors`: array of colors for different datasets
 - `fontFamily`: customize font family used in the chart
+- `unxkcdify`: disable xkcd effect (default `false`)

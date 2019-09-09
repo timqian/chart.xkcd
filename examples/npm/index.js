@@ -16,6 +16,7 @@ new chartXkcd.Bar(svg, {
   },
   options: {
     yTickCount: 2,
+    // unxkcdify: true,
   },
 });
 
@@ -31,6 +32,7 @@ new chartXkcd.Pie(svgPie, {
   options: {
     innerRadius: 0.6,
     legendPosition: chartXkcd.config.positionType.upRight,
+    // unxkcdify: true,
   },
 });
 
@@ -50,7 +52,7 @@ new chartXkcd.Line(svgLine, {
     }],
   },
   options: {
-
+    // unxkcdify: true,
   },
 });
 
@@ -73,6 +75,7 @@ new chartXkcd.XY(svgXY, {
     yTickCount: 5,
     legendPosition: chartXkcd.config.positionType.upRight,
     showLine: false,
+    // unxkcdify: true,
   },
 });
 
@@ -97,6 +100,29 @@ new chartXkcd.XY(svgXY2, {
     showLine: true,
     timeFormat: 'MM/DD/YYYY',
     dotSize: 0.5,
+    // unxkcdify: true,
+  },
+});
+
+const svgRadar = document.querySelector('.radar-chart');
+new chartXkcd.Radar(svgRadar, {
+  title: 'Letters in random words',
+  data: {
+    labels: ['c', 'h', 'a', 'r', 't'],
+    datasets: [{
+      label: 'ccharrrt',
+      data: [2, 1, 1, 3, 1],
+    }, {
+      label: 'chhaart',
+      data: [1, 2, 2, 1, 1],
+    }],
+  },
+  options: {
+    showLegend: true,
+    dotSize: 0.8,
+    showLabels: true,
+    legendPosition: chartXkcd.config.positionType.upRight,
+    // unxkcdify: true,
   },
 });
 
@@ -121,23 +147,23 @@ new chartXkcd.Line(svgLineCus, {
   },
 });
 
-const svgRadar = document.querySelector('.radar-chart');
-new chartXkcd.Radar(svgRadar, {
-  title: 'Letters in random words',
+
+const svgLineUnxkcdify = document.querySelector('.line-chart-unxkcdify');
+new chartXkcd.Line(svgLineUnxkcdify, {
+  title: 'Unxkcdify',
+  xLabel: 'this is x label',
+  yLabel: 'y label',
   data: {
-    labels: ['c', 'h', 'a', 'r', 't'],
+    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
     datasets: [{
-      label: 'ccharrrt',
-      data: [2, 1, 1, 3, 1],
+      label: 'font',
+      data: [30, 70, 200, 300, 500, 800, 100, 290, 500, 300],
     }, {
-      label: 'chhaart',
-      data: [1, 2, 2, 1, 1],
+      label: 'color',
+      data: [0, 1, 30, 70, 80, 100, 500, 80, 40, 250],
     }],
   },
   options: {
-    showLegend: true,
-    dotSize: .8,
-    showLabels: true,
-    legendPosition: chartXkcd.config.positionType.upRight,
+    unxkcdify: true,
   },
 });

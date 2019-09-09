@@ -7,7 +7,7 @@ const yAxis = (parent, {
     .append('g')
     .call(
       axisLeft(yScale)
-        .tickSize(0)
+        .tickSize(1)
         .tickPadding(10)
         .ticks(tickCount, 's'),
     );

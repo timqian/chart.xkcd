@@ -35,9 +35,15 @@ class Radar {
     // TODO: find the longest dataset or throw an error for inconsistent datasets
     this.directionsCount = datasets[0].data.length;
     this.options = options;
+    this.filter = 'url(#xkcdify-pie)';
+    this.fontFamily = this.options.fontFamily || 'xkcd';
+    if (options.unxkcdify) {
+      this.filter = null;
+      this.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+    }
     this.svgEl = select(svg)
       .style('stroke-width', '3')
-      .style('font-family', this.options.fontFamily || 'xkcd')
+      .style('font-family', this.fontFamily)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -54,6 +60,7 @@ class Radar {
       title: '',
       items: [],
       position: { x: 0, y: 0, type: config.positionType.downRight },
+      unxkcdify: this.options.unxkcdify,
     });
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -97,7 +104,7 @@ class Radar {
     const grid = this.chart.append('g')
       .attr('class', 'xkcd-chart-radar-grid')
       .attr('stroke-width', '1')
-      .attr('filter', 'url(#xkcdify-pie)');
+      .attr('filter', this.filter);
 
     grid.selectAll('.xkcd-chart-radar-level')
       .data(ticks)
@@ -162,7 +169,7 @@ class Radar {
       .enter()
       .append('g')
       .attr('class', 'xkcd-chart-radar-group')
-      .attr('filter', 'url(#xkcdify-pie)')
+      .attr('filter', this.filter)
       .attr('stroke', (d, i) => dataColors[i])
       .attr('fill', (d, i) => dataColors[i]);
 
@@ -229,6 +236,7 @@ class Radar {
             y: this.title ? 30 : 3,
             type: config.positionType.downRight,
           },
+          unxkcdify: this.options.unxkcdify,
         });
       } else if (this.options.legendPosition === config.positionType.upRight) {
         new Legend({
@@ -239,6 +247,7 @@ class Radar {
             y: this.title ? 30 : 3,
             type: config.positionType.downLeft,
           },
+          unxkcdify: this.options.unxkcdify,
         });
       } else {
         throw new Error('legendPosition only support upLeft and upRight for now');

@@ -59,7 +59,6 @@ class Legend {
 
       g.append('text')
         .style('font-size', '15')
-        .style('font-weight', 'lighter')
         .attr('x', 15 + 12)
         .attr('y', 17 + 20 * i + 8)
         .text(item.text);

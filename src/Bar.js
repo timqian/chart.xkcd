@@ -42,10 +42,16 @@ class Bar {
       datasets,
     };
     this.options = options;
-    this.filter = !options.unxkcdify ? 'url(#xkcdify)' : null;
+    this.filter = 'url(#xkcdify)';
+    this.fontFamily = this.options.fontFamily || 'xkcd';
+    if (options.unxkcdify) {
+      this.filter = null;
+      this.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+    }
+
     this.svgEl = select(svg)
       .style('stroke-width', '3')
-      .style('font-family', this.options.fontFamily || 'xkcd')
+      .style('font-family', this.fontFamily)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
 
@@ -93,13 +99,13 @@ class Bar {
       xScale,
       tickCount: 3,
       moveDown: this.height,
-      fontFamily: this.options.fontFamily || 'xkcd',
+      fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
-      fontFamily: this.options.fontFamily || 'xkcd',
+      fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
     });
 

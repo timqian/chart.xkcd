@@ -50,10 +50,16 @@ class XY {
       datasets,
     };
     this.options = options;
-    this.filter = !options.unxkcdify ? 'url(#xkcdify)' : null;
+    this.filter = 'url(#xkcdify)';
+    this.fontFamily = this.options.fontFamily || 'xkcd';
+    if (options.unxkcdify) {
+      this.filter = null;
+      this.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+    }
+
     this.svgEl = select(svg)
       .style('stroke-width', 3)
-      .style('font-family', this.options.fontFamily || 'xkcd')
+      .style('font-family', this.fontFamily)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -117,13 +123,13 @@ class XY {
       xScale,
       tickCount: this.options.xTickCount === undefined ? 3 : this.options.xTickCount,
       moveDown: this.height,
-      fontFamily: this.options.fontFamily || 'xkcd',
+      fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
-      fontFamily: this.options.fontFamily || 'xkcd',
+      fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
     });
 
