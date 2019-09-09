@@ -22,6 +22,7 @@ class XY {
   constructor(svg, {
     title, xLabel, yLabel, data: { datasets },
     options = {
+      unxkcdify: false,
       dotSize: 1,
       showLine: false,
       timeFormat: '',
@@ -49,6 +50,7 @@ class XY {
       datasets,
     };
     this.options = options;
+    this.filter = !options.unxkcdify ? 'url(#xkcdify)' : null;
     this.svgEl = select(svg)
       .style('stroke-width', 3)
       .style('font-family', this.options.fontFamily || 'xkcd')
@@ -66,6 +68,7 @@ class XY {
       title: '',
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.dowfnRight },
+      unxkcdify: options.unxkcdify,
     });
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -115,11 +118,13 @@ class XY {
       tickCount: this.options.xTickCount === undefined ? 3 : this.options.xTickCount,
       moveDown: this.height,
       fontFamily: this.options.fontFamily || 'xkcd',
+      unxkcdify: this.options.unxkcdify,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
       fontFamily: this.options.fontFamily || 'xkcd',
+      unxkcdify: this.options.unxkcdify,
     });
 
     // lines
@@ -137,7 +142,7 @@ class XY {
         .attr('d', (d) => theLine(d.data))
         .attr('fill', 'none')
         .attr('stroke', (d, i) => (this.options.dataColors ? this.options.dataColors[i] : colors[i]))
-        .attr('filter', 'url(#xkcdify)');
+        .attr('filter', this.filter);
     }
 
     // dots
@@ -148,7 +153,7 @@ class XY {
       .enter()
       .append('g')
       .attr('class', '.xkcd-chart-xycircle-group')
-      .attr('filter', 'url(#xkcdify)')
+      .attr('filter', this.filter)
       .attr('xy-group-index', (d, i) => i)
       .selectAll('.xkcd-chart-xycircle-circle')
       .data((dataset) => dataset.data)
@@ -158,11 +163,15 @@ class XY {
         // FIXME: here I want to pass xyGroupIndex down to the circles by reading parent attrs
         // It might have perfomance issue with a large dataset, not sure there are better ways
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex];
+        return this.options.dataColors
+          ? this.options.dataColors[xyGroupIndex]
+          : colors[xyGroupIndex];
       })
       .style('fill', (d, i, nodes) => {
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex];
+        return this.options.dataColors
+          ? this.options.dataColors[xyGroupIndex]
+          : colors[xyGroupIndex];
       })
       .attr('r', dotInitSize)
       .attr('cx', (d) => xScale(d.x))
@@ -186,7 +195,9 @@ class XY {
         this.tooltip.update({
           title: this.options.timeFormat ? dayjs(this.data.datasets[xyGroupIndex].data[i].x).format(this.options.timeFormat) : `${this.data.datasets[xyGroupIndex].data[i].x}`,
           items: [{
-            color: this.options.dataColors ? this.options.dataColors[xyGroupIndex] : colors[xyGroupIndex],
+            color: this.options.dataColors
+              ? this.options.dataColors[xyGroupIndex]
+              : colors[xyGroupIndex],
             text: `${this.data.datasets[xyGroupIndex].label || ''}: ${d.y}`,
           }],
           position: {
@@ -218,12 +229,14 @@ class XY {
         parent: graphPart,
         items: legendItems,
         position: { x: 3, y: 3, type: config.positionType.downRight },
+        unxkcdify: this.options.unxkcdify,
       });
     } else if (this.options.legendPosition === config.positionType.upRight) {
       new Legend({
         parent: graphPart,
         items: legendItems,
         position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
+        unxkcdify: this.options.unxkcdify,
       });
     } else {
       throw new Error('legendPosition only support upLeft and upRight for now');

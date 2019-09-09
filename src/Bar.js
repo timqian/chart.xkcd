@@ -19,6 +19,7 @@ class Bar {
   constructor(svg, {
     title, xLabel, yLabel, data: { labels, datasets },
     options = {
+      unxkcdify: false,
       yTickCount: 3,
       dataColors: [],
       fontFamily: 'xkcd',
@@ -41,6 +42,7 @@ class Bar {
       datasets,
     };
     this.options = options;
+    this.filter = !options.unxkcdify ? 'url(#xkcdify)' : null;
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.options.fontFamily || 'xkcd')
@@ -60,6 +62,7 @@ class Bar {
       title: 'tooltip',
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
+      unxkcdify: options.unxkcdify,
     });
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -91,11 +94,13 @@ class Bar {
       tickCount: 3,
       moveDown: this.height,
       fontFamily: this.options.fontFamily || 'xkcd',
+      unxkcdify: this.options.unxkcdify,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.options.fontFamily || 'xkcd',
+      unxkcdify: this.options.unxkcdify,
     });
 
     // Bars
@@ -114,7 +119,7 @@ class Bar {
       .attr('stroke-width', 3)
       .attr('rx', 2)
       // .attr('cursor','crosshair')
-      .attr('filter', 'url(#xkcdify)')
+      .attr('filter', this.filter)
       .on('mouseover', (d, i, nodes) => {
         select(nodes[i]).attr('fill', this.options.dataColors ? this.options.dataColors[i] : colors[i]);
         // select(nodes[i]).attr('fill', 'url(#hatch00)');
