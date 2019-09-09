@@ -47,6 +47,10 @@
                   <a href="#pie_doughnut_chart">Pie/Doughnut chart</a>
                 </div>
               
+                <div class="item">
+                  <a href="#radar_chart">Radar chart</a>
+                </div>
+              
             </div>
           </div>
 
@@ -123,7 +127,7 @@ We already have lots of great chart libraries like [chart.js](), [echart](), [ch
 	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
 </a>Via Script Tag</h2>
 
-<pre class="chroma"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://cdn.jsdelivr.net/npm/chart.xkcd@1/dist/chart.xkcd.min.js&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<pre class="chroma"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://cdn.jsdelivr.net/npm/chart.xkcd@1.1.3/dist/chart.xkcd.min.js&#34;</span> <span class="nx">integrity</span><span class="o">=</span><span class="s2">&#34;sha256-NkH6G4XRcQ5Bsfs7O6yh9mw1SJLEOJWCtWqko6VjF34=&#34;</span> <span class="nx">crossorigin</span><span class="o">=</span><span class="s2">&#34;anonymous&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
 <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
     <span class="kr">const</span> <span class="nx">myChart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Line</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{...});</span>
 <span class="o">&lt;</span><span class="err">/script&gt;</span>
@@ -211,6 +215,7 @@ Possible values:
 </ul></li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
+<li><code>unxkcdify</code>: disable xkcd effect for serious people (default <code>false</code>)</li>
 </ul>
 
               </div>
@@ -280,6 +285,7 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 <li><code>dotSize</code>: you can change size of the dots if you want (default <code>1</code>)</li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
+<li><code>unxkcdify</code>: disable xkcd effect for serious people (default <code>false</code>)</li>
 </ul>
 
 <p><strong>Another example of XY chart: XY line chart with <code>timeFormat</code></strong></p>
@@ -334,6 +340,7 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 <li><code>yTickCount</code>: customize tick numbers you want to see on the y axis</li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
+<li><code>unxkcdify</code>: disable xkcd effect for serious people (default <code>false</code>)</li>
 </ul>
 
               </div>
@@ -387,6 +394,66 @@ Possible values:
 </ul></li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
+<li><code>unxkcdify</code>: disable xkcd effect for serious people (default <code>false</code>)</li>
+</ul>
+
+              </div>
+            
+              <div class="Page" id="radar_chart">
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart" href="#radar_chart">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Radar chart</h1>
+                <p></p><p class="codepen" data-height="412" data-theme-id="light" data-default-tab="html,result" data-user="timqian" data-slug-hash="VwZQBoj" style="height: 412px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd radar">
+  <span>See the Pen <a href="https://codepen.io/timqian/pen/VwZQBoj/">
+  chart.xkcd radar</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart.js_part" href="#radar_chart.js_part">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>JS part</h2>
+
+<pre class="chroma"><span class="kr">const</span> <span class="nx">radar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Radar</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Letters in random words&#39;</span><span class="p">,</span> <span class="c1">// optional
+</span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">],</span>
+    <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;ccharrrt&#39;</span><span class="p">,</span> <span class="c1">// optional
+</span><span class="c1"></span>      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;chhaart&#39;</span><span class="p">,</span> <span class="c1">// optional
+</span><span class="c1"></span>      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">}],</span>
+  <span class="p">},</span>
+  <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// optional
+</span><span class="c1"></span>    <span class="nx">showLegend</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">dotSize</span><span class="o">:</span> <span class="mf">.8</span><span class="p">,</span>
+    <span class="nx">showLabels</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">legendPosition</span><span class="o">:</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">positionType</span><span class="p">.</span><span class="nx">upRight</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</pre>
+
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart.customize_chart_by_defining_options" href="#radar_chart.customize_chart_by_defining_options">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Customize chart by defining options</h2>
+
+<ul>
+<li><code>showLabels</code>: display labels near every line (default <code>false</code>)</li>
+<li><code>ticksCount</code>: customize tick numbers you want to see on the main line (default <code>3</code>)</li>
+<li><code>dotSize</code>: you can change size of the dots if you want (default <code>1</code>)</li>
+<li><code>showLegend</code>: display legend near chart (default <code>false</code>)</li>
+<li><code>legendPosition</code>: specify where you want to place the legend. (default <code>chartXkcd.config.positionType.upLeft</code>)
+Possible values:
+
+<ul>
+<li>up left: <code>chart.Xkcd.positionType.upLeft</code></li>
+<li>up right: <code>chart.Xkcd.positionType.upRight</code></li>
+</ul></li>
+<li><code>dataColors</code>: array of colors for different datasets</li>
+<li><code>fontFamily</code>: customize font family used in the chart</li>
+<li><code>unxkcdify</code>: disable xkcd effect for serious people (default <code>false</code>)</li>
 </ul>
 
               </div>
