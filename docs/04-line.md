@@ -41,7 +41,7 @@ const lineChart = new chartXkcd.Line(svg, {
 - `legendPosition`: specify where you want to place the legend. (default `chartXkcd.config.positionType.upLeft`)
   Possible values:
     - up left: `chart.Xkcd.positionType.upLeft`
-    - up right: `chart.Xkcd.positionType.upLeft`
+    - up right: `chart.Xkcd.positionType.upRight`
 - `dataColors`: array of colors for different datasets
 - `fontFamily`: customize font family used in the chart
 - `unxkcdify`: disable xkcd effect (default `false`)
