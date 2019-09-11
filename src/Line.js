@@ -232,8 +232,22 @@ class Line {
         position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
         unxkcdify: this.options.unxkcdify,
       });
+    } else if (this.options.legendPosition === config.positionType.downLeft) {
+      new Legend({
+        parent: graphPart,
+        items: legendItems,
+        position: { x: 120, y: this.height - 75, type: config.positionType.downLeft },
+        unxkcdify: this.options.unxkcdify,
+      });
+    } else if (this.options.legendPosition === config.positionType.downRight) {
+      new Legend({
+        parent: graphPart,
+        items: legendItems,
+        position: { x: this.width - 90, y: this.height - 75, type: config.positionType.downRight },
+        unxkcdify: this.options.unxkcdify,
+      });
     } else {
-      throw new Error('legendPosition only support upLeft and upRight for now');
+      throw new Error('legendPosition unknown, valid options are upRight, upLeft, downRight, downLeft');
     }
   }
 

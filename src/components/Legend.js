@@ -83,7 +83,7 @@ class Legend {
   _getUpLeftX() {
     if (
       this.position.type === config.positionType.upRight
-      || this.position.type === config.positionType.downRight
+       || this.position.type === config.positionType.downRight
     ) {
       return this.position.x;
     }
