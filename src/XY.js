@@ -86,6 +86,8 @@ class XY {
     if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
     if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
 
+    this.tooltip.render();
+
     if (this.options.timeFormat) {
       this.data.datasets.forEach((dataset) => {
         dataset.data.forEach((d) => {

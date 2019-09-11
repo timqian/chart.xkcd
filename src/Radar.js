@@ -78,6 +78,8 @@ class Radar {
         .text(this.title);
     }
 
+    this.tooltip.render();
+
     const dotInitSize = 3.5 * (this.options.dotSize || 1);
     const dotHoverSize = 6 * (this.options.dotSize || 1);
     const dataColors = this.options.dataColors || colors;

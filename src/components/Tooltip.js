@@ -26,12 +26,15 @@ class Tooltip {
   constructor({
     parent, title, items, position, unxkcdify,
   }) {
+    this.parent = parent;
     this.title = title;
     this.items = items;
     this.position = position;
     this.filter = !unxkcdify ? 'url(#xkcdify)' : null;
+  }
 
-    this.svg = parent.append('svg')
+  render() {
+    this.svg = this.parent.append('svg')
       .attr('x', this._getUpLeftX())
       .attr('y', this._getUpLeftY())
       .style('visibility', 'hidden');
@@ -54,9 +57,9 @@ class Tooltip {
       .style('font-weight', 'bold')
       .attr('x', 15)
       .attr('y', 25)
-      .text(title);
+      .text(this.title);
 
-    this.tipItems = items.map((item, i) => {
+    this.tipItems = this.items.map((item, i) => {
       const g = this.svg.append('g');
       g.append('rect')
         .style('fill', item.color)

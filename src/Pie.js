@@ -75,6 +75,8 @@ class Pie {
         .text(this.title);
     }
 
+    this.tooltip.render();
+
     const radius = Math.min(this.width, this.height) / 2 - margin;
 
     const thePie = pie();
