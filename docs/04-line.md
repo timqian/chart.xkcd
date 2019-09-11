@@ -40,8 +40,8 @@ const lineChart = new chartXkcd.Line(svg, {
 - `yTickCount`: customize tick numbers you want to see on the y axis (default `3`)
 - `legendPosition`: specify where you want to place the legend. (default `chartXkcd.config.positionType.upLeft`)
   Possible values:
-    - up left: `chart.Xkcd.positionType.upLeft`
-    - up right: `chart.Xkcd.positionType.upLeft`
+    - up left: `chart.Xkcd.positionType.upLeft`    
+    - up right: `chart.Xkcd.positionType.upRight`
     - bottom left: `chart.Xkcd.positionType.downLeft`
     - bottom right: `chart.Xkcd.positionType.downRight`
 - `dataColors`: array of colors for different datasets
