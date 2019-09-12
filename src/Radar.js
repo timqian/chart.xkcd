@@ -2,7 +2,8 @@ import select from 'd3-selection/src/select';
 import line from 'd3-shape/src/line';
 import curveLinearClosed from 'd3-shape/src/curve/linearClosed';
 import scaleLinear from 'd3-scale/src/linear';
-import Legend from './components/Legend';
+import addLegend from './utils/addLegend';
+import addLabels from './utils/addLabels';
 import Tooltip from './components/Tooltip';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
@@ -50,7 +51,6 @@ class Radar {
 
     this.width = this.svgEl.attr('width');
     this.height = this.svgEl.attr('height');
-
     this.chart = this.svgEl.append('g')
       .attr('transform',
         `translate(${this.width / 2},${this.height / 2})`);
@@ -62,13 +62,7 @@ class Radar {
 
   render() {
     if (this.title) {
-      this.svgEl.append('text')
-        .style('font-size', '20')
-        .style('font-weight', 'bold')
-        .attr('x', '50%')
-        .attr('y', 30)
-        .attr('text-anchor', 'middle')
-        .text(this.title);
+      addLabels.title(this.svgEl, this.title);
     }
 
     const tooltip = new Tooltip({
@@ -227,32 +221,18 @@ class Radar {
     if (this.options.showLegend) {
       const legendItems = this.data.datasets
         .map((data, i) => ({ color: dataColors[i], text: data.label || '' }));
-      if (this.options.legendPosition === config.positionType.upLeft
-        || !this.options.legendPosition) {
-        new Legend({
-          parent: this.svgEl,
-          items: legendItems,
-          position: {
-            x: 3,
-            y: this.title ? 30 : 3,
-            type: config.positionType.downRight,
-          },
-          unxkcdify: this.options.unxkcdify,
-        });
-      } else if (this.options.legendPosition === config.positionType.upRight) {
-        new Legend({
-          parent: this.svgEl,
-          items: legendItems,
-          position: {
-            x: this.width - 3,
-            y: this.title ? 30 : 3,
-            type: config.positionType.downLeft,
-          },
-          unxkcdify: this.options.unxkcdify,
-        });
-      } else {
-        throw new Error('legendPosition only support upLeft and upRight for now');
-      }
+
+      // move legend down to prevent overlaping with title
+      const legendG = this.svgEl.append('g')
+        .attr('transform', 'translate(0, 30)');
+
+      addLegend(legendG, {
+        items: legendItems,
+        position: this.options.legendPosition,
+        unxkcdify: this.options.unxkcdify,
+        parentWidth: this.width,
+        parentHeight: this.height,
+      });
     }
   }
 

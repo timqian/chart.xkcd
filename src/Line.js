@@ -8,7 +8,7 @@ import scaleLinear from 'd3-scale/src/linear';
 import addAxis from './utils/addAxis';
 import addLabels from './utils/addLabels';
 import Tooltip from './components/Tooltip';
-import Legend from './components/Legend';
+import addLegend from './utils/addLegend';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
 import colors from './utils/colors';
@@ -217,24 +217,14 @@ class Line {
         color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
         text: dataset.label,
       }));
-    if (this.options.legendPosition === config.positionType.upLeft
-      || !this.options.legendPosition) {
-      new Legend({
-        parent: graphPart,
-        items: legendItems,
-        position: { x: 3, y: 3, type: config.positionType.downRight },
-        unxkcdify: this.options.unxkcdify,
-      });
-    } else if (this.options.legendPosition === config.positionType.upRight) {
-      new Legend({
-        parent: graphPart,
-        items: legendItems,
-        position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
-        unxkcdify: this.options.unxkcdify,
-      });
-    } else {
-      throw new Error('legendPosition only support upLeft and upRight for now');
-    }
+
+    addLegend(graphPart, {
+      items: legendItems,
+      position: this.options.legendPosition,
+      unxkcdify: this.options.unxkcdify,
+      parentWidth: this.width,
+      parentHeight: this.height,
+    });
   }
 
   // TODO: update chart

@@ -3,7 +3,7 @@ import mouse from 'd3-selection/src/mouse';
 import pie from 'd3-shape/src/pie';
 import arc from 'd3-shape/src/arc';
 import Tooltip from './components/Tooltip';
-import Legend from './components/Legend';
+import addLegend from './utils/addLegend';
 import addLabels from './utils/addLabels';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
@@ -121,24 +121,18 @@ class Pie {
     // Legend
     const legendItems = this.data.datasets[0].data
       .map((data, i) => ({ color: colors[i], text: this.data.labels[i] }));
-    if (this.options.legendPosition === config.positionType.upLeft
-      || !this.options.legendPosition) {
-      new Legend({
-        parent: this.svgEl,
-        items: legendItems,
-        position: { x: 3, y: 3, type: config.positionType.downRight },
-        unxkcdify: this.options.unxkcdify,
-      });
-    } else if (this.options.legendPosition === config.positionType.upRight) {
-      new Legend({
-        parent: this.svgEl,
-        items: legendItems,
-        position: { x: this.width - 3, y: 3, type: config.positionType.downLeft },
-        unxkcdify: this.options.unxkcdify,
-      });
-    } else {
-      throw new Error('legendPosition only support upLeft and upRight for now');
-    }
+
+    // move legend down to prevent overlaping with title
+    const legendG = this.svgEl.append('g')
+      .attr('transform', 'translate(0, 30)');
+
+    addLegend(legendG, {
+      items: legendItems,
+      position: this.options.legendPosition,
+      unxkcdify: this.options.unxkcdify,
+      parentWidth: this.width,
+      parentHeight: this.height,
+    });
   }
 
   // TODO: update chart

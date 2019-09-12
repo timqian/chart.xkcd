@@ -33,8 +33,10 @@ const pieChart = new chartXkcd.Pie(svg, {
   - Want a pie chart? set `innerRadius` to `0`
 - `legendPosition`: specify where you want to place the legend. (default `chartXkcd.config.positionType.upLeft`)
   Possible values:
-    - up left: `chart.Xkcd.positionType.upLeft`
-    - up right: `chart.Xkcd.positionType.upLeft
+    - up left: `chartXkcd.config.positionType.upLeft`
+    - up right: `chartXkcd.config.positionType.upLeft`
+    - bottom left: `chartXkcd.config.positionType.downLeft`
+    - bottom right: `chartXkcd.config.positionType.downRight`
 - `dataColors`: array of colors for different datasets
 - `fontFamily`: customize font family used in the chart
 - `unxkcdify`: disable xkcd effect (default `false`)

@@ -64,7 +64,7 @@ new chartXkcd.XY(svgXY, {
   data: {
     datasets: [{
       label: 'timqian',
-      data: [{ x: 3, y: 10 }, { x: 4, y: 122 }, { x: 10, y: 100 }, { x: 1, y: 2 }, { x: 2, y: 4 }],
+      data: [{ x: 3, y: 10 }, { x: 4, y: 122 }, { x: 10, y: 180 }, { x: 1, y: 2 }, { x: 2, y: 4 }],
     }, {
       label: 'wewean',
       data: [{ x: 3, y: 122 }, { x: 4, y: 212 }, { x: -3, y: 100 }, { x: 1, y: 1 }, { x: 1.5, y: 12 }],
@@ -73,7 +73,7 @@ new chartXkcd.XY(svgXY, {
   options: {
     xTickCount: 5,
     yTickCount: 5,
-    legendPosition: chartXkcd.config.positionType.upRight,
+    legendPosition: chartXkcd.config.positionType.downRight,
     showLine: false,
     // unxkcdify: true,
   },
@@ -106,7 +106,7 @@ new chartXkcd.XY(svgXY2, {
 
 const svgRadar = document.querySelector('.radar-chart');
 new chartXkcd.Radar(svgRadar, {
-  title: 'Letters in random words',
+  title: 'Radar',
   data: {
     labels: ['c', 'h', 'a', 'r', 't'],
     datasets: [{
@@ -144,6 +144,7 @@ new chartXkcd.Line(svgLineCus, {
   options: {
     fontFamily: 'ZCOOL KuaiLe',
     dataColors: ['black', '#aaa'],
+    legendPosition: chartXkcd.config.positionType.upRight,
   },
 });
 
