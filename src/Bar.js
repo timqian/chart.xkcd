@@ -63,13 +63,6 @@ class Bar {
     this.width = this.svgEl.attr('width') - margin.left - margin.right;
     this.height = this.svgEl.attr('height') - margin.top - margin.bottom;
 
-    this.tooltip = new Tooltip({
-      parent: this.svgEl,
-      title: 'tooltip',
-      items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
-      position: { x: 30, y: 30, type: config.positionType.upRight },
-      unxkcdify: options.unxkcdify,
-    });
     addFont(this.svgEl);
     addFilter(this.svgEl);
     this.render();
@@ -79,6 +72,14 @@ class Bar {
     if (this.title) addLabels.title(this.svgEl, this.title);
     if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
     if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
+
+    const tooltip = new Tooltip({
+      parent: this.svgEl,
+      title: 'tooltip',
+      items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
+      position: { x: 30, y: 30, type: config.positionType.upRight },
+      unxkcdify: this.options.unxkcdify,
+    });
 
     const xScale = scaleBand()
       .range([0, this.width])
@@ -129,11 +130,11 @@ class Bar {
       .on('mouseover', (d, i, nodes) => {
         select(nodes[i]).attr('fill', this.options.dataColors ? this.options.dataColors[i] : colors[i]);
         // select(nodes[i]).attr('fill', 'url(#hatch00)');
-        this.tooltip.show();
+        tooltip.show();
       })
       .on('mouseout', (d, i, nodes) => {
         select(nodes[i]).attr('fill', 'none');
-        this.tooltip.hide();
+        tooltip.hide();
       })
       .on('mousemove', (d, i, nodes) => {
         const tipX = mouse(nodes[i])[0] + margin.left + 10;
@@ -147,7 +148,7 @@ class Bar {
         } else if (tipX < this.width / 2 && tipY > this.height / 2) {
           tooltipPositionType = config.positionType.upRight;
         }
-        this.tooltip.update({
+        tooltip.update({
           title: this.data.labels[i],
           items: [{
             color: this.options.dataColors ? this.options.dataColors[i] : colors[i],

@@ -55,13 +55,6 @@ class Radar {
       .attr('transform',
         `translate(${this.width / 2},${this.height / 2})`);
 
-    this.tooltip = new Tooltip({
-      parent: this.svgEl,
-      title: '',
-      items: [],
-      position: { x: 0, y: 0, type: config.positionType.downRight },
-      unxkcdify: this.options.unxkcdify,
-    });
     addFont(this.svgEl);
     addFilter(this.svgEl);
     this.render();
@@ -77,6 +70,14 @@ class Radar {
         .attr('text-anchor', 'middle')
         .text(this.title);
     }
+
+    const tooltip = new Tooltip({
+      parent: this.svgEl,
+      title: '',
+      items: [],
+      position: { x: 0, y: 0, type: config.positionType.downRight },
+      unxkcdify: this.options.unxkcdify,
+    });
 
     const dotInitSize = 3.5 * (this.options.dotSize || 1);
     const dotHoverSize = 6 * (this.options.dotSize || 1);
@@ -194,7 +195,7 @@ class Radar {
         } else if (tipX < this.width / 2 && tipY > this.height / 2) {
           tooltipPositionType = config.positionType.upRight;
         }
-        this.tooltip.update({
+        tooltip.update({
           title: this.data.labels[i],
           items: this.data.datasets.map((dataset, datasetIndex) => ({
             color: dataColors[datasetIndex],
@@ -206,12 +207,12 @@ class Radar {
             type: tooltipPositionType,
           },
         });
-        this.tooltip.show();
+        tooltip.show();
       })
       .on('mouseout', (d, i, nodes) => {
         select(nodes[i]).attr('r', dotInitSize);
 
-        this.tooltip.hide();
+        tooltip.hide();
       });
 
     layers.selectAll('path')

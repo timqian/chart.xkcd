@@ -65,13 +65,7 @@ class Line {
         `translate(${margin.left},${margin.top})`);
     this.width = this.svgEl.attr('width') - margin.left - margin.right;
     this.height = this.svgEl.attr('height') - margin.top - margin.bottom;
-    this.tooltip = new Tooltip({
-      parent: this.svgEl,
-      title: '',
-      items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
-      position: { x: 60, y: 60, type: config.positionType.dowfnRight },
-      unxkcdify: options.unxkcdify,
-    });
+
     addFont(this.svgEl);
     addFilter(this.svgEl);
     this.render();
@@ -81,6 +75,13 @@ class Line {
     if (this.title) addLabels.title(this.svgEl, this.title);
     if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
     if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
+    const tooltip = new Tooltip({
+      parent: this.svgEl,
+      title: '',
+      items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
+      position: { x: 60, y: 60, type: config.positionType.dowfnRight },
+      unxkcdify: this.options.unxkcdify,
+    });
 
     const xScale = scalePoint()
       .domain(this.data.labels)
@@ -94,7 +95,6 @@ class Line {
       .range([this.height, 0]);
 
     const graphPart = this.chart.append('g')
-      // .attr("filter", "url(#xkcdify)")
       .attr('pointer-events', 'all');
 
     // axis
@@ -158,12 +158,12 @@ class Line {
       .on('mouseover', () => {
         circles.forEach((circle) => circle.style('visibility', 'visible'));
         verticalLine.style('visibility', 'visible');
-        this.tooltip.show();
+        tooltip.show();
       })
       .on('mouseout', () => {
         circles.forEach((circle) => circle.style('visibility', 'hidden'));
         verticalLine.style('visibility', 'hidden');
-        this.tooltip.hide();
+        tooltip.hide();
       })
       .on('mousemove', (d, i, nodes) => {
         const tipX = mouse(nodes[i])[0] + margin.left + 10;
@@ -200,7 +200,7 @@ class Line {
           tooltipPositionType = config.positionType.upRight;
         }
 
-        this.tooltip.update({
+        tooltip.update({
           title: this.data.labels[mostNearLabelIndex],
           items: tooltipItems,
           position: {

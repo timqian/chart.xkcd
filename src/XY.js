@@ -69,13 +69,7 @@ class XY {
         `translate(${margin.left},${margin.top})`);
     this.width = this.svgEl.attr('width') - margin.left - margin.right;
     this.height = this.svgEl.attr('height') - margin.top - margin.bottom;
-    this.tooltip = new Tooltip({
-      parent: this.svgEl,
-      title: '',
-      items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
-      position: { x: 60, y: 60, type: config.positionType.dowfnRight },
-      unxkcdify: options.unxkcdify,
-    });
+
     addFont(this.svgEl);
     addFilter(this.svgEl);
     this.render();
@@ -85,6 +79,14 @@ class XY {
     if (this.title) addLabels.title(this.svgEl, this.title);
     if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
     if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
+
+    const tooltip = new Tooltip({
+      parent: this.svgEl,
+      title: '',
+      items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
+      position: { x: 60, y: 60, type: config.positionType.dowfnRight },
+      unxkcdify: this.options.unxkcdify,
+    });
 
     if (this.options.timeFormat) {
       this.data.datasets.forEach((dataset) => {
@@ -198,7 +200,7 @@ class XY {
         } else if (tipX < this.width / 2 && tipY > this.height / 2) {
           tooltipPositionType = config.positionType.upRight;
         }
-        this.tooltip.update({
+        tooltip.update({
           title: this.options.timeFormat ? dayjs(this.data.datasets[xyGroupIndex].data[i].x).format(this.options.timeFormat) : `${this.data.datasets[xyGroupIndex].data[i].x}`,
           items: [{
             color: this.options.dataColors
@@ -212,13 +214,13 @@ class XY {
             type: tooltipPositionType,
           },
         });
-        this.tooltip.show();
+        tooltip.show();
       })
       .on('mouseout', (d, i, nodes) => {
         select(nodes[i])
           .attr('r', dotInitSize);
 
-        this.tooltip.hide();
+        tooltip.hide();
       });
 
 

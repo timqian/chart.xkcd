@@ -4,6 +4,7 @@ import pie from 'd3-shape/src/pie';
 import arc from 'd3-shape/src/arc';
 import Tooltip from './components/Tooltip';
 import Legend from './components/Legend';
+import addLabels from './utils/addLabels';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
 import colors from './utils/colors';
@@ -49,13 +50,6 @@ class Pie {
       .attr('transform',
         `translate(${this.width / 2},${this.height / 2})`);
 
-    this.tooltip = new Tooltip({
-      parent: this.svgEl,
-      title: 'tooltip',
-      items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
-      position: { x: 30, y: 30, type: config.positionType.upRight },
-      unxkcdify: options.unxkcdify,
-    });
 
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -64,16 +58,16 @@ class Pie {
 
   render() {
     if (this.title) {
-      this.svgEl
-        .append('text')
-
-        .style('font-size', '20')
-        .style('font-weight', 'bold')
-        .attr('x', '50%')
-        .attr('y', 30)
-        .attr('text-anchor', 'middle')
-        .text(this.title);
+      addLabels.title(this.svgEl, this.title);
     }
+
+    const tooltip = new Tooltip({
+      parent: this.svgEl,
+      title: 'tooltip',
+      items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
+      position: { x: 30, y: 30, type: config.positionType.upRight },
+      unxkcdify: this.options.unxkcdify,
+    });
 
     const radius = Math.min(this.width, this.height) / 2 - margin;
 
@@ -100,17 +94,17 @@ class Pie {
       // .attr("fill-opacity", 0.6)
       .on('mouseover', (d, i, nodes) => {
         select(nodes[i]).attr('fill-opacity', 0.6);
-        this.tooltip.show();
+        tooltip.show();
       })
       .on('mouseout', (d, i, nodes) => {
         select(nodes[i]).attr('fill-opacity', 1);
-        this.tooltip.hide();
+        tooltip.hide();
       })
       .on('mousemove', (d, i, nodes) => {
         const tipX = mouse(nodes[i])[0] + (this.width / 2) + 10;
         const tipY = mouse(nodes[i])[1] + (this.height / 2) + 10;
 
-        this.tooltip.update({
+        tooltip.update({
           title: this.data.labels[i],
           items: [{
             color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
