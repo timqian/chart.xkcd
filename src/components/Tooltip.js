@@ -57,24 +57,7 @@ class Tooltip {
       .text(title);
 
     this.tipItems = items.map((item, i) => {
-      const g = this.svg.append('g');
-      g.append('rect')
-        .style('fill', item.color)
-        .attr('width', 8)
-        .attr('height', 8)
-        .attr('rx', 2)
-        .attr('ry', 2)
-        .attr('filter', this.filter)
-        .attr('x', 15)
-        .attr('y', 37 + 20 * i);
-
-      g.append('text')
-        .style('font-size', '15')
-        .style('font-weight', 'lighter')
-        .attr('x', 15 + 12)
-        .attr('y', 37 + 20 * i + 8)
-        .text(item.text);
-
+      const g = this._generateTipItem(item, i);
       return g;
     });
   }
@@ -100,24 +83,7 @@ class Tooltip {
       this.tipItems.forEach((g) => g.remove());
 
       this.tipItems = this.items.map((item, i) => {
-        const g = this.svg.append('g');
-
-        g.append('rect')
-          .style('fill', item.color)
-          .attr('width', 8)
-          .attr('height', 8)
-          .attr('rx', 2)
-          .attr('ry', 2)
-          .attr('filter', this.filter)
-          .attr('x', 15)
-          .attr('y', 37 + 20 * i);
-
-        g.append('text')
-          .style('font-size', '15')
-          .attr('x', 15 + 12)
-          .attr('y', 37 + 20 * i + 8)
-          .text(item.text);
-
+        const g = this._generateTipItem(item, i);
         return g;
       });
 
@@ -133,6 +99,28 @@ class Tooltip {
     }
   }
 
+  _generateTipItem(item, i) {
+    const g = this.svg.append('g');
+
+    g.append('rect')
+      .style('fill', item.color)
+      .attr('width', 8)
+      .attr('height', 8)
+      .attr('rx', 2)
+      .attr('ry', 2)
+      .attr('filter', this.filter)
+      .attr('x', 15)
+      .attr('y', 37 + 20 * i);
+
+    g.append('text')
+      .style('font-size', '15')
+      .attr('x', 15 + 12)
+      .attr('y', 37 + 20 * i + 8)
+      .text(item.text);
+
+    return g;
+  }
+  
   _getBackgroundWidth() {
     const maxItemLength = this.items.reduce(
       (pre, cur) => (pre > cur.text.length ? pre : cur.text.length), 0,
