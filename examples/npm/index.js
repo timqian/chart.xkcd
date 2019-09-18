@@ -7,7 +7,7 @@ const svg = document.querySelector('.bar-chart');
 new chartXkcd.Bar(svg, {
   title: 'Monthly income of an indie developer',
   xLabel: 'Month',
-  yLabel: '$ Dollors',
+  yLabel: '$ Dollars',
   data: {
     labels: ['github stars', 'patrons'],
     datasets: [{
@@ -22,7 +22,7 @@ new chartXkcd.Bar(svg, {
 
 const svgPie = document.querySelector('.pie-chart');
 new chartXkcd.Pie(svgPie, {
-  title: 'What Tim made of',
+  title: 'What Tim is made of',
   data: {
     labels: ['a', 'b', 'e', 'f', 'g'],
     datasets: [{
@@ -40,7 +40,7 @@ const svgLine = document.querySelector('.line-chart');
 new chartXkcd.Line(svgLine, {
   title: 'Monthly income of an indie developer',
   xLabel: 'Month',
-  yLabel: '$ Dollors',
+  yLabel: '$ Dollars',
   data: {
     labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
     datasets: [{

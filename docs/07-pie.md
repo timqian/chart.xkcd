@@ -13,7 +13,7 @@ title: Pie/Doughnut chart
 
 ```js
 const pieChart = new chartXkcd.Pie(svg, {
-  title: 'What Tim made of', // optional
+  title: 'What Tim is made of', // optional
   data: {
     labels: ['a', 'b', 'e', 'f', 'g'],
     datasets: [{

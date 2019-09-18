@@ -4,7 +4,7 @@
 
 ## About
 
-Chart.xkcd is a chart library plots “sketchy”, “cartoony” or “hand-drawn” styled charts.
+Chart.xkcd is a chart library that plots “sketchy”, “cartoony” or “hand-drawn” styled charts.
 
 Check out the [documentation](https://timqian.com/chart.xkcd/) for more instructions and links, or try out the [examples](./examples), or chat with us in [Slack](https://join.slack.com/t/t9tio/shared_invite/enQtNjgzMzkwMDM0NTE3LTE5ZTUzYjU4Y2I0YzRiZjNkYTkzMzE1ZmM0NDdmYzRlZmMxNGY1MzZlN2EwYjYyNWVlMWY0Nzk2MDBhNWZlY2I)
 
@@ -25,7 +25,7 @@ In the following example we create a line chart.
   new chartXkcd.Line(svg, {
     title: 'Monthly income of an indie developer',
     xLabel: 'Month',
-    yLabel: '$ Dollors',
+    yLabel: '$ Dollars',
     data: {
       labels:['1', '2', '3', '4', '5', '6','7', '8', '9', '10'],
       datasets: [{
@@ -44,5 +44,5 @@ In the following example we create a line chart.
 
 - Code: read the [contributing.md](./contributing.md) file
 - Financial:
-  - [Become a patron of me](https://www.patreon.com/timqian) - chart.xkcd is an MIT-licensed open source project with its ongoing development made possible entirely by the support of my patreons. If you like this tool, please consider support my work by becomming a parton of me
+  - [Become a patron](https://www.patreon.com/timqian) - chart.xkcd is an MIT-licensed open source project with its ongoing development made possible entirely by the support of my patrons. If you like this tool, please consider supporting my work by becoming a patron.
   - [Fund issues on issuehunt](https://issuehunt.io/r/timqian/chart.xkcd?tab=idle) - Issues on chart.xkcd can be funded by anyone and the money will be distributed to contributors.

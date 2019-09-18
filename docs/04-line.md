@@ -17,7 +17,7 @@ Line chart displays series of data points in the form of lines. It can be used t
 const lineChart = new chartXkcd.Line(svg, {
   title: 'Monthly income of an indie developer', // optional
   xLabel: 'Month', // optional
-  yLabel: '$ Dollors', // optional
+  yLabel: '$ Dollars', // optional
   data: {
     labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
     datasets: [{
