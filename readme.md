@@ -36,6 +36,10 @@ In the following example we create a line chart.
         data: [0, 1, 30, 70, 80, 100, 50, 80, 40, 150],
       }]
     },
+    options: { // optional
+      yTickCount: 3,
+      legendPosition: chartXkcd.config.positionType.upLeft
+    }
   });
 </script>
 ```
