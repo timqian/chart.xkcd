@@ -79,7 +79,7 @@ class Line {
       parent: this.svgEl,
       title: '',
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
-      position: { x: 60, y: 60, type: config.positionType.dowfnRight },
+      position: { x: 60, y: 60, type: config.positionType.downRight },
       unxkcdify: this.options.unxkcdify,
     });
 
