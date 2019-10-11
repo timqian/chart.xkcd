@@ -7,7 +7,7 @@ You can install chart.xkcd via script tag in HTML or via npm
 ## Via Script Tag
 
 ```js
-<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1.3/dist/chart.xkcd.min.js" integrity="sha256-NkH6G4XRcQ5Bsfs7O6yh9mw1SJLEOJWCtWqko6VjF34=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js" integrity="sha256-NkH6G4XRcQ5Bsfs7O6yh9mw1SJLEOJWCtWqko6VjF34=" crossorigin="anonymous"></script>
 <script>
     const myChart = new chartXkcd.Line(svg, {...});
 </script>
