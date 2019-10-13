@@ -12,7 +12,10 @@ import addLegend from './utils/addLegend';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
 import colors from './utils/colors';
+import arrayUtils from './utils/arrayUtils';
 import config from './config';
+
+const { isEmptyArray } = arrayUtils;
 
 const margin = {
   top: 50, right: 30, bottom: 50, left: 50,
@@ -127,7 +130,7 @@ class Line {
       .attr('class', 'xkcd-chart-line')
       .attr('d', (d) => theLine(d.data))
       .attr('fill', 'none')
-      .attr('stroke', (d, i) => (this.options.dataColors
+      .attr('stroke', (d, i) => (!isEmptyArray(this.options.dataColors)
         ? this.options.dataColors[i]
         : colors[i]))
       .attr('filter', this.filter);
@@ -145,8 +148,8 @@ class Line {
 
     const circles = this.data.datasets.map((dataset, i) => graphPart
       .append('circle')
-      .style('stroke', this.options.dataColors ? this.options.dataColors[i] : colors[i])
-      .style('fill', this.options.dataColors ? this.options.dataColors[i] : colors[i])
+      .style('stroke', !isEmptyArray(this.options.dataColors) ? this.options.dataColors[i] : colors[i])
+      .style('fill', !isEmptyArray(this.options.dataColors) ? this.options.dataColors[i] : colors[i])
       .attr('r', 3.5)
       .style('visibility', 'hidden'));
 
@@ -187,7 +190,7 @@ class Line {
         });
 
         const tooltipItems = this.data.datasets.map((dataset, j) => ({
-          color: this.options.dataColors ? this.options.dataColors[j] : colors[j],
+          color: !isEmptyArray(this.options.dataColors) ? this.options.dataColors[j] : colors[j],
           text: `${this.data.datasets[j].label || ''}: ${this.data.datasets[j].data[mostNearLabelIndex]}`,
         }));
 
@@ -214,7 +217,7 @@ class Line {
     // Legend
     const legendItems = this.data.datasets
       .map((dataset, i) => ({
-        color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
+        color: !isEmptyArray(this.options.dataColors) ? this.options.dataColors[i] : colors[i],
         text: dataset.label,
       }));
 
