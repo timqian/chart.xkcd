@@ -120,7 +120,7 @@ class Tooltip {
 
     return g;
   }
-  
+
   _getBackgroundWidth() {
     const maxItemLength = this.items.reduce(
       (pre, cur) => (pre > cur.text.length ? pre : cur.text.length), 0,
