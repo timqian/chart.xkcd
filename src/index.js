@@ -1,10 +1,6 @@
-import Bar from './Bar';
-import Pie from './Pie';
-import Line from './Line';
-import XY from './XY';
-import Radar from './Radar';
-import config from './config';
-
-module.exports = {
-  config, Bar, Pie, Line, XY, Radar,
-};
+export Bar from './Bar';
+export Pie from './Pie';
+export Line from './Line';
+export XY from './XY';
+export Radar from './Radar';
+export config from './config';
