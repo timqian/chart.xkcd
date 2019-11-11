@@ -24,7 +24,7 @@ const svgPie = document.querySelector('.pie-chart');
 new chartXkcd.Pie(svgPie, {
   title: 'What Tim is made of',
   data: {
-    labels: ['a', 'b', 'e', 'f', 'g'],
+    labels: ['a', 'b', 'e', 'f', '你好吗我的爱g'],
     datasets: [{
       data: [500, 200, 80, 90, 100],
     }],

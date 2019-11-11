@@ -80,15 +80,20 @@ class Tooltip {
     if (items && JSON.stringify(items) !== JSON.stringify(this.items)) {
       this.items = items;
 
-      this.tipItems.forEach((g) => g.remove());
+      this.tipItems.forEach((g) => g.svg.remove());
 
       this.tipItems = this.items.map((item, i) => {
         const g = this._generateTipItem(item, i);
         return g;
       });
 
+      const maxWidth = Math.max(
+        ...this.tipItems.map((item) => item.width),
+        this.tipTitle.node().getBBox().width,
+      );
+
       this.tipBackground
-        .attr('width', this._getBackgroundWidth())
+        .attr('width', maxWidth + 15)
         .attr('height', this._getBackgroundHeight());
     }
 
@@ -100,9 +105,9 @@ class Tooltip {
   }
 
   _generateTipItem(item, i) {
-    const g = this.svg.append('g');
+    const svg = this.svg.append('svg');
 
-    g.append('rect')
+    svg.append('rect')
       .style('fill', item.color)
       .attr('width', 8)
       .attr('height', 8)
@@ -112,15 +117,22 @@ class Tooltip {
       .attr('x', 15)
       .attr('y', 37 + 20 * i);
 
-    g.append('text')
+    svg.append('text')
       .style('font-size', '15')
       .attr('x', 15 + 12)
       .attr('y', 37 + 20 * i + 8)
       .text(item.text);
 
-    return g;
+    const bbox = svg.node().getBBox();
+    const width = bbox.width + 15;
+    const height = bbox.height + 10;
+    return {
+      svg,
+      width,
+      height,
+    };
   }
-  
+
   _getBackgroundWidth() {
     const maxItemLength = this.items.reduce(
       (pre, cur) => (pre > cur.text.length ? pre : cur.text.length), 0,

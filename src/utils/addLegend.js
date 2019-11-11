@@ -3,14 +3,33 @@ import config from '../config';
 export default function addLegend(parent, {
   items, position, unxkcdify, parentWidth, parentHeight,
 }) {
-  const backgroundWidth = items.reduce(
-    (pre, cur) => (pre > cur.text.length ? pre : cur.text.length),
-    0,
-  ) * 7.5 + 30;
-
-  const backgroundHeight = items.length * 20 + 10;
-
   const filter = !unxkcdify ? 'url(#xkcdify)' : null;
+
+  const legend = parent.append('svg');
+  const backgroundLayer = legend.append('svg');
+  const textLayer = legend.append('svg');
+
+  items.forEach((item, i) => {
+    textLayer.append('rect')
+      .style('fill', item.color)
+      .attr('width', 8)
+      .attr('height', 8)
+      .attr('rx', 2)
+      .attr('ry', 2)
+      .attr('filter', filter)
+      .attr('x', 15)
+      .attr('y', 17 + 20 * i);
+
+    textLayer.append('text')
+      .style('font-size', '15')
+      .attr('x', 15 + 12)
+      .attr('y', 17 + 20 * i + 8)
+      .text(item.text);
+  });
+
+  const bbox = textLayer.node().getBBox();
+  const backgroundWidth = bbox.width + 15;
+  const backgroundHeight = bbox.height + 10;
 
   let legendX = 0;
   let legendY = 0;
@@ -26,13 +45,9 @@ export default function addLegend(parent, {
   ) {
     legendX = parentWidth - backgroundWidth - 13;
   }
-  // get legend
-  const legend = parent.append('svg')
-    .attr('x', legendX)
-    .attr('y', legendY);
 
   // add background
-  legend.append('rect')
+  backgroundLayer.append('rect')
     .style('fill', 'white')
     .attr('fill-opacity', 0.85)
     .attr('stroke', 'black')
@@ -45,23 +60,8 @@ export default function addLegend(parent, {
     .attr('x', 8)
     .attr('y', 5);
 
-  // add items
-  items.forEach((item, i) => {
-    const g = legend.append('g');
-    g.append('rect')
-      .style('fill', item.color)
-      .attr('width', 8)
-      .attr('height', 8)
-      .attr('rx', 2)
-      .attr('ry', 2)
-      .attr('filter', filter)
-      .attr('x', 15)
-      .attr('y', 17 + 20 * i);
-
-    g.append('text')
-      .style('font-size', '15')
-      .attr('x', 15 + 12)
-      .attr('y', 17 + 20 * i + 8)
-      .text(item.text);
-  });
+  // get legend
+  legend
+    .attr('x', legendX)
+    .attr('y', legendY);
 }

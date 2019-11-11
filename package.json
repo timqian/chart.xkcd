@@ -1,6 +1,6 @@
 {
   "name": "chart.xkcd",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "xkcd style chart lib",
   "jsdelivr": "dist/chart.xkcd.min.js",
   "unpkg": "dist/chart.xkcd.min.js",
@@ -35,7 +35,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "gh-pages": "^2.1.1",
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
     "d3-axis": "^1.0.12",
