@@ -150,6 +150,7 @@ class XY {
         .attr('d', (d) => theLine(d.data))
         .attr('fill', 'none')
         .attr('stroke', (d, i) => (this.options.dataColors ? this.options.dataColors[i] : colors[i]))
+        .attr('stroke-dasharray', (d, i) => (this.options.dataLineDashes ? this.options.dataLineDashes[i] : ''))
         .attr('filter', this.filter);
     }
 
