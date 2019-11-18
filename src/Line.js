@@ -27,6 +27,7 @@ class Line {
       legendPosition: config.positionType.upLeft,
       dataColors: [],
       fontFamily: 'xkcd',
+      is_black_style: false,
     },
   }) {
     if (title) {
@@ -56,6 +57,7 @@ class Line {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
+      .style('background', this.is_black_style ? 'black' : 'white')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -81,6 +83,7 @@ class Line {
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.downRight },
       unxkcdify: this.options.unxkcdify,
+      is_black_style: this.options.is_black_style,
     });
 
     const xScale = scalePoint()

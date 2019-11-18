@@ -21,6 +21,7 @@ class Pie {
       legendPosition: config.positionType.upLeft,
       dataColors: [],
       fontFamily: 'xkcd',
+      is_black_style: false,
     },
   }) {
     this.title = title;
@@ -39,6 +40,7 @@ class Pie {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
+      .style('background', this.is_black_style ? 'black' : 'white')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -67,6 +69,7 @@ class Pie {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
+      is_black_style: this.options.is_black_style,
     });
 
     const radius = Math.min(this.width, this.height) / 2 - margin;

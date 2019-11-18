@@ -17,6 +17,7 @@ new chartXkcd.Bar(svg, {
   options: {
     yTickCount: 2,
     // unxkcdify: true,
+    is_black_style: true
   },
 });
 
@@ -24,7 +25,7 @@ const svgPie = document.querySelector('.pie-chart');
 new chartXkcd.Pie(svgPie, {
   title: 'What Tim is made of',
   data: {
-    labels: ['a', 'b', 'e', 'f', '你好吗我的爱g'],
+    labels: ['a', 'b', 'e', 'f', 'g'],
     datasets: [{
       data: [500, 200, 80, 90, 100],
     }],

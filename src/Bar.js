@@ -23,6 +23,7 @@ class Bar {
       yTickCount: 3,
       dataColors: [],
       fontFamily: 'xkcd',
+      is_black_style: false,
     },
   }) {
     if (title) {
@@ -42,6 +43,7 @@ class Bar {
       datasets,
     };
     this.options = options;
+    this.is_black_style = options.is_black_style
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -52,6 +54,7 @@ class Bar {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
+      .style('background', this.is_black_style ? 'black' : 'white')
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
 
@@ -69,9 +72,9 @@ class Bar {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.is_black_style);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.is_black_style);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.is_black_style);
 
     const tooltip = new Tooltip({
       parent: this.svgEl,
@@ -79,6 +82,7 @@ class Bar {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
+      is_black_style: this.options.is_black_style,
     });
 
     const xScale = scaleBand()
@@ -102,12 +106,14 @@ class Bar {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.is_black_style ? 'white' : 'black',
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.is_black_style ? 'white' : 'black',
     });
 
     // Bars
@@ -122,7 +128,7 @@ class Bar {
       .attr('height', (d) => this.height - yScale(d))
       .attr('fill', 'none')
       .attr('pointer-events', 'all')
-      .attr('stroke', 'black')
+      .attr('stroke', this.is_black_style ? 'white' : 'black')
       .attr('stroke-width', 3)
       .attr('rx', 2)
       // .attr('cursor','crosshair')
