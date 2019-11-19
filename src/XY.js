@@ -31,7 +31,9 @@ class XY {
       legendPosition: config.positionType.upLeft,
       dataColors: [],
       fontFamily: 'xkcd',
-      is_black_style: false,
+      strokeColor: 'black',
+      backgroundColor: 'white',
+      legendColor: 'white',
     },
   }) {
     // TODO: extract a function?
@@ -51,7 +53,9 @@ class XY {
       datasets,
     };
     this.options = options;
-    this.is_black_style = options.is_black_style;
+    this.strokeColor = options.strokeColor;
+    this.backgroundColor = options.backgroundColor;
+    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -62,7 +66,7 @@ class XY {
     this.svgEl = select(svg)
       .style('stroke-width', 3)
       .style('font-family', this.fontFamily)
-      .style('background', this.is_black_style ? 'black' : 'white')
+      .style('background', this.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -79,9 +83,9 @@ class XY {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title, this.is_black_style);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.is_black_style);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.is_black_style);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.strokeColor);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.strokeColor);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.strokeColor);
 
     const tooltip = new Tooltip({
       parent: this.svgEl,
@@ -89,7 +93,8 @@ class XY {
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.dowfnRight },
       unxkcdify: this.options.unxkcdify,
-      is_black_style: this.options.is_black_style,
+      strokeColor: this.strokeColor,
+      legendColor: this.legendColor,
     });
 
     if (this.options.timeFormat) {
@@ -131,14 +136,14 @@ class XY {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.is_black_style ? 'white' : 'black',
+      stroke: this.strokeColor,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.is_black_style ? 'white' : 'black',
+      stroke: this.strokeColor,
     });
 
     // lines
@@ -243,7 +248,8 @@ class XY {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
-      is_b: this.is_black_style,
+      strokeColor: this.strokeColor,
+      legendColor: this.legendColor,
     });
   }
 

@@ -23,7 +23,9 @@ class Bar {
       yTickCount: 3,
       dataColors: [],
       fontFamily: 'xkcd',
-      is_black_style: false,
+      strokeColor: 'black',
+      backgroundColor: 'white',
+      legendColor: 'white',
     },
   }) {
     if (title) {
@@ -43,7 +45,9 @@ class Bar {
       datasets,
     };
     this.options = options;
-    this.is_black_style = options.is_black_style
+    this.strokeColor = options.strokeColor;
+    this.backgroundColor = options.backgroundColor;
+    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -54,7 +58,7 @@ class Bar {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
-      .style('background', this.is_black_style ? 'black' : 'white')
+      .style('background', this.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
 
@@ -72,9 +76,9 @@ class Bar {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title, this.is_black_style);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.is_black_style);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.is_black_style);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.strokeColor);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.strokeColor);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.strokeColor);
 
     const tooltip = new Tooltip({
       parent: this.svgEl,
@@ -82,7 +86,8 @@ class Bar {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
-      is_black_style: this.options.is_black_style,
+      legendColor: this.legendColor,
+      strokeColor: this.strokeColor,
     });
 
     const xScale = scaleBand()
@@ -106,14 +111,14 @@ class Bar {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.is_black_style ? 'white' : 'black',
+      stroke: this.strokeColor,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.is_black_style ? 'white' : 'black',
+      stroke: this.strokeColor,
     });
 
     // Bars
@@ -128,7 +133,7 @@ class Bar {
       .attr('height', (d) => this.height - yScale(d))
       .attr('fill', 'none')
       .attr('pointer-events', 'all')
-      .attr('stroke', this.is_black_style ? 'white' : 'black')
+      .attr('stroke', this.strokeColor)
       .attr('stroke-width', 3)
       .attr('rx', 2)
       // .attr('cursor','crosshair')

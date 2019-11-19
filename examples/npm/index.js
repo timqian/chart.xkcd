@@ -17,6 +17,9 @@ new chartXkcd.Bar(svg, {
   options: {
     yTickCount: 2,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
+    legendColor: 'grey',
   },
 });
 
@@ -33,6 +36,9 @@ new chartXkcd.Pie(svgPie, {
     innerRadius: 0.6,
     legendPosition: chartXkcd.config.positionType.upRight,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
+    legendColor: 'grey',
   },
 });
 
@@ -53,6 +59,9 @@ new chartXkcd.Line(svgLine, {
   },
   options: {
     // unxkcdify: true,
+    strokeColor: 'black',
+    backgroundColor: 'white',
+    legendColor: 'white',
   },
 });
 
@@ -76,6 +85,9 @@ new chartXkcd.XY(svgXY, {
     legendPosition: chartXkcd.config.positionType.downRight,
     showLine: false,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
+    legendColor: 'grey',
   },
 });
 
@@ -101,6 +113,9 @@ new chartXkcd.XY(svgXY2, {
     timeFormat: 'MM/DD/YYYY',
     dotSize: 0.5,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
+    legendColor: 'grey',
   },
 });
 
@@ -123,6 +138,9 @@ new chartXkcd.Radar(svgRadar, {
     showLabels: true,
     legendPosition: chartXkcd.config.positionType.upRight,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
+    legendColor: 'grey',
   },
 });
 
@@ -145,6 +163,9 @@ new chartXkcd.Line(svgLineCus, {
     fontFamily: 'ZCOOL KuaiLe',
     dataColors: ['black', '#aaa'],
     legendPosition: chartXkcd.config.positionType.upRight,
+    strokeColor: 'white',
+    backgroundColor: 'black',
+    legendColor: 'grey',
   },
 });
 
@@ -166,5 +187,8 @@ new chartXkcd.Line(svgLineUnxkcdify, {
   },
   options: {
     unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
+    legendColor: 'grey',
   },
 });

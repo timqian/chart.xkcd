@@ -26,7 +26,9 @@ class Radar {
       dataColors: [],
       fontFamily: 'xkcd',
       dotSize: 1,
-      is_black_style: false,
+      strokeColor: 'black',
+      backgroundColor: 'white',
+      legendColor: 'white',
     },
   }) {
     this.title = title;
@@ -37,7 +39,9 @@ class Radar {
     // TODO: find the longest dataset or throw an error for inconsistent datasets
     this.directionsCount = datasets[0].data.length;
     this.options = options;
-    this.is_black_style = options.is_black_style;
+    this.strokeColor = options.strokeColor;
+    this.backgroundColor = options.backgroundColor;
+    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify-pie)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -47,7 +51,7 @@ class Radar {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
-      .style('background', this.is_black_style ? 'black' : 'white')
+      .style('background', this.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -65,7 +69,7 @@ class Radar {
 
   render() {
     if (this.title) {
-      addLabels.title(this.svgEl, this.title, this.is_black_style);
+      addLabels.title(this.svgEl, this.title, this.strokeColor);
     }
 
     const tooltip = new Tooltip({
@@ -74,7 +78,8 @@ class Radar {
       items: [],
       position: { x: 0, y: 0, type: config.positionType.downRight },
       unxkcdify: this.options.unxkcdify,
-      is_black_style: this.options.is_black_style,
+      strokeColor: this.strokeColor,
+      legendColor: this.legendColor,
     });
 
     const dotInitSize = 3.5 * (this.options.dotSize || 1);
@@ -112,7 +117,7 @@ class Radar {
       .attr('class', 'xkcd-chart-radar-level')
       .attr('d', (d) => theLine(Array(this.directionsCount).fill(d)))
       .style('fill', 'none')
-      .attr('stroke', '#aaa')
+      .attr('stroke', this.strokeColor)
       .attr('stroke-dasharray', '7,7');
 
     grid.selectAll('.xkcd-chart-radar-line')
@@ -120,7 +125,7 @@ class Radar {
       .enter()
       .append('line')
       .attr('class', '.xkcd-chart-radar-line')
-      .attr('stroke', this.is_black_style ? 'white' : 'black')
+      .attr('stroke', this.strokeColor)
       .attr('x1', 0)
       .attr('y1', 0)
       .attr('x2', getX)
@@ -134,7 +139,7 @@ class Radar {
       .attr('x', (d) => getX(d, 0))
       .attr('y', (d) => getY(d, 0))
       .style('font-size', '16')
-      .style('fill', this.is_black_style ? 'white' : 'black')
+      .style('fill', this.strokeColor)
       .attr('text-anchor', 'end')
       .attr('dx', '-.125em')
       .attr('dy', '.35em')
@@ -147,7 +152,7 @@ class Radar {
         .append('text')
         .attr('class', 'xkcd-chart-radar-label')
         .style('font-size', '16')
-        .style('fill', this.is_black_style ? 'white' : 'black')
+        .style('fill', this.strokeColor)
         .attr('x', (d, i) => (radius + 10) * Math.cos(angleStep * i + angleOffset))
         .attr('y', (d, i) => (radius + 10) * Math.sin(angleStep * i + angleOffset))
         .attr('dy', '.35em')
@@ -238,7 +243,8 @@ class Radar {
         unxkcdify: this.options.unxkcdify,
         parentWidth: this.width,
         parentHeight: this.height,
-        is_b: this.is_black_style,
+        legendColor: this.legendColor,
+        strokeColor: this.strokeColor,
       });
     }
   }

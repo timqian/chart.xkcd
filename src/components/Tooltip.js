@@ -24,13 +24,14 @@ class Tooltip {
    * }
    */
   constructor({
-    parent, title, items, position, unxkcdify, is_black_style,
+    parent, title, items, position, unxkcdify, legendColor, strokeColor,
   }) {
     this.title = title;
     this.items = items;
     this.position = position;
     this.filter = !unxkcdify ? 'url(#xkcdify)' : null;
-    this.is_black_style = is_black_style;
+    this.legendColor = legendColor;
+    this.strokeColor = strokeColor;
 
     this.svg = parent.append('svg')
       .attr('x', this._getUpLeftX())
@@ -38,9 +39,9 @@ class Tooltip {
       .style('visibility', 'hidden');
 
     this.tipBackground = this.svg.append('rect')
-      .style('fill', is_black_style ? 'grey' : 'white')
-      .attr('fill-opacity', is_black_style ? 1.0 : .85)
-      .attr('stroke', is_black_style ? '#fff' : '#aaa')
+      .style('fill', this.legendColor)
+      .attr('fill-opacity', .9)
+      .attr('stroke', this.strokeColor)
       .attr('stroke-width', 2)
       .attr('rx', 5)
       .attr('ry', 5)
@@ -53,7 +54,7 @@ class Tooltip {
     this.tipTitle = this.svg.append('text')
       .style('font-size', 15)
       .style('font-weight', 'bold')
-      .style('fill', is_black_style ? 'white' : 'black')
+      .style('fill', this.strokeColor)
       .attr('x', 15)
       .attr('y', 25)
       .text(title);
@@ -121,7 +122,7 @@ class Tooltip {
 
     svg.append('text')
       .style('font-size', '15')
-      .style('fill', this.is_black_style ? 'white' : 'black')
+      .style('fill', this.strokeColor)
       .attr('x', 15 + 12)
       .attr('y', 37 + 20 * i + 8)
       .text(item.text);

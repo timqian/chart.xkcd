@@ -21,7 +21,9 @@ class Pie {
       legendPosition: config.positionType.upLeft,
       dataColors: [],
       fontFamily: 'xkcd',
-      is_black_style: false,
+      strokeColor: 'black',
+      backgroundColor: 'white',
+      legendColor: 'white',
     },
   }) {
     this.title = title;
@@ -30,7 +32,9 @@ class Pie {
       datasets,
     };
     this.options = options;
-    this.is_black_style = options.is_black_style
+    this.strokeColor = options.strokeColor;
+    this.backgroundColor = options.backgroundColor;
+    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify-pie)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -41,7 +45,7 @@ class Pie {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
-      .style('background', this.is_black_style ? 'black' : 'white')
+      .style('background', this.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -61,7 +65,7 @@ class Pie {
 
   render() {
     if (this.title) {
-      addLabels.title(this.svgEl, this.title, this.is_black_style);
+      addLabels.title(this.svgEl, this.title, this.strokeColor);
     }
 
     const tooltip = new Tooltip({
@@ -70,7 +74,8 @@ class Pie {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
-      is_black_style: this.options.is_black_style,
+      strokeColor: this.strokeColor,
+      legendColor: this.legendColor,
     });
 
     const radius = Math.min(this.width, this.height) / 2 - margin;
@@ -91,7 +96,7 @@ class Pie {
       .attr('class', '.xkcd-chart-arc')
       .attr('d', theArc)
       .attr('fill', 'none')
-      .attr('stroke', 'black')
+      .attr('stroke', this.strokeColor)
       .attr('stroke-width', 2)
       .attr('fill', (d, i) => colors[i])
       .attr('filter', this.filter)
@@ -136,7 +141,8 @@ class Pie {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
-      is_b: this.is_black_style,
+      strokeColor: this.strokeColor,
+      legendColor: this.legendColor,
     });
   }
 
