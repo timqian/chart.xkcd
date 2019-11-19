@@ -30,6 +30,7 @@ class Pie {
       datasets,
     };
     this.options = options;
+    this.is_black_style = options.is_black_style
     this.filter = 'url(#xkcdify-pie)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -60,7 +61,7 @@ class Pie {
 
   render() {
     if (this.title) {
-      addLabels.title(this.svgEl, this.title);
+      addLabels.title(this.svgEl, this.title, this.is_black_style);
     }
 
     const tooltip = new Tooltip({
@@ -135,6 +136,7 @@ class Pie {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
+      is_b: this.is_black_style,
     });
   }
 

@@ -34,6 +34,7 @@ new chartXkcd.Pie(svgPie, {
     innerRadius: 0.6,
     legendPosition: chartXkcd.config.positionType.upRight,
     // unxkcdify: true,
+    is_black_style: true,
   },
 });
 
