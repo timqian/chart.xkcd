@@ -17,9 +17,9 @@ new chartXkcd.Bar(svg, {
   options: {
     yTickCount: 2,
     // unxkcdify: true,
-    strokeColor: 'white',
-    backgroundColor: 'black',
-    legendColor: 'grey',
+    // strokeColor: 'white',
+    // backgroundColor: 'black',
+    // legendColor: 'grey',
   },
 });
 

@@ -26,6 +26,15 @@ class Pie {
       legendColor: 'white',
     },
   }) {
+    if(!options.strokeColor) {
+      options.strokeColor = 'black';
+    }
+    if(!options.backgroundColor) {
+      options.backgroundColor = 'white';
+    }
+    if(!options.legendColor) {
+      options.legendColor = 'white';
+    }
     this.title = title;
     this.data = {
       labels,

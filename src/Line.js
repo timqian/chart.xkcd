@@ -32,6 +32,15 @@ class Line {
       legendColor: 'white',
     },
   }) {
+    if(!options.strokeColor) {
+      options.strokeColor = 'black';
+    }
+    if(!options.backgroundColor) {
+      options.backgroundColor = 'white';
+    }
+    if(!options.legendColor) {
+      options.legendColor = 'white';
+    }
     if (title) {
       this.title = title;
       margin.top = 60;

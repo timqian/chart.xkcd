@@ -36,6 +36,15 @@ class XY {
       legendColor: 'white',
     },
   }) {
+    if(!options.strokeColor) {
+      options.strokeColor = 'black';
+    }
+    if(!options.backgroundColor) {
+      options.backgroundColor = 'white';
+    }
+    if(!options.legendColor) {
+      options.legendColor = 'white';
+    }
     // TODO: extract a function?
     if (title) {
       this.title = title;
