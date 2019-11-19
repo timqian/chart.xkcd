@@ -40,3 +40,6 @@ const pieChart = new chartXkcd.Pie(svg, {
 - `dataColors`: array of colors for different datasets
 - `fontFamily`: customize font family used in the chart
 - `unxkcdify`: disable xkcd effect (default `false`)
+- `strokeColor`: stroke colors (default `black`)
+- `backgroundColor`: color for BG (default `white`)
+- `legendColor`: color for legend (default `white`)
