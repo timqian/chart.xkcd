@@ -47,6 +47,7 @@ class Line {
       datasets,
     };
     this.options = options;
+    this.is_black_style = options.is_black_style;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -74,9 +75,9 @@ class Line {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.is_black_style);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.is_black_style);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.is_black_style);
     const tooltip = new Tooltip({
       parent: this.svgEl,
       title: '',
@@ -107,12 +108,14 @@ class Line {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.is_black_style ? 'white' : 'black',
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.is_black_style ? 'white' : 'black',
     });
 
     this.svgEl.selectAll('.domain')

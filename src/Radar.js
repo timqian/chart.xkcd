@@ -37,6 +37,7 @@ class Radar {
     // TODO: find the longest dataset or throw an error for inconsistent datasets
     this.directionsCount = datasets[0].data.length;
     this.options = options;
+    this.is_black_style = options.is_black_style;
     this.filter = 'url(#xkcdify-pie)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -64,7 +65,7 @@ class Radar {
 
   render() {
     if (this.title) {
-      addLabels.title(this.svgEl, this.title);
+      addLabels.title(this.svgEl, this.title, this.is_black_style);
     }
 
     const tooltip = new Tooltip({
@@ -119,7 +120,7 @@ class Radar {
       .enter()
       .append('line')
       .attr('class', '.xkcd-chart-radar-line')
-      .attr('stroke', 'black')
+      .attr('stroke', this.is_black_style ? 'white' : 'black')
       .attr('x1', 0)
       .attr('y1', 0)
       .attr('x2', getX)
@@ -133,6 +134,7 @@ class Radar {
       .attr('x', (d) => getX(d, 0))
       .attr('y', (d) => getY(d, 0))
       .style('font-size', '16')
+      .style('fill', this.is_black_style ? 'white' : 'black')
       .attr('text-anchor', 'end')
       .attr('dx', '-.125em')
       .attr('dy', '.35em')
@@ -145,6 +147,7 @@ class Radar {
         .append('text')
         .attr('class', 'xkcd-chart-radar-label')
         .style('font-size', '16')
+        .style('fill', this.is_black_style ? 'white' : 'black')
         .attr('x', (d, i) => (radius + 10) * Math.cos(angleStep * i + angleOffset))
         .attr('y', (d, i) => (radius + 10) * Math.sin(angleStep * i + angleOffset))
         .attr('dy', '.35em')
@@ -235,6 +238,7 @@ class Radar {
         unxkcdify: this.options.unxkcdify,
         parentWidth: this.width,
         parentHeight: this.height,
+        is_b: this.is_black_style,
       });
     }
   }
