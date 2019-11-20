@@ -33,7 +33,6 @@ class XY {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
-      legendColor: 'white',
     },
   }) {
     if(!options.strokeColor) {
@@ -42,9 +41,7 @@ class XY {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    if(!options.legendColor) {
-      options.legendColor = 'white';
-    }
+    options.legendColor = options.backgroundColor;
     // TODO: extract a function?
     if (title) {
       this.title = title;

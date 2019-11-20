@@ -23,7 +23,6 @@ class Pie {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
-      legendColor: 'white',
     },
   }) {
     if(!options.strokeColor) {
@@ -32,9 +31,7 @@ class Pie {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    if(!options.legendColor) {
-      options.legendColor = 'white';
-    }
+    options.legendColor = options.backgroundColor;
     this.title = title;
     this.data = {
       labels,

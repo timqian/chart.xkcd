@@ -28,7 +28,6 @@ class Radar {
       dotSize: 1,
       strokeColor: 'black',
       backgroundColor: 'white',
-      legendColor: 'white',
     },
   }) {
     if(!options.strokeColor) {
@@ -37,9 +36,7 @@ class Radar {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    if(!options.legendColor) {
-      options.legendColor = 'white';
-    }
+    options.legendColor = options.backgroundColor;
     this.title = title;
     this.data = {
       labels,

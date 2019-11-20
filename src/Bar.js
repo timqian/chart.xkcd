@@ -25,7 +25,6 @@ class Bar {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
-      legendColor: 'white',
     },
   }) {
     if(!options.strokeColor) {
@@ -34,9 +33,7 @@ class Bar {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    if(!options.legendColor) {
-      options.legendColor = 'white';
-    }
+    options.legendColor = options.backgroundColor;
     if (title) {
       this.title = title;
       margin.top = 60;

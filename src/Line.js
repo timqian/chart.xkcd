@@ -29,7 +29,6 @@ class Line {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
-      legendColor: 'white',
     },
   }) {
     if(!options.strokeColor) {
@@ -38,9 +37,7 @@ class Line {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    if(!options.legendColor) {
-      options.legendColor = 'white';
-    }
+    options.legendColor = options.backgroundColor;
     if (title) {
       this.title = title;
       margin.top = 60;
