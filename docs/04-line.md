@@ -49,4 +49,3 @@ const lineChart = new chartXkcd.Line(svg, {
 - `unxkcdify`: disable xkcd effect (default `false`)
 - `strokeColor`: stroke colors (default `black`)
 - `backgroundColor`: color for BG (default `white`)
-- `legendColor`: color for legend (default `white`)
