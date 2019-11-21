@@ -33,7 +33,6 @@ class Bar {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    options.legendColor = options.backgroundColor;
     if (title) {
       this.title = title;
       margin.top = 60;
@@ -53,7 +52,6 @@ class Bar {
     this.options = options;
     this.strokeColor = options.strokeColor;
     this.backgroundColor = options.backgroundColor;
-    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -92,7 +90,7 @@ class Bar {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
-      legendColor: this.legendColor,
+      backgroundColor: this.backgroundColor,
       strokeColor: this.strokeColor,
     });
 

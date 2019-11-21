@@ -1,7 +1,7 @@
 import config from '../config';
 
 export default function addLegend(parent, {
-  items, position, unxkcdify, parentWidth, parentHeight, strokeColor, legendColor,
+  items, position, unxkcdify, parentWidth, parentHeight, strokeColor, backgroundColor,
 }) {
   const filter = !unxkcdify ? 'url(#xkcdify)' : null;
 
@@ -49,7 +49,7 @@ export default function addLegend(parent, {
 
   // add background
   backgroundLayer.append('rect')
-    .style('fill', legendColor)
+    .style('fill', backgroundColor)
     .attr('fill-opacity', 0.85)
     .attr('stroke', strokeColor)
     .attr('stroke-width', 2)

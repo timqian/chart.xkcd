@@ -36,7 +36,6 @@ class Radar {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    options.legendColor = options.backgroundColor;
     this.title = title;
     this.data = {
       labels,
@@ -47,7 +46,6 @@ class Radar {
     this.options = options;
     this.strokeColor = options.strokeColor;
     this.backgroundColor = options.backgroundColor;
-    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify-pie)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -85,7 +83,7 @@ class Radar {
       position: { x: 0, y: 0, type: config.positionType.downRight },
       unxkcdify: this.options.unxkcdify,
       strokeColor: this.strokeColor,
-      legendColor: this.legendColor,
+      backgroundColor: this.backgroundColor,
     });
 
     const dotInitSize = 3.5 * (this.options.dotSize || 1);
@@ -249,7 +247,7 @@ class Radar {
         unxkcdify: this.options.unxkcdify,
         parentWidth: this.width,
         parentHeight: this.height,
-        legendColor: this.legendColor,
+        backgroundColor: this.backgroundColor,
         strokeColor: this.strokeColor,
       });
     }

@@ -24,13 +24,13 @@ class Tooltip {
    * }
    */
   constructor({
-    parent, title, items, position, unxkcdify, legendColor, strokeColor,
+    parent, title, items, position, unxkcdify, backgroundColor, strokeColor,
   }) {
     this.title = title;
     this.items = items;
     this.position = position;
     this.filter = !unxkcdify ? 'url(#xkcdify)' : null;
-    this.legendColor = legendColor;
+    this.backgroundColor = backgroundColor;
     this.strokeColor = strokeColor;
 
     this.svg = parent.append('svg')
@@ -39,7 +39,7 @@ class Tooltip {
       .style('visibility', 'hidden');
 
     this.tipBackground = this.svg.append('rect')
-      .style('fill', this.legendColor)
+      .style('fill', this.backgroundColor)
       .attr('fill-opacity', .9)
       .attr('stroke', this.strokeColor)
       .attr('stroke-width', 2)

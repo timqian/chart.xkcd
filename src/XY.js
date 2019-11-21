@@ -41,7 +41,6 @@ class XY {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    options.legendColor = options.backgroundColor;
     // TODO: extract a function?
     if (title) {
       this.title = title;
@@ -61,7 +60,6 @@ class XY {
     this.options = options;
     this.strokeColor = options.strokeColor;
     this.backgroundColor = options.backgroundColor;
-    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -100,7 +98,7 @@ class XY {
       position: { x: 60, y: 60, type: config.positionType.dowfnRight },
       unxkcdify: this.options.unxkcdify,
       strokeColor: this.strokeColor,
-      legendColor: this.legendColor,
+      backgroundColor: this.backgroundColor,
     });
 
     if (this.options.timeFormat) {
@@ -255,7 +253,7 @@ class XY {
       parentWidth: this.width,
       parentHeight: this.height,
       strokeColor: this.strokeColor,
-      legendColor: this.legendColor,
+      backgroundColor: this.backgroundColor,
     });
   }
 

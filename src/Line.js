@@ -37,7 +37,6 @@ class Line {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    options.legendColor = options.backgroundColor;
     if (title) {
       this.title = title;
       margin.top = 60;
@@ -57,7 +56,6 @@ class Line {
     this.options = options;
     this.strokeColor = options.strokeColor;
     this.backgroundColor = options.backgroundColor;
-    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -94,7 +92,7 @@ class Line {
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.downRight },
       unxkcdify: this.options.unxkcdify,
-      legendColor: this.legendColor,
+      backgroundColor: this.backgroundColor,
       strokeColor: this.strokeColor,
     });
 
@@ -241,7 +239,7 @@ class Line {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
-      legendColor: this.legendColor,
+      backgroundColor: this.backgroundColor,
       strokeColor: this.strokeColor,
     });
   }

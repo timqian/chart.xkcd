@@ -31,7 +31,6 @@ class Pie {
     if(!options.backgroundColor) {
       options.backgroundColor = 'white';
     }
-    options.legendColor = options.backgroundColor;
     this.title = title;
     this.data = {
       labels,
@@ -40,7 +39,6 @@ class Pie {
     this.options = options;
     this.strokeColor = options.strokeColor;
     this.backgroundColor = options.backgroundColor;
-    this.legendColor = options.legendColor;
     this.filter = 'url(#xkcdify-pie)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -81,7 +79,7 @@ class Pie {
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
       strokeColor: this.strokeColor,
-      legendColor: this.legendColor,
+      backgroundColor: this.backgroundColor,
     });
 
     const radius = Math.min(this.width, this.height) / 2 - margin;
@@ -148,7 +146,7 @@ class Pie {
       parentWidth: this.width,
       parentHeight: this.height,
       strokeColor: this.strokeColor,
-      legendColor: this.legendColor,
+      backgroundColor: this.backgroundColor,
     });
   }
 

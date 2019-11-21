@@ -6,3 +6,4 @@ dist
 /assets
 /insprations.md
 .DS_Store
+.idea/
