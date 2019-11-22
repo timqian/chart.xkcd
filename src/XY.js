@@ -31,8 +31,16 @@ class XY {
       legendPosition: config.positionType.upLeft,
       dataColors: [],
       fontFamily: 'xkcd',
+      strokeColor: 'black',
+      backgroundColor: 'white',
     },
   }) {
+    if(!options.strokeColor) {
+      options.strokeColor = 'black';
+    }
+    if(!options.backgroundColor) {
+      options.backgroundColor = 'white';
+    }
     // TODO: extract a function?
     if (title) {
       this.title = title;
@@ -50,6 +58,8 @@ class XY {
       datasets,
     };
     this.options = options;
+    this.strokeColor = options.strokeColor;
+    this.backgroundColor = options.backgroundColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -60,6 +70,7 @@ class XY {
     this.svgEl = select(svg)
       .style('stroke-width', 3)
       .style('font-family', this.fontFamily)
+      .style('background', this.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -76,9 +87,9 @@ class XY {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.strokeColor);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.strokeColor);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.strokeColor);
 
     const tooltip = new Tooltip({
       parent: this.svgEl,
@@ -86,6 +97,8 @@ class XY {
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.dowfnRight },
       unxkcdify: this.options.unxkcdify,
+      strokeColor: this.strokeColor,
+      backgroundColor: this.backgroundColor,
     });
 
     if (this.options.timeFormat) {
@@ -127,12 +140,14 @@ class XY {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.strokeColor,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.strokeColor,
     });
 
     // lines
@@ -237,6 +252,8 @@ class XY {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
+      strokeColor: this.strokeColor,
+      backgroundColor: this.backgroundColor,
     });
   }
 

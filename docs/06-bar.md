@@ -36,3 +36,5 @@ const barChart = new chartXkcd.Bar(svg, {
 - `dataColors`: array of colors for different datasets
 - `fontFamily`: customize font family used in the chart
 - `unxkcdify`: disable xkcd effect (default `false`)
+- `strokeColor`: stroke colors (default `black`)
+- `backgroundColor`: color for BG (default `white`)

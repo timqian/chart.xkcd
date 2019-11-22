@@ -27,8 +27,16 @@ class Line {
       legendPosition: config.positionType.upLeft,
       dataColors: [],
       fontFamily: 'xkcd',
+      strokeColor: 'black',
+      backgroundColor: 'white',
     },
   }) {
+    if(!options.strokeColor) {
+      options.strokeColor = 'black';
+    }
+    if(!options.backgroundColor) {
+      options.backgroundColor = 'white';
+    }
     if (title) {
       this.title = title;
       margin.top = 60;
@@ -46,6 +54,8 @@ class Line {
       datasets,
     };
     this.options = options;
+    this.strokeColor = options.strokeColor;
+    this.backgroundColor = options.backgroundColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -56,6 +66,7 @@ class Line {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
+      .style('background', this.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -72,15 +83,17 @@ class Line {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.strokeColor);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.strokeColor);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.strokeColor);
     const tooltip = new Tooltip({
       parent: this.svgEl,
       title: '',
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.downRight },
       unxkcdify: this.options.unxkcdify,
+      backgroundColor: this.backgroundColor,
+      strokeColor: this.strokeColor,
     });
 
     const xScale = scalePoint()
@@ -104,12 +117,14 @@ class Line {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.strokeColor
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.strokeColor,
     });
 
     this.svgEl.selectAll('.domain')
@@ -224,6 +239,8 @@ class Line {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
+      backgroundColor: this.backgroundColor,
+      strokeColor: this.strokeColor,
     });
   }
 

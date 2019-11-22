@@ -17,6 +17,8 @@ new chartXkcd.Bar(svg, {
   options: {
     yTickCount: 2,
     // unxkcdify: true,
+    // strokeColor: 'white',
+    // backgroundColor: 'black',
   },
 });
 
@@ -24,7 +26,7 @@ const svgPie = document.querySelector('.pie-chart');
 new chartXkcd.Pie(svgPie, {
   title: 'What Tim is made of',
   data: {
-    labels: ['a', 'b', 'e', 'f', '你好吗我的爱g'],
+    labels: ['a', 'b', 'e', 'f', 'g'],
     datasets: [{
       data: [500, 200, 80, 90, 100],
     }],
@@ -33,6 +35,8 @@ new chartXkcd.Pie(svgPie, {
     innerRadius: 0.6,
     legendPosition: chartXkcd.config.positionType.upRight,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
   },
 });
 
@@ -53,6 +57,8 @@ new chartXkcd.Line(svgLine, {
   },
   options: {
     // unxkcdify: true,
+    strokeColor: 'black',
+    backgroundColor: 'white',
   },
 });
 
@@ -76,6 +82,9 @@ new chartXkcd.XY(svgXY, {
     legendPosition: chartXkcd.config.positionType.downRight,
     showLine: false,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
+     
   },
 });
 
@@ -101,6 +110,8 @@ new chartXkcd.XY(svgXY2, {
     timeFormat: 'MM/DD/YYYY',
     dotSize: 0.5,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
   },
 });
 
@@ -123,6 +134,8 @@ new chartXkcd.Radar(svgRadar, {
     showLabels: true,
     legendPosition: chartXkcd.config.positionType.upRight,
     // unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
   },
 });
 
@@ -145,6 +158,8 @@ new chartXkcd.Line(svgLineCus, {
     fontFamily: 'ZCOOL KuaiLe',
     dataColors: ['black', '#aaa'],
     legendPosition: chartXkcd.config.positionType.upRight,
+    strokeColor: 'white',
+    backgroundColor: 'black',
   },
 });
 
@@ -166,5 +181,7 @@ new chartXkcd.Line(svgLineUnxkcdify, {
   },
   options: {
     unxkcdify: true,
+    strokeColor: 'white',
+    backgroundColor: 'black',
   },
 });

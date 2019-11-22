@@ -24,12 +24,14 @@ class Tooltip {
    * }
    */
   constructor({
-    parent, title, items, position, unxkcdify,
+    parent, title, items, position, unxkcdify, backgroundColor, strokeColor,
   }) {
     this.title = title;
     this.items = items;
     this.position = position;
     this.filter = !unxkcdify ? 'url(#xkcdify)' : null;
+    this.backgroundColor = backgroundColor;
+    this.strokeColor = strokeColor;
 
     this.svg = parent.append('svg')
       .attr('x', this._getUpLeftX())
@@ -37,9 +39,9 @@ class Tooltip {
       .style('visibility', 'hidden');
 
     this.tipBackground = this.svg.append('rect')
-      .style('fill', 'white')
-      .attr('fill-opacity', 0.85)
-      .attr('stroke', '#aaa')
+      .style('fill', this.backgroundColor)
+      .attr('fill-opacity', .9)
+      .attr('stroke', this.strokeColor)
       .attr('stroke-width', 2)
       .attr('rx', 5)
       .attr('ry', 5)
@@ -52,6 +54,7 @@ class Tooltip {
     this.tipTitle = this.svg.append('text')
       .style('font-size', 15)
       .style('font-weight', 'bold')
+      .style('fill', this.strokeColor)
       .attr('x', 15)
       .attr('y', 25)
       .text(title);
@@ -119,6 +122,7 @@ class Tooltip {
 
     svg.append('text')
       .style('font-size', '15')
+      .style('fill', this.strokeColor)
       .attr('x', 15 + 12)
       .attr('y', 37 + 20 * i + 8)
       .text(item.text);

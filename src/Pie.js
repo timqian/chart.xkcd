@@ -21,14 +21,24 @@ class Pie {
       legendPosition: config.positionType.upLeft,
       dataColors: [],
       fontFamily: 'xkcd',
+      strokeColor: 'black',
+      backgroundColor: 'white',
     },
   }) {
+    if(!options.strokeColor) {
+      options.strokeColor = 'black';
+    }
+    if(!options.backgroundColor) {
+      options.backgroundColor = 'white';
+    }
     this.title = title;
     this.data = {
       labels,
       datasets,
     };
     this.options = options;
+    this.strokeColor = options.strokeColor;
+    this.backgroundColor = options.backgroundColor;
     this.filter = 'url(#xkcdify-pie)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -39,6 +49,7 @@ class Pie {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
+      .style('background', this.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -58,7 +69,7 @@ class Pie {
 
   render() {
     if (this.title) {
-      addLabels.title(this.svgEl, this.title);
+      addLabels.title(this.svgEl, this.title, this.strokeColor);
     }
 
     const tooltip = new Tooltip({
@@ -67,6 +78,8 @@ class Pie {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
+      strokeColor: this.strokeColor,
+      backgroundColor: this.backgroundColor,
     });
 
     const radius = Math.min(this.width, this.height) / 2 - margin;
@@ -87,7 +100,7 @@ class Pie {
       .attr('class', '.xkcd-chart-arc')
       .attr('d', theArc)
       .attr('fill', 'none')
-      .attr('stroke', 'black')
+      .attr('stroke', this.strokeColor)
       .attr('stroke-width', 2)
       .attr('fill', (d, i) => colors[i])
       .attr('filter', this.filter)
@@ -132,6 +145,8 @@ class Pie {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
+      strokeColor: this.strokeColor,
+      backgroundColor: this.backgroundColor,
     });
   }
 

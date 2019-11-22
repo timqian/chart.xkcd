@@ -5,3 +5,5 @@ dist
 /previous-works
 /assets
 /insprations.md
+.DS_Store
+.idea/

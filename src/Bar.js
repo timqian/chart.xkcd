@@ -23,8 +23,16 @@ class Bar {
       yTickCount: 3,
       dataColors: [],
       fontFamily: 'xkcd',
+      strokeColor: 'black',
+      backgroundColor: 'white',
     },
   }) {
+    if(!options.strokeColor) {
+      options.strokeColor = 'black';
+    }
+    if(!options.backgroundColor) {
+      options.backgroundColor = 'white';
+    }
     if (title) {
       this.title = title;
       margin.top = 60;
@@ -42,6 +50,8 @@ class Bar {
       datasets,
     };
     this.options = options;
+    this.strokeColor = options.strokeColor;
+    this.backgroundColor = options.backgroundColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (options.unxkcdify) {
@@ -52,6 +62,7 @@ class Bar {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
+      .style('background', this.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
 
@@ -69,9 +80,9 @@ class Bar {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.strokeColor);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.strokeColor);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.strokeColor);
 
     const tooltip = new Tooltip({
       parent: this.svgEl,
@@ -79,6 +90,8 @@ class Bar {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
+      backgroundColor: this.backgroundColor,
+      strokeColor: this.strokeColor,
     });
 
     const xScale = scaleBand()
@@ -102,12 +115,14 @@ class Bar {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.strokeColor,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
+      stroke: this.strokeColor,
     });
 
     // Bars
@@ -122,7 +137,7 @@ class Bar {
       .attr('height', (d) => this.height - yScale(d))
       .attr('fill', 'none')
       .attr('pointer-events', 'all')
-      .attr('stroke', 'black')
+      .attr('stroke', this.strokeColor)
       .attr('stroke-width', 3)
       .attr('rx', 2)
       // .attr('cursor','crosshair')
