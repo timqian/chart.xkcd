@@ -183,7 +183,7 @@ We already have lots of great chart libraries like [chart.js](), [echart](), [ch
 <pre class="chroma"><span class="kr">const</span> <span class="nx">lineChart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Line</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
   <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Monthly income of an indie developer&#39;</span><span class="p">,</span> <span class="c1">// optional
 </span><span class="c1"></span>  <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>  <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">&#39;$ Dollors&#39;</span><span class="p">,</span> <span class="c1">// optional
+</span><span class="c1"></span>  <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">&#39;$ Dollars&#39;</span><span class="p">,</span> <span class="c1">// optional
 </span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">],</span>
     <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
@@ -219,6 +219,8 @@ Possible values:
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
+<li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
+<li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
 </ul>
 
               </div>
@@ -227,7 +229,7 @@ Possible values:
                 <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="xy_chart" href="#xy_chart">
 	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
 </a>XY chart</h1>
-                <p>XY chart is used to plot points by specifing there XY coordinates.</p>
+                <p>XY chart is used to plot points by specifying their XY coordinates.</p>
 
 <p>You can also plot XY line chart by connecting the points.</p>
 
@@ -246,7 +248,7 @@ Possible values:
 
   <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">XY</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Pokemon farms&#39;</span><span class="p">,</span> <span class="c1">//optional
-</span><span class="c1"></span>    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;Coodinate&#39;</span><span class="p">,</span> <span class="c1">//optional
+</span><span class="c1"></span>    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;Coordinate&#39;</span><span class="p">,</span> <span class="c1">//optional
 </span><span class="c1"></span>    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">&#39;Count&#39;</span><span class="p">,</span> <span class="c1">//optional
 </span><span class="c1"></span>    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
@@ -291,6 +293,8 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
+<li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
+<li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
 </ul>
 
 <p><strong>Another example of XY chart: XY line chart with <code>timeFormat</code></strong></p>
@@ -346,6 +350,8 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
+<li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
+<li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
 </ul>
 
               </div>
@@ -366,7 +372,7 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 </a>JS part</h2>
 
 <pre class="chroma"><span class="kr">const</span> <span class="nx">pieChart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Pie</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;What Tim made of&#39;</span><span class="p">,</span> <span class="c1">// optional
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;What Tim is made of&#39;</span><span class="p">,</span> <span class="c1">// optional
 </span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">],</span>
     <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
@@ -402,6 +408,8 @@ Possible values:
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
+<li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
+<li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
 </ul>
 
               </div>
@@ -463,6 +471,8 @@ Possible values:
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
+<li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
+<li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
 </ul>
 
               </div>
