@@ -20,8 +20,9 @@ const margin = {
 
 class XY {
   constructor(svg, {
-    title, xLabel, yLabel, data: { datasets },
-    options = {
+    title, xLabel, yLabel, data: { datasets }, options,
+  }) {
+    this.options = {
       unxkcdify: false,
       dotSize: 1,
       showLine: false,
@@ -29,18 +30,12 @@ class XY {
       xTickCount: 3,
       yTickCount: 3,
       legendPosition: config.positionType.upLeft,
-      dataColors: [],
+      dataColors: colors,
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
-    },
-  }) {
-    if(!options.strokeColor) {
-      options.strokeColor = 'black';
-    }
-    if(!options.backgroundColor) {
-      options.backgroundColor = 'white';
-    }
+      ...options,
+    };
     // TODO: extract a function?
     if (title) {
       this.title = title;
@@ -57,12 +52,10 @@ class XY {
     this.data = {
       datasets,
     };
-    this.options = options;
-    this.strokeColor = options.strokeColor;
-    this.backgroundColor = options.backgroundColor;
+
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
-    if (options.unxkcdify) {
+    if (this.options.unxkcdify) {
       this.filter = null;
       this.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
     }
@@ -70,7 +63,7 @@ class XY {
     this.svgEl = select(svg)
       .style('stroke-width', 3)
       .style('font-family', this.fontFamily)
-      .style('background', this.backgroundColor)
+      .style('background', this.options.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -87,9 +80,9 @@ class XY {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title, this.strokeColor);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.strokeColor);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.strokeColor);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.options.strokeColor);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.options.strokeColor);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.options.strokeColor);
 
     const tooltip = new Tooltip({
       parent: this.svgEl,
@@ -97,8 +90,8 @@ class XY {
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.dowfnRight },
       unxkcdify: this.options.unxkcdify,
-      strokeColor: this.strokeColor,
-      backgroundColor: this.backgroundColor,
+      strokeColor: this.options.strokeColor,
+      backgroundColor: this.options.backgroundColor,
     });
 
     if (this.options.timeFormat) {
@@ -140,14 +133,14 @@ class XY {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.strokeColor,
+      stroke: this.options.strokeColor,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount === undefined ? 3 : this.options.yTickCount,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.strokeColor,
+      stroke: this.options.strokeColor,
     });
 
     // lines
@@ -164,7 +157,7 @@ class XY {
         .attr('class', 'xkcd-chart-xyline')
         .attr('d', (d) => theLine(d.data))
         .attr('fill', 'none')
-        .attr('stroke', (d, i) => (this.options.dataColors ? this.options.dataColors[i] : colors[i]))
+        .attr('stroke', (d, i) => (this.options.dataColors[i]))
         .attr('filter', this.filter);
     }
 
@@ -186,15 +179,11 @@ class XY {
         // FIXME: here I want to pass xyGroupIndex down to the circles by reading parent attrs
         // It might have perfomance issue with a large dataset, not sure there are better ways
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return this.options.dataColors
-          ? this.options.dataColors[xyGroupIndex]
-          : colors[xyGroupIndex];
+        return this.options.dataColors[xyGroupIndex];
       })
       .style('fill', (d, i, nodes) => {
         const xyGroupIndex = Number(select(nodes[i].parentElement).attr('xy-group-index'));
-        return this.options.dataColors
-          ? this.options.dataColors[xyGroupIndex]
-          : colors[xyGroupIndex];
+        return this.options.dataColors[xyGroupIndex];
       })
       .attr('r', dotInitSize)
       .attr('cx', (d) => xScale(d.x))
@@ -218,9 +207,7 @@ class XY {
         tooltip.update({
           title: this.options.timeFormat ? dayjs(this.data.datasets[xyGroupIndex].data[i].x).format(this.options.timeFormat) : `${this.data.datasets[xyGroupIndex].data[i].x}`,
           items: [{
-            color: this.options.dataColors
-              ? this.options.dataColors[xyGroupIndex]
-              : colors[xyGroupIndex],
+            color: this.options.dataColors[xyGroupIndex],
             text: `${this.data.datasets[xyGroupIndex].label || ''}: ${d.y}`,
           }],
           position: {
@@ -241,7 +228,7 @@ class XY {
     // Legend
     const legendItems = this.data.datasets.map(
       (dataset, i) => ({
-        color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
+        color: this.options.dataColors[i],
         text: dataset.label,
       }),
     );
@@ -252,8 +239,8 @@ class XY {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
-      strokeColor: this.strokeColor,
-      backgroundColor: this.backgroundColor,
+      strokeColor: this.options.strokeColor,
+      backgroundColor: this.options.backgroundColor,
     });
   }
 

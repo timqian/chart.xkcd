@@ -14,34 +14,26 @@ const margin = 50;
 
 class Pie {
   constructor(svg, {
-    title, data: { labels, datasets },
-    options = {
+    title, data: { labels, datasets }, options,
+  }) {
+    this.options = {
       unxkcdify: false,
       innerRadius: 0.5,
       legendPosition: config.positionType.upLeft,
-      dataColors: [],
+      dataColors: colors,
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
-    },
-  }) {
-    if(!options.strokeColor) {
-      options.strokeColor = 'black';
-    }
-    if(!options.backgroundColor) {
-      options.backgroundColor = 'white';
-    }
+      ...options,
+    };
     this.title = title;
     this.data = {
       labels,
       datasets,
     };
-    this.options = options;
-    this.strokeColor = options.strokeColor;
-    this.backgroundColor = options.backgroundColor;
     this.filter = 'url(#xkcdify-pie)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
-    if (options.unxkcdify) {
+    if (this.options.unxkcdify) {
       this.filter = null;
       this.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
     }
@@ -49,7 +41,7 @@ class Pie {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
-      .style('background', this.backgroundColor)
+      .style('background', this.options.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -69,7 +61,7 @@ class Pie {
 
   render() {
     if (this.title) {
-      addLabels.title(this.svgEl, this.title, this.strokeColor);
+      addLabels.title(this.svgEl, this.title, this.options.strokeColor);
     }
 
     const tooltip = new Tooltip({
@@ -78,8 +70,8 @@ class Pie {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
-      strokeColor: this.strokeColor,
-      backgroundColor: this.backgroundColor,
+      strokeColor: this.options.strokeColor,
+      backgroundColor: this.options.backgroundColor,
     });
 
     const radius = Math.min(this.width, this.height) / 2 - margin;
@@ -100,9 +92,9 @@ class Pie {
       .attr('class', '.xkcd-chart-arc')
       .attr('d', theArc)
       .attr('fill', 'none')
-      .attr('stroke', this.strokeColor)
+      .attr('stroke', this.options.strokeColor)
       .attr('stroke-width', 2)
-      .attr('fill', (d, i) => colors[i])
+      .attr('fill', (d, i) => this.options.dataColors[i])
       .attr('filter', this.filter)
       // .attr("fill-opacity", 0.6)
       .on('mouseover', (d, i, nodes) => {
@@ -120,7 +112,7 @@ class Pie {
         tooltip.update({
           title: this.data.labels[i],
           items: [{
-            color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
+            color: this.options.dataColors[i],
             text: `${this.data.datasets[0].label || ''}: ${d.data}`,
           }],
           position: {
@@ -133,7 +125,7 @@ class Pie {
 
     // Legend
     const legendItems = this.data.datasets[0].data
-      .map((data, i) => ({ color: colors[i], text: this.data.labels[i] }));
+      .map((data, i) => ({ color: this.options.dataColors[i], text: this.data.labels[i] }));
 
     // move legend down to prevent overlaping with title
     const legendG = this.svgEl.append('g')
@@ -145,8 +137,8 @@ class Pie {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
-      strokeColor: this.strokeColor,
-      backgroundColor: this.backgroundColor,
+      strokeColor: this.options.strokeColor,
+      backgroundColor: this.options.backgroundColor,
     });
   }
 

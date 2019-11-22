@@ -17,22 +17,17 @@ const margin = {
 
 class Bar {
   constructor(svg, {
-    title, xLabel, yLabel, data: { labels, datasets },
-    options = {
+    title, xLabel, yLabel, data: { labels, datasets }, options,
+  }) {
+    this.options = {
       unxkcdify: false,
       yTickCount: 3,
-      dataColors: [],
+      dataColors: colors,
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
-    },
-  }) {
-    if(!options.strokeColor) {
-      options.strokeColor = 'black';
-    }
-    if(!options.backgroundColor) {
-      options.backgroundColor = 'white';
-    }
+      ...options,
+    };
     if (title) {
       this.title = title;
       margin.top = 60;
@@ -49,12 +44,9 @@ class Bar {
       labels,
       datasets,
     };
-    this.options = options;
-    this.strokeColor = options.strokeColor;
-    this.backgroundColor = options.backgroundColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
-    if (options.unxkcdify) {
+    if (this.options.unxkcdify) {
       this.filter = null;
       this.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
     }
@@ -62,7 +54,7 @@ class Bar {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
-      .style('background', this.backgroundColor)
+      .style('background', this.options.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
 
@@ -80,9 +72,9 @@ class Bar {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title, this.strokeColor);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.strokeColor);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.strokeColor);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.options.strokeColor);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.options.strokeColor);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.options.strokeColor);
 
     const tooltip = new Tooltip({
       parent: this.svgEl,
@@ -90,8 +82,8 @@ class Bar {
       items: [{ color: 'red', text: 'weweyang: 12' }, { color: 'blue', text: 'timqian: 13' }],
       position: { x: 30, y: 30, type: config.positionType.upRight },
       unxkcdify: this.options.unxkcdify,
-      backgroundColor: this.backgroundColor,
-      strokeColor: this.strokeColor,
+      backgroundColor: this.options.backgroundColor,
+      strokeColor: this.options.strokeColor,
     });
 
     const xScale = scaleBand()
@@ -115,14 +107,14 @@ class Bar {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.strokeColor,
+      stroke: this.options.strokeColor,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.strokeColor,
+      stroke: this.options.strokeColor,
     });
 
     // Bars
@@ -137,13 +129,13 @@ class Bar {
       .attr('height', (d) => this.height - yScale(d))
       .attr('fill', 'none')
       .attr('pointer-events', 'all')
-      .attr('stroke', this.strokeColor)
+      .attr('stroke', this.options.strokeColor)
       .attr('stroke-width', 3)
       .attr('rx', 2)
       // .attr('cursor','crosshair')
       .attr('filter', this.filter)
       .on('mouseover', (d, i, nodes) => {
-        select(nodes[i]).attr('fill', this.options.dataColors ? this.options.dataColors[i] : colors[i]);
+        select(nodes[i]).attr('fill', this.options.dataColors[i]);
         // select(nodes[i]).attr('fill', 'url(#hatch00)');
         tooltip.show();
       })
@@ -166,7 +158,7 @@ class Bar {
         tooltip.update({
           title: this.data.labels[i],
           items: [{
-            color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
+            color: this.options.dataColors[i],
             text: `${this.data.datasets[0].label || ''}: ${d}`,
           }],
           position: {

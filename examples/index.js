@@ -1,6 +1,6 @@
 // import chartXkcd from 'chart.xkcd';
 // import chartXkcd from '../../dist/chart.xkcd';
-import chartXkcd from '../../src';
+import chartXkcd from '../src';
 
 const svg = document.querySelector('.bar-chart');
 
@@ -14,12 +14,12 @@ new chartXkcd.Bar(svg, {
       data: [100, 2],
     }],
   },
-  options: {
-    yTickCount: 2,
-    // unxkcdify: true,
-    // strokeColor: 'white',
-    // backgroundColor: 'black',
-  },
+  // options: {
+  //   yTickCount: 2,
+  //   // unxkcdify: true,
+  //   // strokeColor: 'white',
+  //   // backgroundColor: 'black',
+  // },
 });
 
 const svgPie = document.querySelector('.pie-chart');
@@ -35,8 +35,8 @@ new chartXkcd.Pie(svgPie, {
     innerRadius: 0.6,
     legendPosition: chartXkcd.config.positionType.upRight,
     // unxkcdify: true,
-    strokeColor: 'white',
-    backgroundColor: 'black',
+    // strokeColor: 'white',
+    // backgroundColor: 'black',
   },
 });
 
@@ -57,8 +57,8 @@ new chartXkcd.Line(svgLine, {
   },
   options: {
     // unxkcdify: true,
-    strokeColor: 'black',
-    backgroundColor: 'white',
+    // strokeColor: 'black',
+    // backgroundColor: 'white',
   },
 });
 
@@ -82,8 +82,8 @@ new chartXkcd.XY(svgXY, {
     legendPosition: chartXkcd.config.positionType.downRight,
     showLine: false,
     // unxkcdify: true,
-    strokeColor: 'white',
-    backgroundColor: 'black',
+    // strokeColor: 'blue',
+    // backgroundColor: 'black',
      
   },
 });
@@ -110,8 +110,8 @@ new chartXkcd.XY(svgXY2, {
     timeFormat: 'MM/DD/YYYY',
     dotSize: 0.5,
     // unxkcdify: true,
-    strokeColor: 'white',
-    backgroundColor: 'black',
+    // strokeColor: 'white',
+    // backgroundColor: 'black',
   },
 });
 
@@ -134,8 +134,8 @@ new chartXkcd.Radar(svgRadar, {
     showLabels: true,
     legendPosition: chartXkcd.config.positionType.upRight,
     // unxkcdify: true,
-    strokeColor: 'white',
-    backgroundColor: 'black',
+    // strokeColor: 'white',
+    // backgroundColor: 'black',
   },
 });
 
@@ -158,8 +158,8 @@ new chartXkcd.Line(svgLineCus, {
     fontFamily: 'ZCOOL KuaiLe',
     dataColors: ['black', '#aaa'],
     legendPosition: chartXkcd.config.positionType.upRight,
-    strokeColor: 'white',
-    backgroundColor: 'black',
+    // strokeColor: 'white',
+    // backgroundColor: 'black',
   },
 });
 
@@ -181,7 +181,33 @@ new chartXkcd.Line(svgLineUnxkcdify, {
   },
   options: {
     unxkcdify: true,
+    // strokeColor: 'white',
+    // backgroundColor: 'black',
+  },
+});
+
+const svgDark = document.querySelector('.line-chart-dark');
+new chartXkcd.XY(svgDark, {
+  title: 'stars',
+  xLabel: 'wo',
+  yLabel: 'Stars count',
+  data: {
+    datasets: [{
+      label: 'timqian',
+      data: [{ x: 3, y: 10 }, { x: 4, y: 122 }, { x: 10, y: 180 }, { x: 1, y: 2 }, { x: 2, y: 4 }],
+    }, {
+      label: 'wewean',
+      data: [{ x: 3, y: 122 }, { x: 4, y: 212 }, { x: -3, y: 100 }, { x: 1, y: 1 }, { x: 1.5, y: 12 }],
+    }],
+  },
+  options: {
+    xTickCount: 5,
+    yTickCount: 5,
+    legendPosition: chartXkcd.config.positionType.downRight,
+    showLine: false,
+    // unxkcdify: true,
     strokeColor: 'white',
     backgroundColor: 'black',
+     
   },
 });

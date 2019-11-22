@@ -40,8 +40,8 @@ class Tooltip {
 
     this.tipBackground = this.svg.append('rect')
       .style('fill', this.backgroundColor)
-      .attr('fill-opacity', .9)
-      .attr('stroke', this.strokeColor)
+      .attr('fill-opacity', 0.9)
+      .attr('stroke', strokeColor) // FIXME: find a good way to calculate boder color form this.strokeColor
       .attr('stroke-width', 2)
       .attr('rx', 5)
       .attr('ry', 5)

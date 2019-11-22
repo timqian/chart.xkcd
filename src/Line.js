@@ -20,23 +20,18 @@ const margin = {
 
 class Line {
   constructor(svg, {
-    title, xLabel, yLabel, data: { labels, datasets },
-    options = {
+    title, xLabel, yLabel, data: { labels, datasets }, options,
+  }) {
+    this.options = {
       unxkcdify: false,
       yTickCount: 3,
       legendPosition: config.positionType.upLeft,
-      dataColors: [],
+      dataColors: colors,
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
-    },
-  }) {
-    if(!options.strokeColor) {
-      options.strokeColor = 'black';
-    }
-    if(!options.backgroundColor) {
-      options.backgroundColor = 'white';
-    }
+      ...options,
+    };
     if (title) {
       this.title = title;
       margin.top = 60;
@@ -53,12 +48,9 @@ class Line {
       labels,
       datasets,
     };
-    this.options = options;
-    this.strokeColor = options.strokeColor;
-    this.backgroundColor = options.backgroundColor;
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
-    if (options.unxkcdify) {
+    if (this.options.unxkcdify) {
       this.filter = null;
       this.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
     }
@@ -66,7 +58,7 @@ class Line {
     this.svgEl = select(svg)
       .style('stroke-width', '3')
       .style('font-family', this.fontFamily)
-      .style('background', this.backgroundColor)
+      .style('background', this.options.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
       .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
     this.svgEl.selectAll('*').remove();
@@ -83,17 +75,17 @@ class Line {
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title, this.strokeColor);
-    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.strokeColor);
-    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.strokeColor);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.options.strokeColor);
+    if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.options.strokeColor);
+    if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.options.strokeColor);
     const tooltip = new Tooltip({
       parent: this.svgEl,
       title: '',
       items: [{ color: 'red', text: 'weweyang' }, { color: 'blue', text: 'timqian' }],
       position: { x: 60, y: 60, type: config.positionType.downRight },
       unxkcdify: this.options.unxkcdify,
-      backgroundColor: this.backgroundColor,
-      strokeColor: this.strokeColor,
+      backgroundColor: this.options.backgroundColor,
+      strokeColor: this.options.strokeColor,
     });
 
     const xScale = scalePoint()
@@ -117,14 +109,14 @@ class Line {
       moveDown: this.height,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.strokeColor
+      stroke: this.options.strokeColor,
     });
     addAxis.yAxis(graphPart, {
       yScale,
       tickCount: this.options.yTickCount || 3,
       fontFamily: this.fontFamily,
       unxkcdify: this.options.unxkcdify,
-      stroke: this.strokeColor,
+      stroke: this.options.strokeColor,
     });
 
     this.svgEl.selectAll('.domain')
@@ -142,9 +134,7 @@ class Line {
       .attr('class', 'xkcd-chart-line')
       .attr('d', (d) => theLine(d.data))
       .attr('fill', 'none')
-      .attr('stroke', (d, i) => (this.options.dataColors
-        ? this.options.dataColors[i]
-        : colors[i]))
+      .attr('stroke', (d, i) => this.options.dataColors[i])
       .attr('filter', this.filter);
 
     // hover effect
@@ -160,8 +150,8 @@ class Line {
 
     const circles = this.data.datasets.map((dataset, i) => graphPart
       .append('circle')
-      .style('stroke', this.options.dataColors ? this.options.dataColors[i] : colors[i])
-      .style('fill', this.options.dataColors ? this.options.dataColors[i] : colors[i])
+      .style('stroke', this.options.dataColors[i])
+      .style('fill', this.options.dataColors[i])
       .attr('r', 3.5)
       .style('visibility', 'hidden'));
 
@@ -202,7 +192,7 @@ class Line {
         });
 
         const tooltipItems = this.data.datasets.map((dataset, j) => ({
-          color: this.options.dataColors ? this.options.dataColors[j] : colors[j],
+          color: this.options.dataColors[j],
           text: `${this.data.datasets[j].label || ''}: ${this.data.datasets[j].data[mostNearLabelIndex]}`,
         }));
 
@@ -229,7 +219,7 @@ class Line {
     // Legend
     const legendItems = this.data.datasets
       .map((dataset, i) => ({
-        color: this.options.dataColors ? this.options.dataColors[i] : colors[i],
+        color: this.options.dataColors[i],
         text: dataset.label,
       }));
 
@@ -239,8 +229,8 @@ class Line {
       unxkcdify: this.options.unxkcdify,
       parentWidth: this.width,
       parentHeight: this.height,
-      backgroundColor: this.backgroundColor,
-      strokeColor: this.strokeColor,
+      backgroundColor: this.options.backgroundColor,
+      strokeColor: this.options.strokeColor,
     });
   }
 

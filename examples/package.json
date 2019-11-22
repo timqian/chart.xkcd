@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel example.html"
   },
   "dependencies": {
     "chart.xkcd": "^1.0.5"
