@@ -10,7 +10,7 @@ Check out the [documentation](https://timqian.com/chart.xkcd/) for more instruct
 
 ## Sponsors
 
-[Mado](https://madao.me/) | [Become a sponsor](https://www.patreon.com/timqian)
+[Madao](https://madao.me/) | [Become a sponsor](https://www.patreon.com/timqian)
 
 ## Quick start
 

@@ -19,4 +19,4 @@ Chart.xkcd is a chart library plots "sketchy", "cartoony" or "hand-drawn" styled
 
 ## Sponsors
 
-[Mado](https://madao.me/) | [Become a sponsor](https://www.patreon.com/timqian)
+[Madao](https://madao.me/) | [Become a sponsor](https://www.patreon.com/timqian)
