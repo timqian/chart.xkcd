@@ -16,3 +16,7 @@ Chart.xkcd is a chart library plots "sketchy", "cartoony" or "hand-drawn" styled
 [![stars](https://flat.badgen.net/github/stars/timqian/chart.xkcd?icon=github)](https://github.com/timqian/chart.xkcd)
 [![npm](https://flat.badgen.net/npm/v/chart.xkcd/?color=fb3e44)](https://www.npmjs.com/package/chart.xkcd)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/npm/chart.xkcd/badge)](https://www.jsdelivr.com/package/npm/chart.xkcd)
+
+## Sponsors
+
+[Mado](https://madao.me/) | [Become a sponsor](https://www.patreon.com/timqian)
