@@ -6,6 +6,7 @@ import scaleLinear from 'd3-scale/src/linear';
 import addAxis from './utils/addAxis';
 import addLabels from './utils/addLabels';
 import Tooltip from './components/Tooltip';
+import addLegend from './utils/addLegend';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
 import colors from './utils/colors';
@@ -26,6 +27,7 @@ class StackedBar {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
+      legendPosition: config.positionType.upLeft,
       ...options,
     };
     if (title) {
@@ -145,24 +147,14 @@ class StackedBar {
       .attr('width', xScale.bandwidth())
       .attr('y', (d, i) => yScale(d + offsets[i]))
       .attr('height', (d) => this.height - yScale(d))
-      .attr('fill', 'none')
-      // .attr('fill', (d,i) => this.options.dataColors[Math.floor(i/dataLength)])
+      .attr('fill', (d, i) => this.options.dataColors[Math.floor(i / dataLength)])
       .attr('pointer-events', 'all')
       .attr('stroke', this.options.strokeColor)
       .attr('stroke-width', 3)
       .attr('rx', 2)
-      // .attr('cursor','crosshair')
       .attr('filter', this.filter)
-      .on('mouseover', (d, i, nodes) => {
-        nodes.filter((node, j) => j % dataLength === i % dataLength)
-          .forEach((node, j) => select(node).attr('fill', this.options.dataColors[j]));
-        tooltip.show();
-      })
-      .on('mouseout', (d, i, nodes) => {
-        nodes.filter((node, j) => j % dataLength === i % dataLength)
-          .forEach((node) => select(node).attr('fill', 'none'));
-        tooltip.hide();
-      })
+      .on('mouseover', () => tooltip.show())
+      .on('mouseout', () => tooltip.hide())
       .on('mousemove', (d, i, nodes) => {
         const tipX = mouse(nodes[i])[0] + margin.left + 10;
         const tipY = mouse(nodes[i])[1] + margin.top + 10;
@@ -190,6 +182,21 @@ class StackedBar {
           },
         });
       });
+
+    const legendItems = this.data.datasets.map((dataset, j) => ({
+      color: this.options.dataColors[j],
+      text: `${this.data.datasets[j].label || ''}`,
+    })).reverse();
+
+    addLegend(graphPart, {
+      items: legendItems,
+      position: this.options.legendPosition,
+      unxkcdify: this.options.unxkcdify,
+      parentWidth: this.width,
+      parentHeight: this.height,
+      strokeColor: this.options.strokeColor,
+      backgroundColor: this.options.backgroundColor,
+    });
   }
 
   // TODO: update chart
