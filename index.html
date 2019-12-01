@@ -44,6 +44,10 @@
                 </div>
               
                 <div class="item">
+                  <a href="#stacked_bar_chart">Stacked bar chart</a>
+                </div>
+              
+                <div class="item">
                   <a href="#pie_doughnut_chart">Pie/Doughnut chart</a>
                 </div>
               
@@ -79,7 +83,7 @@ We already have lots of great chart libraries like [chart.js](), [echart](), [ch
 	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
 </a>Sponsors</h2>
 
-<p><a href="https://madao.me/">Mado</a> | <a href="https://www.patreon.com/timqian">Become a sponsor</a></p>
+<p><a href="https://madao.me/">Madao</a> | <a href="https://www.patreon.com/timqian">Become a sponsor</a></p>
 
               </div>
             
@@ -358,6 +362,67 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
 <li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
 <li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
+</ul>
+
+              </div>
+            
+              <div class="Page" id="stacked_bar_chart">
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart" href="#stacked_bar_chart">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Stacked bar chart</h1>
+                <p>A stacked bar chart provides a way of showing data values represented as vertical bars</p>
+
+<p></p><p class="codepen" data-height="429" data-theme-id="default" data-default-tab="result" data-user="timqian" data-slug-hash="KKwPrEm" style="height: 429px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd stacked bar">
+  <span>See the Pen <a href="https://codepen.io/timqian/pen/KKwPrEm">
+  chart.xkcd stacked bar</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart.js_part" href="#stacked_bar_chart.js_part">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>JS part</h2>
+
+<pre class="chroma"><span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">StackedBar</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Issues and PR Submissions&#39;</span><span class="p">,</span>
+  <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;Month&#39;</span><span class="p">,</span>
+  <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">&#39;Count&#39;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="s1">&#39;Feb&#39;</span><span class="p">,</span> <span class="s1">&#39;Mar&#39;</span><span class="p">,</span> <span class="s1">&#39;April&#39;</span><span class="p">,</span> <span class="s1">&#39;May&#39;</span><span class="p">],</span>
+    <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Issues&#39;</span><span class="p">,</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;PRs&#39;</span><span class="p">,</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Merges&#39;</span><span class="p">,</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">}],</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</pre>
+
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart.customize_chart_by_defining_options" href="#stacked_bar_chart.customize_chart_by_defining_options">
+	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+</a>Customize chart by defining options</h2>
+
+<ul>
+<li><code>yTickCount</code>: customize tick numbers you want to see on the y axis</li>
+<li><code>dataColors</code>: array of colors for different datasets</li>
+<li><code>fontFamily</code>: customize font family used in the chart</li>
+<li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
+<li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
+<li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
+<li><code>legendPosition</code>: specify where you want to place the legend (default <code>chartXkcd.config.positionType.upLeft</code>)
+Possible values:
+
+<ul>
+<li>up left: <code>chartXkcd.config.positionType.upLeft</code></li>
+<li>up right: <code>chartXkcd.config.positionType.upLeft</code></li>
+<li>bottom left: <code>chartXkcd.config.positionType.downLeft</code></li>
+<li>bottom right: <code>chartXkcd.config.positionType.downRight</code></li>
+</ul></li>
 </ul>
 
               </div>
