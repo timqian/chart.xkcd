@@ -100,24 +100,6 @@ class StackedBar {
       .domain([0, Math.max(...allCols)])
       .range([this.height, 0]);
 
-    // Merge all the lists into a single list, and store the
-    // offests in a corresponding list.  Use dataLength to
-    // track how many total columns there should be.
-    const mergedData = this.data.datasets
-      .reduce((pre, cur) => pre.concat(cur.data), []);
-
-    const dataLength = this.data.datasets[0].data.length;
-
-    const offsets = this.data.datasets
-      .reduce((r, x, i) => {
-        if (i > 0) {
-          r.push(x.data.map((y, j) => this.data.datasets[i - 1].data[j] + r[i - 1][j]));
-        } else {
-          r.push(new Array(x.data.length).fill(0));
-        }
-        return r;
-      }, []).flat();
-
     const graphPart = this.chart.append('g');
 
     // axis
@@ -136,6 +118,24 @@ class StackedBar {
       unxkcdify: this.options.unxkcdify,
       stroke: this.options.strokeColor,
     });
+
+    // Merge all the lists into a single list, and store the
+    // offests in a corresponding list.  Use dataLength to
+    // track how many total columns there should be.
+    const mergedData = this.data.datasets
+      .reduce((pre, cur) => pre.concat(cur.data), []);
+
+    const dataLength = this.data.datasets[0].data.length;
+
+    const offsets = this.data.datasets
+      .reduce((r, x, i) => {
+        if (i > 0) {
+          r.push(x.data.map((y, j) => this.data.datasets[i - 1].data[j] + r[i - 1][j]));
+        } else {
+          r.push(new Array(x.data.length).fill(0));
+        }
+        return r;
+      }, []).flat();
 
     // Bars
     graphPart.selectAll('.xkcd-chart-stacked-bar')
@@ -161,7 +161,7 @@ class StackedBar {
 
         const tooltipItems = this.data.datasets.map((dataset, j) => ({
           color: this.options.dataColors[j],
-          text: `${this.data.datasets[j].label || ''}: ${this.data.datasets[j].data[i]}`,
+          text: `${this.data.datasets[j].label || ''}: ${this.data.datasets[j].data[i % dataLength]}`,
         })).reverse();
 
         let tooltipPositionType = config.positionType.downRight;
@@ -172,6 +172,7 @@ class StackedBar {
         } else if (tipX < this.width / 2 && tipY > this.height / 2) {
           tooltipPositionType = config.positionType.upRight;
         }
+
         tooltip.update({
           title: this.data.labels[i],
           items: tooltipItems,

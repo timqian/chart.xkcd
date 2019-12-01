@@ -75,7 +75,7 @@ class Radar {
       items: [],
       position: { x: 0, y: 0, type: config.positionType.downRight },
       unxkcdify: this.options.unxkcdify,
-      strokeColor: 'this.options.strokeColor',
+      strokeColor: this.options.strokeColor,
       backgroundColor: this.options.backgroundColor,
     });
 
