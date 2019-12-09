@@ -5,47 +5,29 @@ import chartXkcd from '../src';
 const svg = document.querySelector('.bar-chart');
 
 new chartXkcd.Bar(svg, {
-  title: 'Github stars VS patron number',
+  title: 'Monthly income of a dotnet developer',
   xLabel: 'Month',
-  yLabel: 'Count',
+  yLabel: '$ Dollars',
   data: {
-    labels: ['github stars', 'patrons'],
+    labels: ['2sdqsdsqdqs','3','5','67csdfdsf','CD'],
     datasets: [{
-      data: [100, 2],
+      data: [50,-20,-10,-80,-10],
     }],
   },
-  // options: {
+   options: {
+      unxkcdify: false,
+      yTickCount: 3,
+      
+      strokeColor: 'black',
+      strokeColorTitle: 'grey',
+      backgroundColor: 'white',
+      isShorterLabelActive: true,
+      charNum: 5,
   //   yTickCount: 2,
   //   // unxkcdify: true,
   //   // strokeColor: 'white',
   //   // backgroundColor: 'black',
-  // },
-});
-
-const svgStackedBar = document.querySelector('.stacked-bar-chart');
-new chartXkcd.StackedBar(svgStackedBar, {
-  title: 'Issues and PR Submissions',
-  xLabel: 'Month',
-  yLabel: 'Count',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'April', 'May'],
-    datasets: [{
-      label: 'Issues',
-      data: [12, 19, 11, 29, 17],
-    }, {
-      label: 'PRs',
-      data: [3, 5, 2, 4, 1],
-    }, {
-      label: 'Merges',
-      data: [2, 3, 0, 1, 1],
-    }],
-  },
-  // options: {
-  //   yTickCount: 2,
-  //   // unxkcdify: true,
-  //   // strokeColor: 'white',
-  //   // backgroundColor: 'black',
-  // },
+   },
 });
 
 const svgPie = document.querySelector('.pie-chart');
@@ -110,7 +92,7 @@ new chartXkcd.XY(svgXY, {
     // unxkcdify: true,
     // strokeColor: 'blue',
     // backgroundColor: 'black',
-
+     
   },
 });
 
@@ -234,6 +216,6 @@ new chartXkcd.XY(svgDark, {
     // unxkcdify: true,
     strokeColor: 'white',
     backgroundColor: 'black',
-
+     
   },
 });
