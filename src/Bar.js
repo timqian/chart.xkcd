@@ -25,11 +25,7 @@ class Bar {
       dataColors: colors,
       fontFamily: 'xkcd',
       strokeColor: 'black',
-      strokeColorTitle: 'grey',
       backgroundColor: 'white',
-      isShorterLabelActive: false,
-      charNum: 5,
-      shorterLabels: [],
       ...options,
     };
     if (title) {
@@ -44,33 +40,10 @@ class Bar {
       this.yLabel = yLabel;
       margin.left = 70;
     }
-
-  this.data = {
-    labels,
-    datasets
-  };
-
-  this.XdataLongLabels = this.data.labels; 
- 
-
-  if (this.options.isShorterLabelActive) {
-
-this.options.shorterLabels = getShorterLabels(this.data.labels,this.options.charNum);
-this.data.labels = this.options.shorterLabels ;
-console.log(this.options.shorterLabels)
- }
-
-  function getShorterLabels(labels , charNumber) {
-    var shorterLabels = [] ;
-    labels.forEach(element => {
-
-      (element.length > charNumber) ?
-      element = element.slice(0,charNumber) + '...' : element ;
-      shorterLabels.push(element) ;
-    });
-    return shorterLabels ;
-  }
-
+    this.data = {
+      labels,
+      datasets,
+    };
     this.filter = 'url(#xkcdify)';
     this.fontFamily = this.options.fontFamily || 'xkcd';
     if (this.options.unxkcdify) {
@@ -99,7 +72,7 @@ console.log(this.options.shorterLabels)
   }
 
   render() {
-    if (this.title) addLabels.title(this.svgEl, this.title, this.options.strokeColorTitle);
+    if (this.title) addLabels.title(this.svgEl, this.title, this.options.strokeColor);
     if (this.xLabel) addLabels.xLabel(this.svgEl, this.xLabel, this.options.strokeColor);
     if (this.yLabel) addLabels.yLabel(this.svgEl, this.yLabel, this.options.strokeColor);
 
@@ -113,22 +86,15 @@ console.log(this.options.shorterLabels)
       strokeColor: this.options.strokeColor,
     });
 
-  
-const xScale = scaleBand()
-.range([0, this.width])
-.domain(this.data.labels)
-.padding(0.4);
-
-
+    const xScale = scaleBand()
+      .range([0, this.width])
+      .domain(this.data.labels)
+      .padding(0.4);
 
     const allData = this.data.datasets
       .reduce((pre, cur) => pre.concat(cur.data), []);
 
-      // const yScale = scaleLinear()
-      // .domain([0, Math.max(...allData)])
-      // .range([this.height, 0]);
-
-    const yScale = getYScale(this.height, Math.min(...allData), Math.max(...allData))
+	 const yScale = getYScale(this.height, Math.min(...allData), Math.max(...allData))
 
     function getYScale(height,min,max){
       if (min < 0 && max > 0 ) 
@@ -149,26 +115,24 @@ const xScale = scaleBand()
         .range([height, 0]) ;
       }
     }
-
     const graphPart = this.chart.append('g');
 
     // axis
-
- function getXlabelsMoveDownValue(height){
-  const max = Math.max(...allData);
-  const min = Math.min(...allData);
-  if (min < 0 && max > 0) 
-  {
-    return getRectHeight(min,height) ;
-  }
-  else if ( max < 0) {
- return -25 ;
-  }
-  else {
-return 0;
-  }
- }
-      addAxis.xAxis(graphPart, {
+	function getXlabelsMoveDownValue(height){
+	  const max = Math.max(...allData);
+	  const min = Math.min(...allData);
+	  if (min < 0 && max > 0) 
+	  {
+		return getRectHeight(min,height) ;
+	  }
+	  else if ( max < 0) {
+	 return -25 ;
+	  }
+	  else {
+	return 0;
+	  }
+	 }
+        addAxis.xAxis(graphPart, {
         moveLabelsDown:  getXlabelsMoveDownValue(this.height),
         tickPaddingValue:6,
         xScale,
@@ -187,8 +151,7 @@ return 0;
           stroke: this.options.strokeColor,
         });
 
-
-   function getValueXaxisMove(height){
+	 function getValueXaxisMove(height){
     const max = Math.max(...allData);
     const min = Math.min(...allData);
     const valueMinNeg = Math.abs(min*height)/Math.abs(max-min);
@@ -246,7 +209,6 @@ return 0;
       {return height - yScale(d) ;}
       }
 
-
     // Bars
     graphPart.selectAll('.xkcd-chart-bar')
       .data(this.data.datasets[0].data)
@@ -255,10 +217,8 @@ return 0;
       .attr('class', 'xkcd-chart-bar')
       .attr('x', (d, i) => xScale(this.data.labels[i]))
       .attr('width', xScale.bandwidth())
-      // .attr('y', (d) => yScale(d))   
-      // .attr('height', (d) => this.height - yScale(d))
-      .attr('y', (d) => getRectY(this.height,d)  )          ///////////////////////
-      .attr('height', (d) => getRectHeight(d,this.height) ) ////////////////
+      .attr('y', (d) => getRectY(this.height,d)  )         
+      .attr('height', (d) => getRectHeight(d,this.height) )
       .attr('fill', 'none')
       .attr('pointer-events', 'all')
       .attr('stroke', this.options.strokeColor)
@@ -287,10 +247,8 @@ return 0;
         } else if (tipX < this.width / 2 && tipY > this.height / 2) {
           tooltipPositionType = config.positionType.upRight;
         }
-
         tooltip.update({
-        // title: this.data.labels[i],
-          title: this.XdataLongLabels[i],
+          title: this.data.labels[i],
           items: [{
             color: this.options.dataColors[i],
             text: `${this.data.datasets[0].label || ''}: ${d}`,
@@ -302,7 +260,7 @@ return 0;
           },
         });
       });
-    }
+  }
 
   // TODO: update chart
   update() {
