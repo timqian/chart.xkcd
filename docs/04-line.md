@@ -38,6 +38,7 @@ const lineChart = new chartXkcd.Line(svg, {
 ## Customize chart by defining options
 
 - `yTickCount`: customize tick numbers you want to see on the y axis (default `3`)
+- `showLegend`: display legend near chart (default `true`)
 - `legendPosition`: specify where you want to place the legend. (default `chartXkcd.config.positionType.upLeft`)
   Possible values:
     - up left: `chartXkcd.config.positionType.upLeft`

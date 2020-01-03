@@ -31,6 +31,7 @@ const pieChart = new chartXkcd.Pie(svg, {
 
 - `innerRadius`: specify empty pie chart radius (default: `0.5`)
   - Want a pie chart? set `innerRadius` to `0`
+- `showLegend`: display legend near chart (default `true`)
 - `legendPosition`: specify where you want to place the legend. (default `chartXkcd.config.positionType.upLeft`)
   Possible values:
     - up left: `chartXkcd.config.positionType.upLeft`

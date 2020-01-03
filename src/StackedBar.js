@@ -28,6 +28,7 @@ class StackedBar {
       strokeColor: 'black',
       backgroundColor: 'white',
       legendPosition: config.positionType.upLeft,
+      showLegend: true,
       ...options,
     };
     if (title) {
@@ -184,20 +185,22 @@ class StackedBar {
         });
       });
 
-    const legendItems = this.data.datasets.map((dataset, j) => ({
-      color: this.options.dataColors[j],
-      text: `${this.data.datasets[j].label || ''}`,
-    })).reverse();
+    if (this.options.showLegend) {
+      const legendItems = this.data.datasets.map((dataset, j) => ({
+        color: this.options.dataColors[j],
+        text: `${this.data.datasets[j].label || ''}`,
+      })).reverse();
 
-    addLegend(graphPart, {
-      items: legendItems,
-      position: this.options.legendPosition,
-      unxkcdify: this.options.unxkcdify,
-      parentWidth: this.width,
-      parentHeight: this.height,
-      strokeColor: this.options.strokeColor,
-      backgroundColor: this.options.backgroundColor,
-    });
+      addLegend(graphPart, {
+        items: legendItems,
+        position: this.options.legendPosition,
+        unxkcdify: this.options.unxkcdify,
+        parentWidth: this.width,
+        parentHeight: this.height,
+        strokeColor: this.options.strokeColor,
+        backgroundColor: this.options.backgroundColor,
+      });
+    }
   }
 
   // TODO: update chart

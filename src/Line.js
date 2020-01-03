@@ -30,6 +30,7 @@ class Line {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
+      showLegend: true,
       ...options,
     };
     if (title) {
@@ -217,21 +218,23 @@ class Line {
       });
 
     // Legend
-    const legendItems = this.data.datasets
-      .map((dataset, i) => ({
-        color: this.options.dataColors[i],
-        text: dataset.label,
-      }));
+    if (this.options.showLegend) {
+      const legendItems = this.data.datasets
+        .map((dataset, i) => ({
+          color: this.options.dataColors[i],
+          text: dataset.label,
+        }));
 
-    addLegend(graphPart, {
-      items: legendItems,
-      position: this.options.legendPosition,
-      unxkcdify: this.options.unxkcdify,
-      parentWidth: this.width,
-      parentHeight: this.height,
-      backgroundColor: this.options.backgroundColor,
-      strokeColor: this.options.strokeColor,
-    });
+      addLegend(graphPart, {
+        items: legendItems,
+        position: this.options.legendPosition,
+        unxkcdify: this.options.unxkcdify,
+        parentWidth: this.width,
+        parentHeight: this.height,
+        backgroundColor: this.options.backgroundColor,
+        strokeColor: this.options.strokeColor,
+      });
+    }
   }
 
   // TODO: update chart
