@@ -41,6 +41,7 @@ new chartXkcd.StackedBar(svgStackedBar, {
     }],
   },
   // options: {
+  // showLegend: true,
   //   yTickCount: 2,
   //   // unxkcdify: true,
   //   // strokeColor: 'white',
@@ -60,6 +61,7 @@ new chartXkcd.Pie(svgPie, {
   options: {
     innerRadius: 0.6,
     legendPosition: chartXkcd.config.positionType.upRight,
+    // showLegend: true,
     // unxkcdify: true,
     // strokeColor: 'white',
     // backgroundColor: 'black',
@@ -107,6 +109,7 @@ new chartXkcd.XY(svgXY, {
     yTickCount: 5,
     legendPosition: chartXkcd.config.positionType.downRight,
     showLine: false,
+    // showLegend: true,
     // unxkcdify: true,
     // strokeColor: 'blue',
     // backgroundColor: 'black',

@@ -24,6 +24,7 @@ class Pie {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
+      showLegend: true,
       ...options,
     };
     this.title = title;
@@ -131,15 +132,17 @@ class Pie {
     const legendG = this.svgEl.append('g')
       .attr('transform', 'translate(0, 30)');
 
-    addLegend(legendG, {
-      items: legendItems,
-      position: this.options.legendPosition,
-      unxkcdify: this.options.unxkcdify,
-      parentWidth: this.width,
-      parentHeight: this.height,
-      strokeColor: this.options.strokeColor,
-      backgroundColor: this.options.backgroundColor,
-    });
+    if (this.options.showLegend) {
+      addLegend(legendG, {
+        items: legendItems,
+        position: this.options.legendPosition,
+        unxkcdify: this.options.unxkcdify,
+        parentWidth: this.width,
+        parentHeight: this.height,
+        strokeColor: this.options.strokeColor,
+        backgroundColor: this.options.backgroundColor,
+      });
+    }
   }
 
   // TODO: update chart

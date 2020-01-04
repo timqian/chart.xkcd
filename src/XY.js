@@ -34,6 +34,7 @@ class XY {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
+      showLegend: true,
       ...options,
     };
     // TODO: extract a function?
@@ -226,22 +227,24 @@ class XY {
       });
 
     // Legend
-    const legendItems = this.data.datasets.map(
-      (dataset, i) => ({
-        color: this.options.dataColors[i],
-        text: dataset.label,
-      }),
-    );
+    if (this.options.showLegend) {
+      const legendItems = this.data.datasets.map(
+        (dataset, i) => ({
+          color: this.options.dataColors[i],
+          text: dataset.label,
+        }),
+      );
 
-    addLegend(graphPart, {
-      items: legendItems,
-      position: this.options.legendPosition,
-      unxkcdify: this.options.unxkcdify,
-      parentWidth: this.width,
-      parentHeight: this.height,
-      strokeColor: this.options.strokeColor,
-      backgroundColor: this.options.backgroundColor,
-    });
+      addLegend(graphPart, {
+        items: legendItems,
+        position: this.options.legendPosition,
+        unxkcdify: this.options.unxkcdify,
+        parentWidth: this.width,
+        parentHeight: this.height,
+        strokeColor: this.options.strokeColor,
+        backgroundColor: this.options.backgroundColor,
+      });
+    }
   }
 
   // TODO: update chart

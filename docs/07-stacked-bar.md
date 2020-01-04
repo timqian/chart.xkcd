@@ -42,6 +42,7 @@ new chartXkcd.StackedBar(svg, {
 - `unxkcdify`: disable xkcd effect (default `false`)
 - `strokeColor`: stroke colors (default `black`)
 - `backgroundColor`: color for BG (default `white`)
+- `showLegend`: display legend near chart (default `true`)
 - `legendPosition`: specify where you want to place the legend (default `chartXkcd.config.positionType.upLeft`)
   Possible values:
     - up left: `chartXkcd.config.positionType.upLeft`
