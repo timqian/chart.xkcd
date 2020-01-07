@@ -84,6 +84,7 @@ new chartXkcd.Line(svgLine, {
     }],
   },
   options: {
+    // heightRatio: 3,
     // unxkcdify: true,
     // strokeColor: 'black',
     // backgroundColor: 'white',
