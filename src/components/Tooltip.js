@@ -141,7 +141,7 @@ class Tooltip {
     const maxItemLength = this.items.reduce(
       (pre, cur) => (pre > cur.text.length ? pre : cur.text.length), 0,
     );
-    const maxLength = Math.max(maxItemLength, this.title.length);
+    const maxLength = this.title ? Math.max(maxItemLength, this.title.length) : maxItemLength;
 
     return maxLength * 7.4 + 25;
   }
