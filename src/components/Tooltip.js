@@ -76,7 +76,7 @@ class Tooltip {
   // update tooltip position / content
   update({ title, items, position }) {
     if (title && title !== this.title) {
-      this.title = title;
+      this.title = `${title}`;
       this.tipTitle.text(title);
     }
 
