@@ -121,7 +121,7 @@ class XY {
     }
 
     const yScale = scaleLinear()
-      .domain([Math.min(...allDataY), Math.max(...allDataY)])
+      .domain([0, Math.max(...allDataY)])
       .range([this.height, 0]);
 
     const graphPart = this.chart.append('g')

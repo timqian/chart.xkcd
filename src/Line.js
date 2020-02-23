@@ -97,7 +97,7 @@ class Line {
       .reduce((pre, cur) => pre.concat(cur.data), []);
 
     const yScale = scaleLinear()
-      .domain([Math.min(...allData), Math.max(...allData)])
+      .domain([0, Math.max(...allData)])
       .range([this.height, 0]);
 
     const graphPart = this.chart.append('g')
