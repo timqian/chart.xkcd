@@ -10,7 +10,11 @@ Check out the [documentation](https://timqian.com/chart.xkcd/) for more instruct
 
 ## Sponsors
 
-[Madao](https://madao.me/) | [Become a sponsor](https://www.patreon.com/timqian)
+<a href="https://www.immux.com/"> <img height="70px" src="https://timqian-imgs.s3.ap-southeast-1.amazonaws.com/2020-05-131589535395_.pic.jpg" /> </a>
+
+[Madao](https://madao.me/) 
+
+[Become a sponsor](https://www.patreon.com/timqian)
 
 ## Quick start
 
