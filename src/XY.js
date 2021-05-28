@@ -35,6 +35,7 @@ class XY {
       strokeColor: 'black',
       backgroundColor: 'white',
       showLegend: true,
+      heightRatio: 3,
       ...options,
     };
     // TODO: extract a function?
@@ -66,7 +67,7 @@ class XY {
       .style('font-family', this.fontFamily)
       .style('background', this.options.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
-      .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
+      .attr('height', Math.min((svg.parentElement.clientWidth * 2) / this.options.heightRatio, window.innerHeight));
     this.svgEl.selectAll('*').remove();
 
     this.chart = this.svgEl.append('g')

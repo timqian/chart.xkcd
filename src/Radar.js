@@ -30,6 +30,7 @@ class Radar {
       dotSize: 1,
       strokeColor: 'black',
       backgroundColor: 'white',
+      heightRatio: 3,
       ...options,
     };
     this.title = title;
@@ -50,7 +51,7 @@ class Radar {
       .style('font-family', this.fontFamily)
       .style('background', this.options.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
-      .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
+      .attr('height', Math.min((svg.parentElement.clientWidth * 2) / this.options.heightRatio, window.innerHeight));
     this.svgEl.selectAll('*').remove();
 
     this.width = this.svgEl.attr('width');
