@@ -10,7 +10,7 @@ Check out the [documentation](https://timqian.com/chart.xkcd/) for more instruct
 
 ## Sponsors
 
-<a href="https://www.immux.com/"> <img height="70px" src="https://timqian-imgs.s3.ap-southeast-1.amazonaws.com/2020-05-131589535395_.pic.jpg" /> </a>
+<a href="https://bytebase.com/"> <img height="80px" src="https://i.v2ex.co/3VSATzOl.png" /> </a>
 
 [Madao](https://madao.me/) | [SecondState - Rust and WebAssembly in Node.js](https://bit.ly/3gfWwps)
 
