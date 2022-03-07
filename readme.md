@@ -10,9 +10,7 @@ Check out the [documentation](https://timqian.com/chart.xkcd/) for more instruct
 
 ## Sponsors
 
-<a href="https://bytebase.com/"> <img height="80px" src="https://i.v2ex.co/3VSATzOl.png" /> </a>
-
-[Madao](https://madao.me/) | [SecondState - Rust and WebAssembly in Node.js](https://bit.ly/3gfWwps)
+[Bytebase](https://bytebase.com/) | [Madao](https://madao.me/) | [SecondState - Rust and WebAssembly in Node.js](https://bit.ly/3gfWwps)
 
 [Become a sponsor](https://www.patreon.com/timqian)
 
@@ -55,3 +53,7 @@ In the following example we create a line chart.
 - Financial:
   - [Become a patron](https://www.patreon.com/timqian) - chart.xkcd is an MIT-licensed open source project with its ongoing development made possible entirely by the support of my patrons. If you like this tool, please consider supporting my work by becoming a patron.
   - [Fund issues on issuehunt](https://issuehunt.io/r/timqian/chart.xkcd?tab=idle) - Issues on chart.xkcd can be funded by anyone and the money will be distributed to contributors.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=timqian/chart.xkcd&type=Date)](https://star-history.com/#timqian/chart.xkcd&Date)
