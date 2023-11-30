@@ -14,9 +14,9 @@ export default function addLegend(parent, {
       .style('fill', item.color)
       .attr('width', 8)
       .attr('height', 8)
+      .attr('filter', filter)
       .attr('rx', 2)
       .attr('ry', 2)
-      .attr('filter', filter)
       .attr('x', 15)
       .attr('y', 17 + 20 * i);
 
