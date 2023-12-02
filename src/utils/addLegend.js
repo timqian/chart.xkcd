@@ -1,6 +1,6 @@
 import config from '../config';
 
-export default function addLegend(parent, {
+export default async function addLegend(parent, {
   items, position, unxkcdify, parentWidth, parentHeight, strokeColor, backgroundColor,
 }) {
   const filter = !unxkcdify ? 'url(#xkcdify)' : null;
@@ -28,6 +28,9 @@ export default function addLegend(parent, {
       .text(item.text);
   });
 
+  // wait for textLayer to render, a bit wired
+  await new Promise(resolve => setTimeout(resolve, 10))
+
   const bbox = textLayer.node().getBBox();
   const backgroundWidth = bbox.width + 15;
   const backgroundHeight = bbox.height + 10;
@@ -50,14 +53,14 @@ export default function addLegend(parent, {
   // add background
   backgroundLayer.append('rect')
     .style('fill', backgroundColor)
+    .attr('filter', filter)
     .attr('fill-opacity', 0.85)
     .attr('stroke', strokeColor)
     .attr('stroke-width', 2)
-    .attr('rx', 5)
-    .attr('ry', 5)
-    .attr('filter', filter)
     .attr('width', backgroundWidth)
     .attr('height', backgroundHeight)
+    .attr('rx', 5)
+    .attr('ry', 5)
     .attr('x', 8)
     .attr('y', 5);
 
