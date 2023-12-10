@@ -29,6 +29,7 @@ class StackedBar {
       backgroundColor: 'white',
       legendPosition: config.positionType.upLeft,
       showLegend: true,
+      heightRatio: 3,
       ...options,
     };
     if (title) {
@@ -59,7 +60,7 @@ class StackedBar {
       .style('font-family', this.fontFamily)
       .style('background', this.options.backgroundColor)
       .attr('width', svg.parentElement.clientWidth)
-      .attr('height', Math.min((svg.parentElement.clientWidth * 2) / 3, window.innerHeight));
+      .attr('height', Math.min((svg.parentElement.clientWidth * 2) / this.options.heightRatio, window.innerHeight));
 
     this.svgEl.selectAll('*').remove();
 

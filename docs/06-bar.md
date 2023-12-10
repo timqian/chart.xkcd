@@ -38,3 +38,4 @@ const barChart = new chartXkcd.Bar(svg, {
 - `unxkcdify`: disable xkcd effect (default `false`)
 - `strokeColor`: stroke colors (default `black`)
 - `backgroundColor`: color for BG (default `white`)
+- `heightRatio`: change the aspect ratio of the chart (default `3` results in 4/3 ratio)

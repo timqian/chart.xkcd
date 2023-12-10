@@ -49,3 +49,4 @@ new chartXkcd.StackedBar(svg, {
     - up right: `chartXkcd.config.positionType.upLeft`
     - bottom left: `chartXkcd.config.positionType.downLeft`
     - bottom right: `chartXkcd.config.positionType.downRight`
+- `heightRatio`: change the aspect ratio of the chart (default `3` results in 4/3 ratio)
