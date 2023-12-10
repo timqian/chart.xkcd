@@ -94,28 +94,120 @@ class Bar {
     const allData = this.data.datasets
       .reduce((pre, cur) => pre.concat(cur.data), []);
 
-    const yScale = scaleLinear()
-      .domain([0, Math.max(...allData)])
-      .range([this.height, 0]);
+	 const yScale = getYScale(this.height, Math.min(...allData), Math.max(...allData))
 
+    function getYScale(height,min,max){
+      if (min < 0 && max > 0 ) 
+      {
+          return scaleLinear()
+          .domain([min,max])
+          .range([height, 0]);
+      } 
+      else if ( max < 0)
+      {
+        return scaleLinear()
+        .domain([min, 0])
+        .range([height, 0]) ;
+      }
+      else{
+        return scaleLinear()
+        .domain([0, max])
+        .range([height, 0]) ;
+      }
+    }
     const graphPart = this.chart.append('g');
 
     // axis
-    addAxis.xAxis(graphPart, {
-      xScale,
-      tickCount: 3,
-      moveDown: this.height,
-      fontFamily: this.fontFamily,
-      unxkcdify: this.options.unxkcdify,
-      stroke: this.options.strokeColor,
-    });
-    addAxis.yAxis(graphPart, {
-      yScale,
-      tickCount: this.options.yTickCount || 3,
-      fontFamily: this.fontFamily,
-      unxkcdify: this.options.unxkcdify,
-      stroke: this.options.strokeColor,
-    });
+	function getXlabelsMoveDownValue(height){
+	  const max = Math.max(...allData);
+	  const min = Math.min(...allData);
+	  if (min < 0 && max > 0) 
+	  {
+		return getRectHeight(min,height) ;
+	  }
+	  else if ( max < 0) {
+	 return -25 ;
+	  }
+	  else {
+	return 0;
+	  }
+	 }
+        addAxis.xAxis(graphPart, {
+        moveLabelsDown:  getXlabelsMoveDownValue(this.height),
+        tickPaddingValue:6,
+        xScale,
+        tickCount: 6,
+        moveDown: getValueXaxisMove(this.height),   
+        fontFamily: this.fontFamily,
+        unxkcdify: this.options.unxkcdify,
+        stroke: this.options.strokeColor,
+      });
+  
+        addAxis.yAxis(graphPart, {
+          yScale,
+          tickCount: this.options.yTickCount || 3,
+          fontFamily: this.fontFamily,
+          unxkcdify: this.options.unxkcdify,
+          stroke: this.options.strokeColor,
+        });
+
+	 function getValueXaxisMove(height){
+    const max = Math.max(...allData);
+    const min = Math.min(...allData);
+    const valueMinNeg = Math.abs(min*height)/Math.abs(max-min);
+   if (min < 0 && max > 0) {
+     return (height - valueMinNeg) ;
+   } else if ( max < 0){
+   return 0 ;
+   }
+   else {
+    return height ;}
+   }
+
+    function getRectY(height,d){
+
+      const max = Math.max(...allData);
+      const min = Math.min(...allData);
+      const valueMinNeg = Math.abs(min*height)/Math.abs(max-min);
+      const valueMaxNeg = Math.abs(max*height)/Math.abs(max-min);
+      
+     if (min < 0 && max > 0) {
+          if (d>0) {
+          return height  - yScale(max-d)  - valueMinNeg ;
+          }
+          else {
+            return (height - valueMinNeg) ;
+          }
+     } 
+     else if ( max < 0)
+     {
+     return 0 ;
+     }
+     else {return yScale(d) ;}
+     }
+
+
+    function getRectHeight(d,height){
+  
+      const max = Math.max(...allData);
+      const min = Math.min(...allData);
+
+      if ((min < 0 && max > 0)) {
+
+        if (d>0) {
+          return height*d/(max-min) ;
+        } else 
+        {
+          return (yScale(d)-getRectY(height,d)) ;
+        }
+      } 
+      else if ( max < 0)
+      {
+      return (yScale(d)) ;
+      }
+      else 
+      {return height - yScale(d) ;}
+      }
 
     // Bars
     graphPart.selectAll('.xkcd-chart-bar')
@@ -125,8 +217,8 @@ class Bar {
       .attr('class', 'xkcd-chart-bar')
       .attr('x', (d, i) => xScale(this.data.labels[i]))
       .attr('width', xScale.bandwidth())
-      .attr('y', (d) => yScale(d))
-      .attr('height', (d) => this.height - yScale(d))
+      .attr('y', (d) => getRectY(this.height,d)  )         
+      .attr('height', (d) => getRectHeight(d,this.height) )
       .attr('fill', 'none')
       .attr('pointer-events', 'all')
       .attr('stroke', this.options.strokeColor)
