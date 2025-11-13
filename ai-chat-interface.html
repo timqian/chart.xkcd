@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.xkcd AI Chat Interface</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin-bottom: 5px;
+            font-size: 28px;
+        }
+
+        .header p {
+            opacity: 0.95;
+            font-size: 14px;
+        }
+
+        .header .ai-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            max-width: 1800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .chat-panel {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-right: 1px solid #ddd;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            gap: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 75%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        .message.bot .message-bubble {
+            background: #f0f0f0;
+            color: #2c3e50;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.error .message-bubble {
+            background: #fee;
+            color: #c00;
+            border: 1px solid #fcc;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .bot .avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .user .avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 24px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #userInput:focus {
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .preview-panel {
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .preview-header {
+            margin-bottom: 20px;
+        }
+
+        .preview-header h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+        }
+
+        .action-btn.secondary {
+            background: #6c757d;
+        }
+
+        .action-btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .action-btn.success {
+            background: #28a745;
+        }
+
+        .action-btn.success:hover {
+            background: #218838;
+        }
+
+        #chartContainer {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #6c757d;
+            padding: 40px;
+        }
+
+        .placeholder svg {
+            width: 150px;
+            height: 150px;
+            opacity: 0.3;
+            margin-bottom: 20px;
+        }
+
+        .code-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .code-section.show {
+            display: block;
+        }
+
+        .code-section h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 18px;
+            width: fit-content;
+        }
+
+        .typing-indicator.show {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .config-banner {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            margin: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .config-banner.hidden {
+            display: none;
+        }
+
+        .config-banner button {
+            padding: 6px 16px;
+            font-size: 13px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .example-prompts {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .example-prompts h4 {
+            font-size: 13px;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .example-prompts .prompt-item {
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .example-prompts .prompt-item:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            .chat-panel, .preview-panel {
+                width: 100%;
+            }
+            .chat-panel {
+                height: 50vh;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Chart.xkcd AI Chat</h1>
+        <p>Create beautiful hand-drawn charts using natural language powered by AI</p>
+        <div class="ai-badge">✨ AI-Powered via OpenRouter</div>
+    </div>
+
+    <div class="config-banner" id="configBanner">
+        <span>⚠️ API key not configured.</span>
+        <button onclick="showConfigModal()">Configure API</button>
+    </div>
+
+    <div class="container">
+        <div class="chat-panel">
+            <div class="messages" id="messages">
+                <div class="message bot">
+                    <div class="avatar">🤖</div>
+                    <div class="message-bubble">
+                        Hi! I'm an AI assistant that can help you create beautiful hand-drawn charts using natural language. Just tell me what you want to visualize!
+                        <div class="example-prompts">
+                            <h4>Try these examples:</h4>
+                            <div class="prompt-item" onclick="useExample(0)">
+                                💡 "Create a line chart showing sales: Monday 100, Tuesday 150, Wednesday 120, Thursday 200, Friday 180"
+                            </div>
+                            <div class="prompt-item" onclick="useExample(1)">
+                                💡 "Make a pie chart of browser usage: Chrome 65%, Firefox 15%, Safari 12%, Others 8%"
+                            </div>
+                            <div class="prompt-item" onclick="useExample(2)">
+                                💡 "I need a bar chart comparing revenue: Product A $45K, Product B $62K, Product C $38K"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-container">
+                    <input
+                        type="text"
+                        id="userInput"
+                        placeholder="Describe the chart you want to create..."
+                        autocomplete="off"
+                    />
+                    <button id="sendBtn" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-panel">
+            <div class="preview-header">
+                <h2>Chart Preview</h2>
+                <div class="preview-actions">
+                    <button class="action-btn secondary" onclick="downloadChart()" id="downloadBtn" style="display: none;">
+                        💾 Download SVG
+                    </button>
+                    <button class="action-btn secondary" onclick="toggleCode()" id="codeBtn" style="display: none;">
+                        📝 Show Code
+                    </button>
+                    <button class="action-btn success" onclick="startNew()" id="newChartBtn" style="display: none;">
+                        ✨ New Chart
+                    </button>
+                </div>
+            </div>
+
+            <div id="chartContainer">
+                <div class="placeholder">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                    </svg>
+                    <p>Your AI-generated chart will appear here</p>
+                </div>
+            </div>
+
+            <div class="code-section" id="codeSection">
+                <h3>Generated Code</h3>
+                <pre id="codeOutput"></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div class="modal" id="configModal">
+        <div class="modal-content">
+            <h3>⚙️ API Configuration</h3>
+            <div class="form-group">
+                <label>OpenRouter API Key</label>
+                <input type="password" id="apiKeyInput" placeholder="sk-or-...">
+                <small>Get your API key from <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a></small>
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <select id="modelSelect">
+                    <option value="openai/gpt-4o">OpenAI GPT-4o (Recommended)</option>
+                    <option value="openai/gpt-4o-mini">OpenAI GPT-4o Mini (Faster, cheaper)</option>
+                    <option value="anthropic/claude-3.5-sonnet">Anthropic Claude 3.5 Sonnet</option>
+                    <option value="anthropic/claude-3-haiku">Anthropic Claude 3 Haiku</option>
+                    <option value="google/gemini-pro-1.5">Google Gemini Pro 1.5</option>
+                    <option value="meta-llama/llama-3.1-70b-instruct">Meta Llama 3.1 70B</option>
+                </select>
+                <small>Different models have different capabilities and costs</small>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn secondary" onclick="hideConfigModal()">Cancel</button>
+                <button class="action-btn success" onclick="saveConfig()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const config = {
+            apiKey: localStorage.getItem('openrouter_api_key') || '',
+            model: localStorage.getItem('openrouter_model') || 'openai/gpt-4o',
+            baseUrl: 'https://openrouter.ai/api/v1'
+        };
+
+        // State management
+        const chatState = {
+            currentChart: null,
+            conversationHistory: [],
+            isProcessing: false
+        };
+
+        // System prompt to teach AI about chart.xkcd
+        const SYSTEM_PROMPT = `You are an expert data visualization assistant that helps users create charts using the chart.xkcd library. Chart.xkcd creates beautiful hand-drawn style charts.
+
+AVAILABLE CHART TYPES:
+1. LINE CHART - For trends over time or comparing multiple series
+   Data format: { labels: ['A', 'B', 'C'], datasets: [{ label: 'Series 1', data: [10, 20, 30] }] }
+
+2. BAR CHART - For comparing categories
+   Data format: { labels: ['A', 'B', 'C'], datasets: [{ data: [10, 20, 30] }] }
+
+3. STACKED BAR CHART - For part-to-whole relationships
+   Data format: { labels: ['Q1', 'Q2'], datasets: [{ label: 'North', data: [12, 19] }, { label: 'South', data: [8, 12] }] }
+
+4. PIE/DOUGHNUT CHART - For proportions (innerRadius: 0 = pie, 0.5 = doughnut)
+   Data format: { labels: ['A', 'B', 'C'], datasets: [{ data: [30, 50, 20] }] }
+
+5. XY SCATTER CHART - For correlations between two variables
+   Data format: { datasets: [{ label: 'Series 1', data: [{ x: 1, y: 10 }, { x: 2, y: 20 }] }] }
+   Options: showLine (true/false) to connect points
+
+6. RADAR CHART - For multivariate comparisons
+   Data format: { labels: ['Speed', 'Power', 'Defense'], datasets: [{ label: 'Player 1', data: [8, 6, 7] }] }
+
+YOUR JOB:
+1. Parse the user's natural language request
+2. Extract data from various formats (comma-separated, percentages, ranges, etc.)
+3. Determine the most appropriate chart type
+4. Generate a valid chart.xkcd configuration
+
+RESPONSE FORMAT:
+Always respond with valid JSON in this exact format:
+{
+  "chartType": "line|bar|stackedBar|pie|xy|radar",
+  "config": {
+    "title": "Chart Title",
+    "xLabel": "X Axis Label (optional)",
+    "yLabel": "Y Axis Label (optional)",
+    "data": { /* chart-specific data format */ },
+    "options": {
+      "showLegend": true,
+      "innerRadius": 0.5,
+      "showLine": true,
+      "yTickCount": 3
+      /* other chart-specific options */
+    }
+  },
+  "explanation": "Brief explanation of what you created and why"
+}
+
+IMPORTANT:
+- Always output valid JSON that can be parsed
+- If user's request is unclear, ask clarifying questions in the explanation field but still provide a reasonable default chart
+- Handle messy data formats gracefully
+- Suggest the most appropriate chart type for the data
+- Keep titles and labels concise
+- For percentages, convert to raw numbers that sum meaningfully
+
+EXAMPLES:
+User: "Show sales Mon 100, Tue 150, Wed 80"
+Response: {"chartType":"line","config":{"title":"Sales by Day","xLabel":"Day","yLabel":"Sales","data":{"labels":["Mon","Tue","Wed"],"datasets":[{"label":"Sales","data":[100,150,80]}]},"options":{}},"explanation":"Created a line chart to show the sales trend across three days."}
+
+User: "Make a pie chart: Chrome 60%, Firefox 20%, Safari 20%"
+Response: {"chartType":"pie","config":{"title":"Browser Distribution","data":{"labels":["Chrome","Firefox","Safari"],"datasets":[{"data":[60,20,20]}]},"options":{"innerRadius":0.5}},"explanation":"Created a doughnut chart showing browser market share percentages."}`;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('userInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            // Check if API key is configured
+            updateConfigBanner();
+
+            // Load saved config to modal
+            document.getElementById('apiKeyInput').value = config.apiKey;
+            document.getElementById('modelSelect').value = config.model;
+        });
+
+        // Update configuration banner
+        function updateConfigBanner() {
+            const banner = document.getElementById('configBanner');
+            if (config.apiKey) {
+                banner.classList.add('hidden');
+            } else {
+                banner.classList.remove('hidden');
+            }
+        }
+
+        // Show/hide config modal
+        function showConfigModal() {
+            document.getElementById('configModal').classList.add('show');
+        }
+
+        function hideConfigModal() {
+            document.getElementById('configModal').classList.remove('show');
+        }
+
+        function saveConfig() {
+            const apiKey = document.getElementById('apiKeyInput').value.trim();
+            const model = document.getElementById('modelSelect').value;
+
+            if (!apiKey) {
+                alert('Please enter an API key');
+                return;
+            }
+
+            config.apiKey = apiKey;
+            config.model = model;
+
+            localStorage.setItem('openrouter_api_key', apiKey);
+            localStorage.setItem('openrouter_model', model);
+
+            updateConfigBanner();
+            hideConfigModal();
+            addMessage('✅ API configured successfully! You can now start creating charts.', 'bot');
+        }
+
+        // Use example prompt
+        function useExample(index) {
+            const examples = [
+                "Create a line chart showing sales: Monday 100, Tuesday 150, Wednesday 120, Thursday 200, Friday 180",
+                "Make a pie chart of browser usage: Chrome 65%, Firefox 15%, Safari 12%, Others 8%",
+                "I need a bar chart comparing revenue: Product A $45K, Product B $62K, Product C $38K"
+            ];
+            document.getElementById('userInput').value = examples[index];
+            sendMessage();
+        }
+
+        // Send message
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            if (!config.apiKey) {
+                addMessage('⚠️ Please configure your API key first.', 'error');
+                showConfigModal();
+                return;
+            }
+
+            if (chatState.isProcessing) {
+                addMessage('⚠️ Please wait for the current request to complete.', 'error');
+                return;
+            }
+
+            addMessage(message, 'user');
+            input.value = '';
+            chatState.isProcessing = true;
+
+            // Show typing indicator
+            document.getElementById('typingIndicator').classList.add('show');
+
+            try {
+                const response = await callAI(message);
+                await handleAIResponse(response);
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage(`❌ Error: ${error.message}. Please check your API key and try again.`, 'error');
+            } finally {
+                document.getElementById('typingIndicator').classList.remove('show');
+                chatState.isProcessing = false;
+            }
+        }
+
+        // Call AI API
+        async function callAI(userMessage) {
+            // Add user message to conversation history
+            chatState.conversationHistory.push({
+                role: 'user',
+                content: userMessage
+            });
+
+            const response = await fetch(`${config.baseUrl}/chat/completions`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${config.apiKey}`,
+                    'HTTP-Referer': window.location.href,
+                    'X-Title': 'Chart.xkcd AI Chat'
+                },
+                body: JSON.stringify({
+                    model: config.model,
+                    messages: [
+                        { role: 'system', content: SYSTEM_PROMPT },
+                        ...chatState.conversationHistory
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 2000
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error?.message || `API request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+            const aiMessage = data.choices[0].message.content;
+
+            // Add AI response to conversation history
+            chatState.conversationHistory.push({
+                role: 'assistant',
+                content: aiMessage
+            });
+
+            return aiMessage;
+        }
+
+        // Handle AI response
+        async function handleAIResponse(response) {
+            try {
+                // Try to extract JSON from the response
+                const jsonMatch = response.match(/\{[\s\S]*\}/);
+                if (!jsonMatch) {
+                    throw new Error('No valid JSON found in response');
+                }
+
+                const chartSpec = JSON.parse(jsonMatch[0]);
+
+                // Validate chart spec
+                if (!chartSpec.chartType || !chartSpec.config) {
+                    throw new Error('Invalid chart specification');
+                }
+
+                // Show explanation to user
+                if (chartSpec.explanation) {
+                    addMessage(chartSpec.explanation, 'bot');
+                }
+
+                // Render the chart
+                renderChart(chartSpec.chartType, chartSpec.config);
+
+                // Show action buttons
+                document.getElementById('downloadBtn').style.display = 'inline-block';
+                document.getElementById('codeBtn').style.display = 'inline-block';
+                document.getElementById('newChartBtn').style.display = 'inline-block';
+
+                // Store current chart
+                chatState.currentChart = {
+                    type: chartSpec.chartType,
+                    config: chartSpec.config
+                };
+
+            } catch (error) {
+                console.error('Error parsing AI response:', error);
+                addMessage(`The AI generated a response, but I couldn't parse it into a chart. Response: ${response.substring(0, 200)}...`, 'bot');
+            }
+        }
+
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById('messages');
+            const typingIndicator = document.getElementById('typingIndicator');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+
+            if (sender === 'bot' || sender === 'error') {
+                messageDiv.innerHTML = `
+                    <div class="avatar">🤖</div>
+                    <div class="message-bubble">${text}</div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message-bubble">${text}</div>
+                    <div class="avatar">👤</div>
+                `;
+            }
+
+            messagesDiv.insertBefore(messageDiv, typingIndicator);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Render chart
+        function renderChart(chartType, config) {
+            const container = document.getElementById('chartContainer');
+            container.innerHTML = '<svg id="myChart"></svg>';
+
+            const svg = document.getElementById('myChart');
+
+            // Create chart based on type
+            try {
+                switch(chartType) {
+                    case 'line':
+                        new chartXkcd.Line(svg, config);
+                        break;
+                    case 'bar':
+                        new chartXkcd.Bar(svg, config);
+                        break;
+                    case 'stackedBar':
+                        new chartXkcd.StackedBar(svg, config);
+                        break;
+                    case 'pie':
+                        new chartXkcd.Pie(svg, config);
+                        break;
+                    case 'xy':
+                        new chartXkcd.XY(svg, config);
+                        break;
+                    case 'radar':
+                        new chartXkcd.Radar(svg, config);
+                        break;
+                    default:
+                        throw new Error(`Unknown chart type: ${chartType}`);
+                }
+
+                // Generate code
+                generateCode(chartType, config);
+            } catch (error) {
+                console.error('Error rendering chart:', error);
+                addMessage(`❌ Error rendering chart: ${error.message}`, 'error');
+            }
+        }
+
+        // Generate code
+        function generateCode(chartType, config) {
+            const chartClassName = {
+                line: 'Line',
+                bar: 'Bar',
+                stackedBar: 'StackedBar',
+                pie: 'Pie',
+                xy: 'XY',
+                radar: 'Radar'
+            }[chartType];
+
+            const code = `const svg = document.querySelector('#myChart');
+
+new chartXkcd.${chartClassName}(svg, ${JSON.stringify(config, null, 2)});`;
+
+            document.getElementById('codeOutput').textContent = code;
+        }
+
+        // Download chart as SVG
+        function downloadChart() {
+            const svg = document.getElementById('myChart');
+            if (!svg) return;
+
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const blob = new Blob([svgData], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `chart-${Date.now()}.svg`;
+            link.click();
+
+            URL.revokeObjectURL(url);
+            addMessage('✅ Chart downloaded!', 'bot');
+        }
+
+        // Toggle code view
+        function toggleCode() {
+            const codeSection = document.getElementById('codeSection');
+            const btn = document.getElementById('codeBtn');
+
+            if (codeSection.classList.contains('show')) {
+                codeSection.classList.remove('show');
+                btn.textContent = '📝 Show Code';
+            } else {
+                codeSection.classList.add('show');
+                btn.textContent = '📝 Hide Code';
+            }
+        }
+
+        // Start new chart
+        function startNew() {
+            chatState.currentChart = null;
+            chatState.conversationHistory = [];
+
+            document.getElementById('chartContainer').innerHTML = `
+                <div class="placeholder">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                    </svg>
+                    <p>Your AI-generated chart will appear here</p>
+                </div>
+            `;
+
+            document.getElementById('downloadBtn').style.display = 'none';
+            document.getElementById('codeBtn').style.display = 'none';
+            document.getElementById('newChartBtn').style.display = 'none';
+            document.getElementById('codeSection').classList.remove('show');
+
+            addMessage("Let's create a new chart! What would you like to visualize?", 'bot');
+        }
+    </script>
+</body>
+</html>
