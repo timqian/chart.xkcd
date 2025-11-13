@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.xkcd Chat Interface</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin-bottom: 5px;
+            font-size: 28px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            max-width: 1800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .chat-panel {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-right: 1px solid #ddd;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            gap: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+
+        .message.bot .message-bubble {
+            background: #e9ecef;
+            color: #2c3e50;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-bubble {
+            background: #007bff;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .bot .avatar {
+            background: #6c757d;
+            color: white;
+        }
+
+        .user .avatar {
+            background: #007bff;
+            color: white;
+        }
+
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 24px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #userInput:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-btn {
+            padding: 6px 12px;
+            background: #f8f9fa;
+            color: #495057;
+            border: 1px solid #dee2e6;
+            border-radius: 16px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .quick-btn:hover {
+            background: #e9ecef;
+        }
+
+        .preview-panel {
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .preview-header {
+            margin-bottom: 20px;
+        }
+
+        .preview-header h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+        }
+
+        .action-btn.secondary {
+            background: #6c757d;
+        }
+
+        .action-btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .action-btn.success {
+            background: #28a745;
+        }
+
+        .action-btn.success:hover {
+            background: #218838;
+        }
+
+        #chartContainer {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .chart-wrapper {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #6c757d;
+            padding: 40px;
+        }
+
+        .placeholder svg {
+            width: 150px;
+            height: 150px;
+            opacity: 0.3;
+            margin-bottom: 20px;
+        }
+
+        .code-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .code-section.show {
+            display: block;
+        }
+
+        .code-section h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 12px;
+            border: 1px solid #dee2e6;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 18px;
+            width: fit-content;
+        }
+
+        .typing-indicator.show {
+            display: block;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #6c757d;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            .chat-panel, .preview-panel {
+                width: 100%;
+            }
+            .chat-panel {
+                height: 50vh;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Chart.xkcd Chat Interface</h1>
+        <p>Create beautiful hand-drawn style charts through conversation</p>
+    </div>
+
+    <div class="container">
+        <div class="chat-panel">
+            <div class="messages" id="messages">
+                <div class="message bot">
+                    <div class="avatar">🤖</div>
+                    <div class="message-bubble">
+                        Hi! I'm your chart creation assistant. I can help you create beautiful hand-drawn style charts. What kind of chart would you like to create today?
+                        <br><br>
+                        Available chart types:<br>
+                        📈 Line Chart<br>
+                        📊 Bar Chart<br>
+                        📚 Stacked Bar Chart<br>
+                        🥧 Pie/Doughnut Chart<br>
+                        🎯 XY Scatter Chart<br>
+                        🕸️ Radar Chart
+                        <br><br>
+                        💡 <strong>Quick tip:</strong> Try "show me an example" or "use sample data" to see a demo chart first!
+                    </div>
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-container">
+                    <input
+                        type="text"
+                        id="userInput"
+                        placeholder="Type your message... (e.g., 'Create a line chart')"
+                        autocomplete="off"
+                    />
+                    <button id="sendBtn" onclick="sendMessage()">Send</button>
+                </div>
+                <div class="quick-actions" id="quickActions"></div>
+            </div>
+        </div>
+
+        <div class="preview-panel">
+            <div class="preview-header">
+                <h2>Chart Preview</h2>
+                <div class="preview-actions">
+                    <button class="action-btn secondary" onclick="downloadChart()" id="downloadBtn" style="display: none;">
+                        💾 Download SVG
+                    </button>
+                    <button class="action-btn secondary" onclick="toggleCode()" id="codeBtn" style="display: none;">
+                        📝 Show Code
+                    </button>
+                    <button class="action-btn success" onclick="startNew()" id="newChartBtn" style="display: none;">
+                        ✨ New Chart
+                    </button>
+                </div>
+            </div>
+
+            <div id="chartContainer">
+                <div class="placeholder">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                    </svg>
+                    <p>Your chart will appear here once you start chatting</p>
+                </div>
+            </div>
+
+            <div class="code-section" id="codeSection">
+                <h3>JavaScript Code</h3>
+                <pre id="codeOutput"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chat state management
+        const chatState = {
+            currentChart: null,
+            chartType: null,
+            step: 'initial',
+            data: {},
+            config: {},
+            conversationHistory: []
+        };
+
+        // Example templates
+        const examples = {
+            line: {
+                title: 'Weekly Sales',
+                xLabel: 'Day',
+                yLabel: 'Sales ($)',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'This Week',
+                        data: [300, 250, 400, 350, 500, 600, 450]
+                    }, {
+                        label: 'Last Week',
+                        data: [200, 300, 350, 280, 400, 550, 380]
+                    }]
+                }
+            },
+            bar: {
+                title: 'Monthly Revenue by Product',
+                xLabel: 'Product',
+                yLabel: 'Revenue ($K)',
+                data: {
+                    labels: ['Product A', 'Product B', 'Product C', 'Product D', 'Product E'],
+                    datasets: [{
+                        data: [45, 62, 38, 71, 55]
+                    }]
+                }
+            },
+            stackedBar: {
+                title: 'Quarterly Sales by Region',
+                xLabel: 'Quarter',
+                yLabel: 'Sales',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{
+                        label: 'North',
+                        data: [12, 19, 15, 25]
+                    }, {
+                        label: 'South',
+                        data: [8, 12, 18, 15]
+                    }, {
+                        label: 'East',
+                        data: [15, 10, 12, 20]
+                    }]
+                }
+            },
+            pie: {
+                title: 'Browser Market Share',
+                data: {
+                    labels: ['Chrome', 'Firefox', 'Safari', 'Edge', 'Other'],
+                    datasets: [{
+                        data: [60, 15, 12, 8, 5]
+                    }]
+                },
+                options: {
+                    innerRadius: 0.5
+                }
+            },
+            xy: {
+                title: 'Temperature vs Ice Cream Sales',
+                xLabel: 'Temperature (°F)',
+                yLabel: 'Sales',
+                data: {
+                    datasets: [{
+                        label: 'Store A',
+                        data: [{ x: 65, y: 20 }, { x: 70, y: 35 }, { x: 75, y: 50 }, { x: 80, y: 70 }, { x: 85, y: 90 }]
+                    }, {
+                        label: 'Store B',
+                        data: [{ x: 65, y: 15 }, { x: 70, y: 30 }, { x: 75, y: 45 }, { x: 80, y: 65 }, { x: 85, y: 85 }]
+                    }]
+                },
+                options: {
+                    showLine: true
+                }
+            },
+            radar: {
+                title: 'Player Stats Comparison',
+                data: {
+                    labels: ['Speed', 'Strength', 'Defense', 'Stamina', 'Skill'],
+                    datasets: [{
+                        label: 'Player 1',
+                        data: [8, 6, 7, 9, 7]
+                    }, {
+                        label: 'Player 2',
+                        data: [6, 9, 8, 6, 8]
+                    }]
+                },
+                options: {
+                    showLabels: true
+                }
+            }
+        };
+
+        // Chart type configurations
+        const chartTypes = {
+            line: {
+                name: 'Line Chart',
+                emoji: '📈',
+                needsLabels: true,
+                needsDatasets: true,
+                datasetFields: ['label', 'data'],
+                optionalConfig: ['yTickCount', 'showLegend', 'legendPosition']
+            },
+            bar: {
+                name: 'Bar Chart',
+                emoji: '📊',
+                needsLabels: true,
+                needsDatasets: true,
+                datasetFields: ['data'],
+                optionalConfig: ['yTickCount']
+            },
+            stackedBar: {
+                name: 'Stacked Bar Chart',
+                emoji: '📚',
+                needsLabels: true,
+                needsDatasets: true,
+                datasetFields: ['label', 'data'],
+                optionalConfig: ['yTickCount', 'showLegend', 'legendPosition']
+            },
+            pie: {
+                name: 'Pie/Doughnut Chart',
+                emoji: '🥧',
+                needsLabels: true,
+                needsDatasets: true,
+                datasetFields: ['data'],
+                optionalConfig: ['innerRadius', 'showLegend', 'legendPosition']
+            },
+            xy: {
+                name: 'XY Scatter Chart',
+                emoji: '🎯',
+                needsLabels: false,
+                needsDatasets: true,
+                datasetFields: ['label', 'data'],
+                dataFormat: 'xy',
+                optionalConfig: ['xTickCount', 'yTickCount', 'showLine', 'dotSize', 'showLegend', 'legendPosition']
+            },
+            radar: {
+                name: 'Radar Chart',
+                emoji: '🕸️',
+                needsLabels: true,
+                needsDatasets: true,
+                datasetFields: ['label', 'data'],
+                optionalConfig: ['showLabels', 'ticksCount', 'dotSize', 'showLegend', 'legendPosition']
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('userInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        });
+
+        // Send message
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            addMessage(message, 'user');
+            input.value = '';
+
+            setTimeout(() => processMessage(message), 500);
+        }
+
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById('messages');
+            const typingIndicator = document.getElementById('typingIndicator');
+
+            if (sender === 'bot') {
+                typingIndicator.classList.add('show');
+                setTimeout(() => {
+                    typingIndicator.classList.remove('show');
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `message ${sender}`;
+                    messageDiv.innerHTML = `
+                        <div class="avatar">${sender === 'bot' ? '🤖' : '👤'}</div>
+                        <div class="message-bubble">${text}</div>
+                    `;
+                    messagesDiv.insertBefore(messageDiv, typingIndicator);
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }, 800);
+            } else {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}`;
+                messageDiv.innerHTML = `
+                    <div class="message-bubble">${text}</div>
+                    <div class="avatar">${sender === 'bot' ? '🤖' : '👤'}</div>
+                `;
+                messagesDiv.insertBefore(messageDiv, typingIndicator);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+
+        // Process user message
+        function processMessage(message) {
+            const lowerMessage = message.toLowerCase();
+
+            // Handle examples
+            if (lowerMessage.includes('example') || lowerMessage.includes('sample') || lowerMessage.includes('demo')) {
+                showExampleOptions();
+                return;
+            }
+
+            // Handle chart modifications
+            if (chatState.step === 'complete' && chatState.currentChart) {
+                if (lowerMessage.includes('title') && lowerMessage.includes('change')) {
+                    const newTitle = message.split('to')[1]?.trim() || message.split(':')[1]?.trim();
+                    if (newTitle) {
+                        chatState.config.title = newTitle;
+                        renderChart();
+                        addMessage(`Title updated to "${newTitle}"! ✨`, 'bot');
+                        return;
+                    }
+                } else if (lowerMessage.includes('legend')) {
+                    if (lowerMessage.includes('show') || lowerMessage.includes('add')) {
+                        chatState.config.options = chatState.config.options || {};
+                        chatState.config.options.showLegend = true;
+                        renderChart();
+                        addMessage('Legend is now visible! 📊', 'bot');
+                        return;
+                    } else if (lowerMessage.includes('hide') || lowerMessage.includes('remove')) {
+                        chatState.config.options = chatState.config.options || {};
+                        chatState.config.options.showLegend = false;
+                        renderChart();
+                        addMessage('Legend is now hidden! 👻', 'bot');
+                        return;
+                    }
+                } else if (lowerMessage.includes('color')) {
+                    addMessage('To change colors, you can modify the chart configuration. Try creating a new chart with specific colors! 🎨', 'bot');
+                    return;
+                }
+            }
+
+            // Detect chart type
+            if (chatState.step === 'initial' || lowerMessage.includes('create') || lowerMessage.includes('new')) {
+                if (lowerMessage.includes('line')) {
+                    initChartCreation('line');
+                } else if (lowerMessage.includes('bar') && (lowerMessage.includes('stack') || lowerMessage.includes('stacked'))) {
+                    initChartCreation('stackedBar');
+                } else if (lowerMessage.includes('bar')) {
+                    initChartCreation('bar');
+                } else if (lowerMessage.includes('pie') || lowerMessage.includes('doughnut')) {
+                    initChartCreation('pie');
+                } else if (lowerMessage.includes('xy') || lowerMessage.includes('scatter')) {
+                    initChartCreation('xy');
+                } else if (lowerMessage.includes('radar') || lowerMessage.includes('spider')) {
+                    initChartCreation('radar');
+                } else {
+                    addMessage("I didn't catch that. Which type of chart would you like? (line, bar, stacked bar, pie, xy scatter, or radar)", 'bot');
+                    showQuickActions(['Line', 'Bar', 'Stacked Bar', 'Pie', 'XY', 'Radar']);
+                }
+            }
+            // Collect title
+            else if (chatState.step === 'title') {
+                chatState.config.title = message;
+                chatState.step = 'labels';
+
+                const chartConfig = chartTypes[chatState.chartType];
+                if (chartConfig.needsLabels) {
+                    addMessage("Great! Now, what labels would you like on the X-axis? (comma-separated, e.g., 'Mon, Tue, Wed, Thu, Fri')", 'bot');
+                } else {
+                    chatState.step = 'datasets';
+                    addMessage("Perfect! Now let's add the data. For XY charts, I need coordinates. How many data points would you like? (e.g., '5')", 'bot');
+                }
+            }
+            // Collect labels
+            else if (chatState.step === 'labels') {
+                chatState.data.labels = message.split(',').map(l => l.trim());
+                chatState.step = 'datasets';
+                chatState.data.datasets = [];
+
+                const chartConfig = chartTypes[chatState.chartType];
+                if (chartConfig.dataFormat === 'xy') {
+                    addMessage(`Got it! You have ${chatState.data.labels.length} labels. Now, how many datasets would you like to add? (e.g., '2' for two lines)`, 'bot');
+                } else {
+                    addMessage(`Perfect! You have ${chatState.data.labels.length} categories. Let's add a dataset. What values would you like? (comma-separated numbers, e.g., '30, 70, 200, 80, 100')`, 'bot');
+                }
+            }
+            // Collect dataset data
+            else if (chatState.step === 'datasets') {
+                const chartConfig = chartTypes[chatState.chartType];
+
+                if (chartConfig.dataFormat === 'xy') {
+                    // XY data format: x,y; x,y; x,y
+                    const pairs = message.split(';').map(pair => {
+                        const [x, y] = pair.split(',').map(v => parseFloat(v.trim()));
+                        return { x, y };
+                    });
+
+                    const label = prompt("What label would you like for this dataset?") || `Dataset ${chatState.data.datasets.length + 1}`;
+                    chatState.data.datasets.push({ label, data: pairs });
+                } else {
+                    // Regular data format
+                    const values = message.split(',').map(v => parseFloat(v.trim()));
+                    const dataset = { data: values };
+
+                    // Check if this chart type needs labels for datasets
+                    if (chartConfig.datasetFields.includes('label')) {
+                        const label = prompt("What label would you like for this dataset?") || `Dataset ${chatState.data.datasets.length + 1}`;
+                        dataset.label = label;
+                    }
+
+                    chatState.data.datasets.push(dataset);
+                }
+
+                // Ask if they want more datasets
+                addMessage("Dataset added! Would you like to add another dataset? (yes/no)", 'bot');
+                chatState.step = 'more_datasets';
+            }
+            // More datasets?
+            else if (chatState.step === 'more_datasets') {
+                if (lowerMessage.includes('yes') || lowerMessage.includes('y')) {
+                    chatState.step = 'datasets';
+                    const chartConfig = chartTypes[chatState.chartType];
+
+                    if (chartConfig.dataFormat === 'xy') {
+                        addMessage("Enter the XY coordinates for the next dataset (format: x1,y1; x2,y2; x3,y3)", 'bot');
+                    } else {
+                        addMessage("Enter the values for the next dataset (comma-separated numbers)", 'bot');
+                    }
+                } else {
+                    chatState.step = 'axis_labels';
+                    addMessage("Would you like to add axis labels? (e.g., 'X: Time, Y: Value' or just say 'no')", 'bot');
+                }
+            }
+            // Axis labels
+            else if (chatState.step === 'axis_labels') {
+                if (!lowerMessage.includes('no') && !lowerMessage.includes('skip')) {
+                    const parts = message.split(',');
+                    parts.forEach(part => {
+                        if (part.toLowerCase().includes('x:')) {
+                            chatState.config.xLabel = part.split(':')[1].trim();
+                        }
+                        if (part.toLowerCase().includes('y:')) {
+                            chatState.config.yLabel = part.split(':')[1].trim();
+                        }
+                    });
+                }
+
+                finishChart();
+            }
+        }
+
+        // Initialize chart creation
+        function initChartCreation(type) {
+            chatState.chartType = type;
+            chatState.step = 'title';
+            chatState.data = {};
+            chatState.config = {};
+
+            const chartConfig = chartTypes[type];
+            addMessage(`Great! Let's create a ${chartConfig.emoji} ${chartConfig.name}. What title would you like? (or say 'no title')`, 'bot');
+        }
+
+        // Finish and render chart
+        function finishChart() {
+            const chartConfig = chartTypes[chatState.chartType];
+            addMessage(`Awesome! Your ${chartConfig.name} is ready. Check the preview on the right! 🎉`, 'bot');
+
+            chatState.step = 'complete';
+            renderChart();
+
+            // Show action buttons
+            document.getElementById('downloadBtn').style.display = 'inline-block';
+            document.getElementById('codeBtn').style.display = 'inline-block';
+            document.getElementById('newChartBtn').style.display = 'inline-block';
+
+            addMessage("You can now download the chart, view the code, or create a new chart. You can also ask me to modify the chart (e.g., 'change the title to X', 'add a legend').", 'bot');
+        }
+
+        // Render chart
+        function renderChart() {
+            const container = document.getElementById('chartContainer');
+            container.innerHTML = '<svg id="myChart"></svg>';
+
+            const svg = document.getElementById('myChart');
+            const config = {
+                title: chatState.config.title !== 'no title' ? chatState.config.title : '',
+                xLabel: chatState.config.xLabel || '',
+                yLabel: chatState.config.yLabel || '',
+                data: chatState.data,
+                options: chatState.config.options || {}
+            };
+
+            // Create chart based on type
+            switch(chatState.chartType) {
+                case 'line':
+                    chatState.currentChart = new chartXkcd.Line(svg, config);
+                    break;
+                case 'bar':
+                    chatState.currentChart = new chartXkcd.Bar(svg, config);
+                    break;
+                case 'stackedBar':
+                    chatState.currentChart = new chartXkcd.StackedBar(svg, config);
+                    break;
+                case 'pie':
+                    chatState.currentChart = new chartXkcd.Pie(svg, config);
+                    break;
+                case 'xy':
+                    chatState.currentChart = new chartXkcd.XY(svg, config);
+                    break;
+                case 'radar':
+                    chatState.currentChart = new chartXkcd.Radar(svg, config);
+                    break;
+            }
+
+            // Generate code
+            generateCode(config);
+        }
+
+        // Generate code
+        function generateCode(config) {
+            const chartClassName = {
+                line: 'Line',
+                bar: 'Bar',
+                stackedBar: 'StackedBar',
+                pie: 'Pie',
+                xy: 'XY',
+                radar: 'Radar'
+            }[chatState.chartType];
+
+            const code = `const svg = document.querySelector('#myChart');
+
+new chartXkcd.${chartClassName}(svg, ${JSON.stringify(config, null, 2)});`;
+
+            document.getElementById('codeOutput').textContent = code;
+        }
+
+        // Download chart as SVG
+        function downloadChart() {
+            const svg = document.getElementById('myChart');
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const blob = new Blob([svgData], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `chart-${Date.now()}.svg`;
+            link.click();
+
+            URL.revokeObjectURL(url);
+            addMessage("Chart downloaded! 💾", 'bot');
+        }
+
+        // Toggle code view
+        function toggleCode() {
+            const codeSection = document.getElementById('codeSection');
+            const btn = document.getElementById('codeBtn');
+
+            if (codeSection.classList.contains('show')) {
+                codeSection.classList.remove('show');
+                btn.textContent = '📝 Show Code';
+            } else {
+                codeSection.classList.add('show');
+                btn.textContent = '📝 Hide Code';
+            }
+        }
+
+        // Start new chart
+        function startNew() {
+            chatState.currentChart = null;
+            chatState.chartType = null;
+            chatState.step = 'initial';
+            chatState.data = {};
+            chatState.config = {};
+
+            document.getElementById('chartContainer').innerHTML = `
+                <div class="placeholder">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                    </svg>
+                    <p>Your chart will appear here once you start chatting</p>
+                </div>
+            `;
+
+            document.getElementById('downloadBtn').style.display = 'none';
+            document.getElementById('codeBtn').style.display = 'none';
+            document.getElementById('newChartBtn').style.display = 'none';
+            document.getElementById('codeSection').classList.remove('show');
+
+            addMessage("Let's create a new chart! What type would you like to make?", 'bot');
+            showQuickActions(['Line', 'Bar', 'Stacked Bar', 'Pie', 'XY', 'Radar']);
+        }
+
+        // Show quick action buttons
+        function showQuickActions(actions) {
+            const container = document.getElementById('quickActions');
+            container.innerHTML = '';
+
+            actions.forEach(action => {
+                const btn = document.createElement('button');
+                btn.className = 'quick-btn';
+                btn.textContent = action;
+                btn.onclick = () => {
+                    document.getElementById('userInput').value = `Create a ${action} chart`;
+                    sendMessage();
+                    container.innerHTML = '';
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        // Show example options
+        function showExampleOptions() {
+            addMessage('Great! Here are some example charts you can try:', 'bot');
+
+            const exampleButtons = [
+                { name: 'Line Chart (Sales)', type: 'line' },
+                { name: 'Bar Chart (Revenue)', type: 'bar' },
+                { name: 'Stacked Bar (Regional)', type: 'stackedBar' },
+                { name: 'Pie Chart (Market Share)', type: 'pie' },
+                { name: 'XY Scatter (Correlation)', type: 'xy' },
+                { name: 'Radar (Stats)', type: 'radar' }
+            ];
+
+            const container = document.getElementById('quickActions');
+            container.innerHTML = '';
+
+            exampleButtons.forEach(({ name, type }) => {
+                const btn = document.createElement('button');
+                btn.className = 'quick-btn';
+                btn.textContent = name;
+                btn.onclick = () => {
+                    loadExample(type);
+                    container.innerHTML = '';
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        // Load example chart
+        function loadExample(type) {
+            const example = examples[type];
+            if (!example) return;
+
+            chatState.chartType = type;
+            chatState.step = 'complete';
+            chatState.data = example.data;
+            chatState.config = {
+                title: example.title,
+                xLabel: example.xLabel || '',
+                yLabel: example.yLabel || '',
+                options: example.options || {}
+            };
+
+            const chartConfig = chartTypes[type];
+            addMessage(`Loading ${chartConfig.emoji} ${chartConfig.name} example...`, 'bot');
+
+            setTimeout(() => {
+                renderChart();
+                document.getElementById('downloadBtn').style.display = 'inline-block';
+                document.getElementById('codeBtn').style.display = 'inline-block';
+                document.getElementById('newChartBtn').style.display = 'inline-block';
+
+                addMessage(`Example chart loaded! You can now download it, view the code, or modify it by saying things like "change the title to X" or "hide the legend". 🎉`, 'bot');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
