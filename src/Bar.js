@@ -5,6 +5,7 @@ import scaleLinear from 'd3-scale/src/linear';
 
 import addAxis from './utils/addAxis';
 import addLabels from './utils/addLabels';
+import addLegend from './utils/addLegend';
 import Tooltip from './components/Tooltip';
 import addFont from './utils/addFont';
 import addFilter from './utils/addFilter';
@@ -26,6 +27,8 @@ class Bar {
       fontFamily: 'xkcd',
       strokeColor: 'black',
       backgroundColor: 'white',
+      showLegend: true,
+      legendPosition: config.positionType.downRight,
       ...options,
     };
     if (title) {
@@ -168,6 +171,24 @@ class Bar {
           },
         });
       });
+
+    // Add legend support
+    if (this.options.showLegend) {
+      const legendItems = this.data.datasets.map((dataset, j) => ({
+        color: this.options.dataColors[j],
+        text: `${dataset.label || ''}`,
+      }));
+
+      addLegend(graphPart, {
+        items: legendItems,
+        position: this.options.legendPosition,
+        unxkcdify: this.options.unxkcdify,
+        parentWidth: this.width,
+        parentHeight: this.height,
+        strokeColor: this.options.strokeColor,
+        backgroundColor: this.options.backgroundColor,
+      });
+    }
   }
 
   // TODO: update chart
