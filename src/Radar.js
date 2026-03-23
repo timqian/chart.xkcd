@@ -229,11 +229,7 @@ class Radar {
       const legendItems = this.data.datasets
         .map((data, i) => ({ color: this.options.dataColors[i], text: data.label || '' }));
 
-      // move legend down to prevent overlaping with title
-      const legendG = this.svgEl.append('g')
-        .attr('transform', 'translate(0, 30)');
-
-      addLegend(legendG, {
+      addLegend(this.svgEl, {
         items: legendItems,
         position: this.options.legendPosition,
         unxkcdify: this.options.unxkcdify,
