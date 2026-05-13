@@ -41,15 +41,16 @@ jobs:
       - name: Skip if version already published
         id: published_check
         run: |
+          PACKAGE_NAME="$(node -p "require('./package.json').name")"
           PACKAGE_VERSION="$(node -p "require('./package.json').version")"
           set +e
-          VIEW_OUTPUT="$(npm view "chart.xkcd@$PACKAGE_VERSION" version 2>&1)"
+          VIEW_OUTPUT="$(npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version 2>&1)"
           VIEW_STATUS=$?
           set -e
 
           if [ "$VIEW_STATUS" -eq 0 ]; then
             echo "already_published=true" >> "$GITHUB_OUTPUT"
-          elif echo "$VIEW_OUTPUT" | grep -q "E404"; then
+          elif echo "$VIEW_OUTPUT" | grep -qi "404"; then
             echo "already_published=false" >> "$GITHUB_OUTPUT"
           else
             echo "Failed to query npm registry:"
