@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Publish to NPM
 
 on:
   release:
@@ -25,7 +25,12 @@ jobs:
 
       - name: Validate release version
         run: |
-          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          RAW_TAG="${GITHUB_REF_NAME}"
+          if [[ "$RAW_TAG" == v* ]]; then
+            TAG_VERSION="${RAW_TAG#v}"
+          else
+            TAG_VERSION="$RAW_TAG"
+          fi
           PACKAGE_VERSION="$(node -p "require('./package.json').version")"
 
           if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
@@ -37,10 +42,19 @@ jobs:
         id: published_check
         run: |
           PACKAGE_VERSION="$(node -p "require('./package.json').version")"
-          if npm view "chart.xkcd@$PACKAGE_VERSION" version >/dev/null 2>&1; then
+          set +e
+          VIEW_OUTPUT="$(npm view "chart.xkcd@$PACKAGE_VERSION" version 2>&1)"
+          VIEW_STATUS=$?
+          set -e
+
+          if [ "$VIEW_STATUS" -eq 0 ]; then
             echo "already_published=true" >> "$GITHUB_OUTPUT"
-          else
+          elif echo "$VIEW_OUTPUT" | grep -q "E404"; then
             echo "already_published=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Failed to query npm registry:"
+            echo "$VIEW_OUTPUT"
+            exit 1
           fi
 
       - name: Publish package
