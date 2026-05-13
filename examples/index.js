@@ -22,6 +22,28 @@ new chartXkcd.Bar(svg, {
   // },
 });
 
+const svgCombined = document.querySelector('.combined-chart');
+new chartXkcd.Combined(svgCombined, {
+  title: 'Coffee sales and ratings',
+  xLabel: 'Month',
+  yLabel: 'Cups',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    datasets: [{
+      label: 'Cups sold',
+      data: [30, 52, 47, 61, 75],
+    }, {
+      label: 'Rating',
+      type: 'line',
+      data: [22, 30, 42, 52, 60],
+    }],
+  },
+  options: {
+    dataColors: ['#f4a261', '#2a9d8f'],
+    legendPosition: chartXkcd.config.positionType.upLeft,
+  },
+});
+
 const svgStackedBar = document.querySelector('.stacked-bar-chart');
 new chartXkcd.StackedBar(svgStackedBar, {
   title: 'Issues and PR Submissions',

@@ -29,7 +29,7 @@ export default async function addLegend(parent, {
   });
 
   // wait for textLayer to render, a bit wired
-  await new Promise(resolve => setTimeout(resolve, 10))
+  await new Promise((resolve) => setTimeout(resolve, 10));
 
   const bbox = textLayer.node().getBBox();
   const backgroundWidth = bbox.width + 15;
