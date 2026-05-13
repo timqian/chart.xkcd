@@ -1,0 +1,65 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate release version
+        run: |
+          RAW_TAG="${GITHUB_REF_NAME}"
+          if [[ "$RAW_TAG" == v* ]]; then
+            TAG_VERSION="${RAW_TAG#v}"
+          else
+            TAG_VERSION="$RAW_TAG"
+          fi
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+
+          if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "Release tag version ($TAG_VERSION) does not match package.json version ($PACKAGE_VERSION)."
+            exit 1
+          fi
+
+      - name: Skip if version already published
+        id: published_check
+        run: |
+          PACKAGE_NAME="$(node -p "require('./package.json').name")"
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          set +e
+          VIEW_OUTPUT="$(npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version 2>&1)"
+          VIEW_STATUS=$?
+          set -e
+
+          if [ "$VIEW_STATUS" -eq 0 ]; then
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+          elif echo "$VIEW_OUTPUT" | grep -qi "404"; then
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Failed to query npm registry:"
+            echo "$VIEW_OUTPUT"
+            exit 1
+          fi
+
+      - name: Publish package
+        if: steps.published_check.outputs.already_published == 'false'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
