@@ -128,12 +128,11 @@ class Pie {
     const legendItems = this.data.datasets[0].data
       .map((data, i) => ({ color: this.options.dataColors[i], text: this.data.labels[i] }));
 
-    // move legend down to prevent overlaping with title
-    const legendG = this.svgEl.append('g')
-      .attr('transform', 'translate(0, 30)');
-
     if (this.options.showLegend) {
-      addLegend(legendG, {
+      const legendItems = this.data.datasets
+        .map((data, i) => ({ color: this.options.dataColors[i], text: data.label || '' }));
+
+      addLegend(this.svgEl, {
         items: legendItems,
         position: this.options.legendPosition,
         unxkcdify: this.options.unxkcdify,
