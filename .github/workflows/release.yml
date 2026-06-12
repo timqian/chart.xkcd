@@ -5,6 +5,7 @@ on:
     branches: [master, main]
     paths:
       - 'package.json'
+  workflow_dispatch:
 
 jobs:
   release:
