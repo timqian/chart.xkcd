@@ -6,13 +6,7 @@
 
 Chart.xkcd is a chart library that plots “sketchy”, “cartoony” or “hand-drawn” styled charts.
 
-Check out the [documentation](https://timqian.com/chart.xkcd/) for more instructions and links, or try out the [examples](https://timqian.com/chart.xkcd/example.html), or chat with us in [Slack](https://join.slack.com/t/t9tio/shared_invite/enQtNjgzMzkwMDM0NTE3LTE5ZTUzYjU4Y2I0YzRiZjNkYTkzMzE1ZmM0NDdmYzRlZmMxNGY1MzZlN2EwYjYyNWVlMWY0Nzk2MDBhNWZlY2I)
-
-## Sponsors
-
-[琚致远](https://github.com/juzhiyuan) | [Bytebase](https://bytebase.com/) | [Madao](https://madao.me/) | [SecondState](https://bit.ly/3gfWwps)
-
-[Become a sponsor](https://github.com/sponsors/timqian)
+Check out the [documentation](https://timqian.com/chart.xkcd/) for more instructions and links, or try out the [examples](https://timqian.com/chart.xkcd/example.html)
 
 ## Quick start
 

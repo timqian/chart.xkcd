@@ -1,0 +1,77 @@
+name: Release to GitHub and npm
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - 'package.json'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Read version from package.json
+        id: package
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Check if release already exists
+        id: check_release
+        run: |
+          if git rev-parse "v${{ steps.package.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install dependencies
+        if: steps.check_release.outputs.exists == 'false'
+        run: npm install
+
+      - name: Build
+        if: steps.check_release.outputs.exists == 'false'
+        run: npm run prepublishOnly
+
+      - name: Publish to npm
+        if: steps.check_release.outputs.exists == 'false'
+        run: npm publish
+
+      - name: Create Git Tag
+        if: steps.check_release.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a v${{ steps.package.outputs.version }} -m "Release v${{ steps.package.outputs.version }}"
+          git push origin v${{ steps.package.outputs.version }}
+
+      - name: Create GitHub Release
+        if: steps.check_release.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.package.outputs.version }}
+          name: Release v${{ steps.package.outputs.version }}
+          body: |
+            Release v${{ steps.package.outputs.version }}
+
+            For more details, see the [changelog](https://github.com/timqian/chart.xkcd/releases).
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
