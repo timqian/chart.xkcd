@@ -90,6 +90,28 @@ new chartXkcd.Line(svgLine, {
   },
 });
 
+const svgCombined = document.querySelector('.combined-chart');
+new chartXkcd.Combined(svgCombined, {
+  title: 'Monthly visitors and signups',
+  xLabel: 'Month',
+  yLabel: 'Count',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [{
+      label: 'Visitors',
+      type: 'bar',
+      data: [120, 180, 150, 220, 260, 310],
+    }, {
+      label: 'Signups',
+      type: 'line',
+      data: [15, 20, 18, 32, 44, 56],
+    }],
+  },
+  options: {
+    legendPosition: chartXkcd.config.positionType.upLeft,
+  },
+});
+
 const svgXY = document.querySelector('.xyline-chart');
 new chartXkcd.XY(svgXY, {
   title: 'stars',
