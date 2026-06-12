@@ -53,6 +53,10 @@ jobs:
         if: steps.check_release.outputs.exists == 'false'
         run: npm publish
 
+      - name: Install staticgen
+        if: steps.check_release.outputs.exists == 'false'
+        run: curl -sf https://gobinaries.com/tj/staticgen/cmd/staticgen | sh
+
       - name: Deploy docs
         if: steps.check_release.outputs.exists == 'false'
         run: npm run deployDoc
