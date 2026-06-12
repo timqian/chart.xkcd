@@ -53,6 +53,12 @@ jobs:
         if: steps.check_release.outputs.exists == 'false'
         run: npm publish
 
+      - name: Deploy docs
+        if: steps.check_release.outputs.exists == 'false'
+        run: npm run deployDoc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Git Tag
         if: steps.check_release.outputs.exists == 'false'
         run: |
