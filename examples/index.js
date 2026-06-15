@@ -1,6 +1,6 @@
 // import chartXkcd from 'chart.xkcd';
-// import chartXkcd from '../../dist/chart.xkcd';
-import chartXkcd from '../src';
+import chartXkcd from '../dist/index.js';
+// import chartXkcd from '../src';
 
 const svg = document.querySelector('.bar-chart');
 

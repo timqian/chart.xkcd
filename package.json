@@ -1,6 +1,6 @@
 {
   "name": "chart.xkcd",
-  "version": "1.1.16",
+  "version": "2.0.0",
   "description": "xkcd style chart lib",
   "jsdelivr": "dist/chart.xkcd.min.js",
   "unpkg": "dist/chart.xkcd.min.js",
@@ -9,14 +9,14 @@
     "dist/*"
   ],
   "scripts": {
-    "buildUmd": "parcel build src/index.js --target browser --out-file chart.xkcd.min.js --no-source-maps --experimental-scope-hoisting --global chartXkcd",
-    "build": "parcel build src/index.js --target node --bundle-node-modules --no-source-maps --experimental-scope-hoisting",
-    "start": "parcel examples/example.html",
+    "buildUmd": "parcel build src/index.js --dist-dir dist --no-source-maps && mv dist/index.js dist/chart.xkcd.min.js",
+    "build": "parcel build src/index.js --dist-dir dist --no-source-maps",
+    "start": "npm run build && echo 'Built dist. Example uses: import chartXkcd from \"../dist/index.js\"'",
     "prepublishOnly": "rm -rf dist && npm run buildUmd && npm run build",
-    "genDoc": "~/go/bin/static-docs --in docs --out docs-dist --title Chart.xkcd --subtitle 'xkcd styled chart lib'",
-    "genExample": "parcel build examples/example.html --out-dir docs-dist --public-url /chart.xkcd",
-    "deployDoc": "npm run genDoc && npm run genExample && gh-pages -d docs-dist",
-    "lint": "./node_modules/.bin/eslint ./src"
+    "genDoc": "npx docdude --in docs --out docs-dist --title Chart.xkcd --subtitle 'xkcd styled chart lib'",
+    "genExample": "echo 'Example HTML available at examples/example.html' && mkdir -p docs-dist && cp examples/example.html docs-dist/",
+    "deployDoc": "npm run prepublishOnly && npm run genDoc && npm run genExample && gh-pages -d docs-dist",
+    "lint": "eslint ./src"
   },
   "repository": {
     "type": "git",
@@ -32,17 +32,17 @@
   "author": "timqian",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.2.1",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "gh-pages": "^2.1.1",
-    "parcel-bundler": "^1.12.4"
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "gh-pages": "^6.3.0",
+    "parcel": "^2.12.0"
   },
   "dependencies": {
-    "d3-axis": "^1.0.12",
-    "d3-scale": "^3.2.0",
-    "d3-selection": "^1.4.1",
-    "d3-shape": "^1.3.7",
-    "dayjs": "^1.8.17"
+    "d3-axis": "^3.0.0",
+    "d3-scale": "^4.0.2",
+    "d3-selection": "^3.0.0",
+    "d3-shape": "^3.2.0",
+    "dayjs": "^1.11.21"
   }
 }
