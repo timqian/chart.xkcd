@@ -1,11 +1,16 @@
 <!DOCTYPE html><html><head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chart.xkcd | xkcd styled chart lib</title>
-    <link rel="stylesheet" href="theme/apex/css/index.css"/>
+    <link rel="stylesheet" href="theme/apex/css/index.css">
   </head>
   <body>
+    <button class="Hamburger" id="hamburger">
+      <svg class="hamburger-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
+      <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>
+    </button>
+
     <div class="Wrapper">
       <div class="Container">
         <div class="Header">
@@ -15,55 +20,45 @@
           </div>
         </div>
 
-        <div class="Content-wrapper">
-          <div class="Sidebar">
+        <div class="Content-wrapper" id="content-wrapper">
+          <div class="Sidebar" id="sidebar">
             <div class="Menu">
-              
                 <div class="item">
                   <a href="#introduction">Introduction</a>
                 </div>
-              
                 <div class="item">
                   <a href="#getting_started">Getting started</a>
                 </div>
-              
                 <div class="item">
                   <a href="#installation">Installation</a>
                 </div>
-              
                 <div class="item">
                   <a href="#line_chart">Line chart</a>
                 </div>
-              
                 <div class="item">
                   <a href="#xy_chart">XY chart</a>
                 </div>
-              
                 <div class="item">
                   <a href="#bar_chart">Bar chart</a>
                 </div>
-              
                 <div class="item">
                   <a href="#stacked_bar_chart">Stacked bar chart</a>
                 </div>
-              
                 <div class="item">
                   <a href="#pie_doughnut_chart">Pie/Doughnut chart</a>
                 </div>
-              
                 <div class="item">
                   <a href="#radar_chart">Radar chart</a>
                 </div>
-              
+                <div class="item">
+                  <a href="#combined_chart">Combined chart</a>
+                </div>
             </div>
           </div>
 
           <div class="Content">
-            
               <div class="Page" id="introduction">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="introduction" href="#introduction">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Introduction</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="introduction" href="#introduction"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Introduction</h1>
                 <!-- Chart.xkcd is an xkcd styled chart library. Not like most chart libs out there do precise plots. The rough, seemingly hand drawn nature of the graph provides a visual hint as to the imprecision of the results. It is useful in some cases.
 
 When precise numbers
@@ -71,53 +66,34 @@ When precise numbers
 
 We already have lots of great chart libraries like [chart.js](), [echart](), [chartist-js](https://github.com/gionkunz/chartist-js) etc. One of the problems I've had with them is  that everything they draw is so precise and perfect. Sometimes I want the plots looks less precise to d -->
 
-<p>Chart.xkcd is a chart library plots “sketchy”, “cartoony” or “hand-drawn” styled charts.</p>
-
-<p><a href="https://patreon.com/timqian"><img src="https://flat.badgen.net/badge/support%20me/donate/?color=e85b46" alt="donate"/></a>
-<a href="https://join.slack.com/t/t9tio/shared_invite/enQtNjgzMzkwMDM0NTE3LTE5ZTUzYjU4Y2I0YzRiZjNkYTkzMzE1ZmM0NDdmYzRlZmMxNGY1MzZlN2EwYjYyNWVlMWY0Nzk2MDBhNWZlY2I"><img src="https://flat.badgen.net/badge/chat%20with%20us/slack/green" alt="slack"/></a>
-<a href="https://github.com/timqian/chart.xkcd"><img src="https://flat.badgen.net/github/stars/timqian/chart.xkcd?icon=github" alt="stars"/></a>
-<a href="https://www.npmjs.com/package/chart.xkcd"><img src="https://flat.badgen.net/npm/v/chart.xkcd/?color=fb3e44" alt="npm"/></a>
-<a href="https://www.jsdelivr.com/package/npm/chart.xkcd"><img src="https://data.jsdelivr.com/v1/package/npm/chart.xkcd/badge" alt="jsdelivr"/></a></p>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="introduction.sponsors" href="#introduction.sponsors">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Sponsors</h2>
-
-<p><a href="https://madao.me/">Madao</a> | <a href="https://www.patreon.com/timqian">Become a sponsor</a></p>
+<p>Chart.xkcd is a chart library plots "sketchy", "cartoony" or "hand-drawn" styled charts.</p>
+<p><a href="https://github.com/timqian/chart.xkcd"><img src="https://flat.badgen.net/github/stars/timqian/chart.xkcd?icon=github" alt="stars"></a>
+<a href="https://www.npmjs.com/package/chart.xkcd"><img src="https://flat.badgen.net/npm/v/chart.xkcd/?color=fb3e44" alt="npm"></a>
+<a href="https://www.jsdelivr.com/package/npm/chart.xkcd"><img src="https://data.jsdelivr.com/v1/package/npm/chart.xkcd/badge" alt="jsdelivr"></a></p>
 
               </div>
-            
               <div class="Page" id="getting_started">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="getting_started" href="#getting_started">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Getting started</h1>
-                <p>It’s easy to get started with chart.xkcd. All that’s required is the script included in your page along with a single <code>&lt;svg&gt;</code> node to render the chart.</p>
-
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="getting_started" href="#getting_started"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Getting started</h1>
+                <p>It's easy to get started with chart.xkcd. All that's required is the script included in your page along with a single <code>&lt;svg&gt;</code> node to render the chart.</p>
 <p>In the following example we create a line chart.</p>
-
-<p></p><p class="codepen" data-height="424" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="GRKqLaL" style="height: 424px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd example">
+<p class="codepen" data-height="424" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="GRKqLaL" style="height: 424px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd example">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/GRKqLaL/">
   chart.xkcd example</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 <p><strong>JS part of the example</strong></p>
-
-<pre class="chroma">  <span class="kr">const</span> <span class="nx">svg</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.line-chart&#39;</span><span class="p">)</span>
-  <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Line</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">data</span><span class="o">:</span> <span class="p">{...},</span>
-    <span class="nx">options</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="p">});</span>
-</pre>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="getting_started.parameters_description" href="#getting_started.parameters_description">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Parameters description</h2>
-
+<pre class="hljs"><code class="hljs">  <span class="hljs-keyword">const</span> svg = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'.line-chart'</span>)
+  <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Line</span>(svg, {
+    <span class="hljs-attr">title</span>: <span class="hljs-string">''</span>,
+    <span class="hljs-attr">xLabel</span>: <span class="hljs-string">''</span>,
+    <span class="hljs-attr">yLabel</span>: <span class="hljs-string">''</span>,
+    <span class="hljs-attr">data</span>: {...},
+    <span class="hljs-attr">options</span>: {},
+  });
+</code></pre>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="getting_started.parameters_description" href="#getting_started.parameters_description"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Parameters description</h2>
 <ul>
 <li><code>title</code>: optional title of the chart</li>
 <li><code>xLabel</code>: optional x label of the chart</li>
@@ -127,106 +103,77 @@ We already have lots of great chart libraries like [chart.js](), [echart](), [ch
 </ul>
 
               </div>
-            
               <div class="Page" id="installation">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="installation" href="#installation">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Installation</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="installation" href="#installation"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Installation</h1>
                 <p>You can install chart.xkcd via script tag in HTML or via npm</p>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="installation.via_script_tag" href="#installation.via_script_tag">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Via Script Tag</h2>
-
-<pre class="chroma"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js&#34;</span> <span class="nx">integrity</span><span class="o">=</span><span class="s2">&#34;sha256-NkH6G4XRcQ5Bsfs7O6yh9mw1SJLEOJWCtWqko6VjF34=&#34;</span> <span class="nx">crossorigin</span><span class="o">=</span><span class="s2">&#34;anonymous&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
-<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-    <span class="kr">const</span> <span class="nx">myChart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Line</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{...});</span>
-<span class="o">&lt;</span><span class="err">/script&gt;</span>
-</pre>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="installation.via_npm" href="#installation.via_npm">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Via npm</h2>
-
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="installation.via_script_tag" href="#installation.via_script_tag"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Via Script Tag</h2>
+<pre class="hljs"><code class="hljs">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"</span> integrity=<span class="hljs-string">"sha256-NkH6G4XRcQ5Bsfs7O6yh9mw1SJLEOJWCtWqko6VjF34="</span> crossorigin=<span class="hljs-string">"anonymous"</span>&gt;&lt;/script&gt;
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-keyword">const</span> myChart = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Line</span>(svg, {...});
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+</code></pre>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="installation.via_npm" href="#installation.via_npm"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Via npm</h2>
 <p><strong>Install</strong></p>
-
-<pre class="chroma">npm i chart.xkcd
-</pre>
-
+<pre class="hljs"><code class="hljs">npm i chart.xkcd
+</code></pre>
 <p><strong>Usage</strong></p>
-
-<pre class="chroma"><span class="kr">import</span> <span class="nx">chartXkcd</span> <span class="nx">from</span> <span class="s1">&#39;chart.xkcd&#39;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">myChart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Line</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{...});</span>
-</pre>
-
+<pre class="hljs"><code class="hljs"><span class="hljs-keyword">import</span> chartXkcd <span class="hljs-keyword">from</span> <span class="hljs-string">'chart.xkcd'</span>;
+<span class="hljs-keyword">const</span> myChart = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Line</span>(svg, {...});
+</code></pre>
 <p><strong>Other ways</strong></p>
-
 <ul>
-<li>React wrapper: <a href="https://github.com/obiwankenoobi/chart.xkcd-react">chart.xkcd-react</a> <br/></li>
-<li>Vue wrapper:
-
-<ul>
+<li>React wrapper: <a href="https://github.com/obiwankenoobi/chart.xkcd-react">chart.xkcd-react</a> <br></li>
+<li>Vue wrapper:<ul>
 <li><a href="https://github.com/shiyiya/chart.xkcd-vue">chart.xkcd-vue</a></li>
 <li><a href="https://github.com/wistcc/chart.xkcd-vue-wrapper">chart.xkcd-vue-wrapper</a></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
               </div>
-            
               <div class="Page" id="line_chart">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="line_chart" href="#line_chart">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Line chart</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="line_chart" href="#line_chart"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Line chart</h1>
                 <p>Line chart displays series of data points in the form of lines. It can be used to show trend data, or comparison of different data sets.</p>
-
-<p></p><p class="codepen" data-height="424" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="GRKqLaL" style="height: 424px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd example">
+<p class="codepen" data-height="424" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="GRKqLaL" style="height: 424px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd example">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/GRKqLaL/">
   chart.xkcd example</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
 
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="line_chart.js_part" href="#line_chart.js_part">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>JS part</h2>
-
-<pre class="chroma"><span class="kr">const</span> <span class="nx">lineChart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Line</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Monthly income of an indie developer&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>  <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>  <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">&#39;$ Dollars&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">],</span>
-    <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
-      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Plan&#39;</span><span class="p">,</span>
-      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">2900</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">],</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Reality&#39;</span><span class="p">,</span>
-      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span>
-    <span class="p">}],</span>
-  <span class="p">},</span>
-  <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// optional
-</span><span class="c1"></span>    <span class="nx">yTickCount</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="nx">legendPosition</span><span class="o">:</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">positionType</span><span class="p">.</span><span class="nx">upLeft</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-</pre>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="line_chart.customize_chart_by_defining_options" href="#line_chart.customize_chart_by_defining_options">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Customize chart by defining options</h2>
-
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="line_chart.js_part" href="#line_chart.js_part"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>JS part</h2>
+<pre class="hljs"><code class="hljs"><span class="hljs-keyword">const</span> lineChart = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Line</span>(svg, {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'Monthly income of an indie developer'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-attr">xLabel</span>: <span class="hljs-string">'Month'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-attr">yLabel</span>: <span class="hljs-string">'$ Dollars'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">labels</span>: [<span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>, <span class="hljs-string">'4'</span>, <span class="hljs-string">'5'</span>, <span class="hljs-string">'6'</span>, <span class="hljs-string">'7'</span>, <span class="hljs-string">'8'</span>, <span class="hljs-string">'9'</span>, <span class="hljs-string">'10'</span>],
+    <span class="hljs-attr">datasets</span>: [{
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'Plan'</span>,
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">30</span>, <span class="hljs-number">70</span>, <span class="hljs-number">200</span>, <span class="hljs-number">300</span>, <span class="hljs-number">500</span>, <span class="hljs-number">800</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">2900</span>, <span class="hljs-number">5000</span>, <span class="hljs-number">8000</span>],
+    }, {
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'Reality'</span>,
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">30</span>, <span class="hljs-number">70</span>, <span class="hljs-number">80</span>, <span class="hljs-number">100</span>, <span class="hljs-number">50</span>, <span class="hljs-number">80</span>, <span class="hljs-number">40</span>, <span class="hljs-number">150</span>],
+    }],
+  },
+  <span class="hljs-attr">options</span>: { <span class="hljs-comment">// optional</span>
+    <span class="hljs-attr">yTickCount</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">legendPosition</span>: chartXkcd.<span class="hljs-property">config</span>.<span class="hljs-property">positionType</span>.<span class="hljs-property">upLeft</span>
+  }
+})
+</code></pre>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="line_chart.customize_chart_by_defining_options" href="#line_chart.customize_chart_by_defining_options"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Customize chart by defining options</h2>
 <ul>
 <li><code>yTickCount</code>: customize tick numbers you want to see on the y axis (default <code>3</code>)</li>
 <li><code>showLegend</code>: display legend near chart (default <code>true</code>)</li>
 <li><code>legendPosition</code>: specify where you want to place the legend. (default <code>chartXkcd.config.positionType.upLeft</code>)
-Possible values:
-
-<ul>
+Possible values:<ul>
 <li>up left: <code>chartXkcd.config.positionType.upLeft</code></li>
 <li>up right: <code>chartXkcd.config.positionType.upRight</code></li>
 <li>bottom left: <code>chartXkcd.config.positionType.downLeft</code></li>
 <li>bottom right: <code>chartXkcd.config.positionType.downRight</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
@@ -235,69 +182,56 @@ Possible values:
 </ul>
 
               </div>
-            
               <div class="Page" id="xy_chart">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="xy_chart" href="#xy_chart">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>XY chart</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="xy_chart" href="#xy_chart"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>XY chart</h1>
                 <p>XY chart is used to plot points by specifying their XY coordinates.</p>
-
 <p>You can also plot XY line chart by connecting the points.</p>
-
-<p></p><p class="codepen" data-height="445" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="ExYZvZY" style="height: 445px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd XY">
+<p class="codepen" data-height="445" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="ExYZvZY" style="height: 445px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd XY">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/ExYZvZY/">
   chart.xkcd XY</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
 
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="xy_chart.js_part" href="#xy_chart.js_part">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>JS part</h2>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="xy_chart.js_part" href="#xy_chart.js_part"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>JS part</h2>
+<pre class="hljs"><code class="hljs">  <span class="hljs-keyword">const</span> svg = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'.xy-chart'</span>);
 
-<pre class="chroma">  <span class="kr">const</span> <span class="nx">svg</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.xy-chart&#39;</span><span class="p">);</span>
-
-  <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">XY</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Pokemon farms&#39;</span><span class="p">,</span> <span class="c1">//optional
-</span><span class="c1"></span>    <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;Coordinate&#39;</span><span class="p">,</span> <span class="c1">//optional
-</span><span class="c1"></span>    <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">&#39;Count&#39;</span><span class="p">,</span> <span class="c1">//optional
-</span><span class="c1"></span>    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
-        <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Pikachu&#39;</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">10</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">122</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">100</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">4</span> <span class="p">}],</span>
-      <span class="p">},</span> <span class="p">{</span>
-        <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Squirtle&#39;</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">122</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">212</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">100</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">12</span> <span class="p">}],</span>
-      <span class="p">}],</span>
-    <span class="p">},</span>
-    <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="c1">//optional
-</span><span class="c1"></span>      <span class="nx">xTickCount</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nx">yTickCount</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nx">legendPosition</span><span class="o">:</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">positionType</span><span class="p">.</span><span class="nx">upRight</span><span class="p">,</span>
-      <span class="nx">showLine</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nx">timeFormat</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
-      <span class="nx">dotSize</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="p">},</span>
-  <span class="p">});</span>
-</pre>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="xy_chart.customize_xy_chart_by_defining_options" href="#xy_chart.customize_xy_chart_by_defining_options">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Customize XY chart by defining options</h2>
-
+  <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title function_">XY</span>(svg, {
+    <span class="hljs-attr">title</span>: <span class="hljs-string">'Pokemon farms'</span>, <span class="hljs-comment">//optional</span>
+    <span class="hljs-attr">xLabel</span>: <span class="hljs-string">'Coordinate'</span>, <span class="hljs-comment">//optional</span>
+    <span class="hljs-attr">yLabel</span>: <span class="hljs-string">'Count'</span>, <span class="hljs-comment">//optional</span>
+    <span class="hljs-attr">data</span>: {
+      <span class="hljs-attr">datasets</span>: [{
+        <span class="hljs-attr">label</span>: <span class="hljs-string">'Pikachu'</span>,
+        <span class="hljs-attr">data</span>: [{ <span class="hljs-attr">x</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">10</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">122</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">100</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">4</span> }],
+      }, {
+        <span class="hljs-attr">label</span>: <span class="hljs-string">'Squirtle'</span>,
+        <span class="hljs-attr">data</span>: [{ <span class="hljs-attr">x</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">122</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">212</span> }, { <span class="hljs-attr">x</span>: -<span class="hljs-number">3</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">100</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">1</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">1.5</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">12</span> }],
+      }],
+    },
+    <span class="hljs-attr">options</span>: { <span class="hljs-comment">//optional</span>
+      <span class="hljs-attr">xTickCount</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-attr">yTickCount</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-attr">legendPosition</span>: chartXkcd.<span class="hljs-property">config</span>.<span class="hljs-property">positionType</span>.<span class="hljs-property">upRight</span>,
+      <span class="hljs-attr">showLine</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">timeFormat</span>: <span class="hljs-literal">undefined</span>,
+      <span class="hljs-attr">dotSize</span>: <span class="hljs-number">1</span>,
+    },
+  });
+</code></pre>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="xy_chart.customize_xy_chart_by_defining_options" href="#xy_chart.customize_xy_chart_by_defining_options"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Customize XY chart by defining options</h2>
 <ul>
 <li><code>xTickCount</code>: customize tick numbers you want to see on the x axis (default <code>3</code>)</li>
 <li><code>yTickCount</code>: customize tick numbers you want to see on the y axis (default <code>3</code>)</li>
 <li><code>showLegend</code>: display legend near chart (default <code>true</code>)</li>
 <li><code>legendPosition</code>: specify where you want to place the legend (default <code>chartXkcd.config.positionType.upLeft</code>)
-Possible values:
-
-<ul>
+Possible values:<ul>
 <li>up left: <code>chartXkcd.config.positionType.upLeft</code></li>
 <li>up right: <code>chartXkcd.config.positionType.upLeft</code></li>
 <li>bottom left: <code>chartXkcd.config.positionType.downLeft</code></li>
 <li>bottom right: <code>chartXkcd.config.positionType.downRight</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>showLine</code>: connect the points with lines (default: <code>false</code>)</li>
 <li><code>timeFormat</code>: specify the time format if the x values are time (default <code>undefined</code>)
 chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format time, you can find the all the available formats <a href="https://github.com/iamkun/dayjs/blob/dev/docs/en/API-reference.md#list-of-all-available-formats">here</a></li>
@@ -308,55 +242,42 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 <li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
 <li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
 </ul>
-
 <p><strong>Another example of XY chart: XY line chart with <code>timeFormat</code></strong></p>
-
-<p></p><p class="codepen" data-height="472" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="ZEzLJaN" style="height: 472px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd XY line">
+<p class="codepen" data-height="472" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="ZEzLJaN" style="height: 472px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd XY line">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/ZEzLJaN/">
   chart.xkcd XY line</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
 
               </div>
-            
               <div class="Page" id="bar_chart">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="bar_chart" href="#bar_chart">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Bar chart</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="bar_chart" href="#bar_chart"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Bar chart</h1>
                 <p>A bar chart provides a way of showing data values represented as vertical bars</p>
-
-<p></p><p class="codepen" data-height="509" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="QWLERdG" style="height: 509px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd bar">
+<p class="codepen" data-height="509" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="QWLERdG" style="height: 509px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd bar">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/QWLERdG/">
   chart.xkcd bar</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
 
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="bar_chart.js_part" href="#bar_chart.js_part">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>JS part</h2>
-
-<pre class="chroma"><span class="kr">const</span> <span class="nx">barChart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Bar</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;github stars VS patron number&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>  <span class="c1">// xLabel: &#39;&#39;, // optional
-</span><span class="c1"></span>  <span class="c1">// yLabel: &#39;&#39;, // optional
-</span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;github stars&#39;</span><span class="p">,</span> <span class="s1">&#39;patrons&#39;</span><span class="p">],</span>
-    <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
-      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-    <span class="p">}],</span>
-  <span class="p">},</span>
-  <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// optional
-</span><span class="c1"></span>    <span class="nx">yTickCount</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="p">},</span>
-<span class="p">});</span>
-</pre>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="bar_chart.customize_chart_by_defining_options" href="#bar_chart.customize_chart_by_defining_options">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Customize chart by defining options</h2>
-
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="bar_chart.js_part" href="#bar_chart.js_part"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>JS part</h2>
+<pre class="hljs"><code class="hljs"><span class="hljs-keyword">const</span> barChart = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Bar</span>(svg, {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'github stars VS patron number'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-comment">// xLabel: '', // optional</span>
+  <span class="hljs-comment">// yLabel: '', // optional</span>
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">labels</span>: [<span class="hljs-string">'github stars'</span>, <span class="hljs-string">'patrons'</span>],
+    <span class="hljs-attr">datasets</span>: [{
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">2</span>],
+    }],
+  },
+  <span class="hljs-attr">options</span>: { <span class="hljs-comment">// optional</span>
+    <span class="hljs-attr">yTickCount</span>: <span class="hljs-number">2</span>,
+  },
+});
+</code></pre>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="bar_chart.customize_chart_by_defining_options" href="#bar_chart.customize_chart_by_defining_options"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Customize chart by defining options</h2>
 <ul>
 <li><code>yTickCount</code>: customize tick numbers you want to see on the y axis</li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
@@ -367,48 +288,37 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 </ul>
 
               </div>
-            
               <div class="Page" id="stacked_bar_chart">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart" href="#stacked_bar_chart">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Stacked bar chart</h1>
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart" href="#stacked_bar_chart"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Stacked bar chart</h1>
                 <p>A stacked bar chart provides a way of showing data values represented as vertical bars</p>
-
-<p></p><p class="codepen" data-height="429" data-theme-id="default" data-default-tab="result" data-user="timqian" data-slug-hash="KKwPrEm" style="height: 429px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd stacked bar">
+<p class="codepen" data-height="429" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="KKwPrEm" style="height: 429px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd stacked bar">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/KKwPrEm">
   chart.xkcd stacked bar</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
 
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart.js_part" href="#stacked_bar_chart.js_part">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>JS part</h2>
-
-<pre class="chroma"><span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">StackedBar</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Issues and PR Submissions&#39;</span><span class="p">,</span>
-  <span class="nx">xLabel</span><span class="o">:</span> <span class="s1">&#39;Month&#39;</span><span class="p">,</span>
-  <span class="nx">yLabel</span><span class="o">:</span> <span class="s1">&#39;Count&#39;</span><span class="p">,</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="s1">&#39;Feb&#39;</span><span class="p">,</span> <span class="s1">&#39;Mar&#39;</span><span class="p">,</span> <span class="s1">&#39;April&#39;</span><span class="p">,</span> <span class="s1">&#39;May&#39;</span><span class="p">],</span>
-    <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
-      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Issues&#39;</span><span class="p">,</span>
-      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;PRs&#39;</span><span class="p">,</span>
-      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Merges&#39;</span><span class="p">,</span>
-      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">}],</span>
-  <span class="p">},</span>
-<span class="p">});</span>
-</pre>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart.customize_chart_by_defining_options" href="#stacked_bar_chart.customize_chart_by_defining_options">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Customize chart by defining options</h2>
-
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart.js_part" href="#stacked_bar_chart.js_part"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>JS part</h2>
+<pre class="hljs"><code class="hljs"><span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">StackedBar</span>(svg, {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'Issues and PR Submissions'</span>,
+  <span class="hljs-attr">xLabel</span>: <span class="hljs-string">'Month'</span>,
+  <span class="hljs-attr">yLabel</span>: <span class="hljs-string">'Count'</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">labels</span>: [<span class="hljs-string">'Jan'</span>, <span class="hljs-string">'Feb'</span>, <span class="hljs-string">'Mar'</span>, <span class="hljs-string">'April'</span>, <span class="hljs-string">'May'</span>],
+    <span class="hljs-attr">datasets</span>: [{
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'Issues'</span>,
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">12</span>, <span class="hljs-number">19</span>, <span class="hljs-number">11</span>, <span class="hljs-number">29</span>, <span class="hljs-number">17</span>],
+    }, {
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'PRs'</span>,
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>],
+    }, {
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'Merges'</span>,
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+    }],
+  },
+});
+</code></pre>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="stacked_bar_chart.customize_chart_by_defining_options" href="#stacked_bar_chart.customize_chart_by_defining_options"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Customize chart by defining options</h2>
 <ul>
 <li><code>yTickCount</code>: customize tick numbers you want to see on the y axis</li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
@@ -418,68 +328,55 @@ chart.xkcd use <a href="https://github.com/iamkun/dayjs">dayjs</a> to format tim
 <li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
 <li><code>showLegend</code>: display legend near chart (default <code>true</code>)</li>
 <li><code>legendPosition</code>: specify where you want to place the legend (default <code>chartXkcd.config.positionType.upLeft</code>)
-Possible values:
-
-<ul>
+Possible values:<ul>
 <li>up left: <code>chartXkcd.config.positionType.upLeft</code></li>
 <li>up right: <code>chartXkcd.config.positionType.upLeft</code></li>
 <li>bottom left: <code>chartXkcd.config.positionType.downLeft</code></li>
 <li>bottom right: <code>chartXkcd.config.positionType.downRight</code></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
               </div>
-            
               <div class="Page" id="pie_doughnut_chart">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="pie_doughnut_chart" href="#pie_doughnut_chart">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Pie/Doughnut chart</h1>
-                <p></p><p class="codepen" data-height="470" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="VwZjOPR" style="height: 470px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd pie">
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="pie_doughnut_chart" href="#pie_doughnut_chart"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Pie/Doughnut chart</h1>
+                <p class="codepen" data-height="470" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="VwZjOPR" style="height: 470px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd pie">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/VwZjOPR/">
   chart.xkcd pie</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
 
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="pie_doughnut_chart.js_part" href="#pie_doughnut_chart.js_part">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>JS part</h2>
-
-<pre class="chroma"><span class="kr">const</span> <span class="nx">pieChart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Pie</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;What Tim is made of&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">],</span>
-    <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
-      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
-    <span class="p">}],</span>
-  <span class="p">},</span>
-  <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// optional
-</span><span class="c1"></span>    <span class="nx">innerRadius</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>
-    <span class="nx">legendPosition</span><span class="o">:</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">positionType</span><span class="p">.</span><span class="nx">upRight</span><span class="p">,</span>
-  <span class="p">},</span>
-<span class="p">});</span>
-</pre>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="pie_doughnut_chart.customize_chart_by_defining_options" href="#pie_doughnut_chart.customize_chart_by_defining_options">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Customize chart by defining options</h2>
-
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="pie_doughnut_chart.js_part" href="#pie_doughnut_chart.js_part"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>JS part</h2>
+<pre class="hljs"><code class="hljs"><span class="hljs-keyword">const</span> pieChart = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Pie</span>(svg, {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'What Tim is made of'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">labels</span>: [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'e'</span>, <span class="hljs-string">'f'</span>, <span class="hljs-string">'g'</span>],
+    <span class="hljs-attr">datasets</span>: [{
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">500</span>, <span class="hljs-number">200</span>, <span class="hljs-number">80</span>, <span class="hljs-number">90</span>, <span class="hljs-number">100</span>],
+    }],
+  },
+  <span class="hljs-attr">options</span>: { <span class="hljs-comment">// optional</span>
+    <span class="hljs-attr">innerRadius</span>: <span class="hljs-number">0.5</span>,
+    <span class="hljs-attr">legendPosition</span>: chartXkcd.<span class="hljs-property">config</span>.<span class="hljs-property">positionType</span>.<span class="hljs-property">upRight</span>,
+  },
+});
+</code></pre>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="pie_doughnut_chart.customize_chart_by_defining_options" href="#pie_doughnut_chart.customize_chart_by_defining_options"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Customize chart by defining options</h2>
 <ul>
-<li><code>innerRadius</code>: specify empty pie chart radius (default: <code>0.5</code>)
-
-<ul>
+<li><code>innerRadius</code>: specify empty pie chart radius (default: <code>0.5</code>)<ul>
 <li>Want a pie chart? set <code>innerRadius</code> to <code>0</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>showLegend</code>: display legend near chart (default <code>true</code>)</li>
 <li><code>legendPosition</code>: specify where you want to place the legend. (default <code>chartXkcd.config.positionType.upLeft</code>)
-Possible values:
-
-<ul>
+Possible values:<ul>
 <li>up left: <code>chartXkcd.config.positionType.upLeft</code></li>
 <li>up right: <code>chartXkcd.config.positionType.upLeft</code></li>
 <li>bottom left: <code>chartXkcd.config.positionType.downLeft</code></li>
 <li>bottom right: <code>chartXkcd.config.positionType.downRight</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
@@ -488,61 +385,50 @@ Possible values:
 </ul>
 
               </div>
-            
               <div class="Page" id="radar_chart">
-                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart" href="#radar_chart">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Radar chart</h1>
-                <p></p><p class="codepen" data-height="434" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="VwZQBoj" style="height: 434px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd radar">
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart" href="#radar_chart"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Radar chart</h1>
+                <p class="codepen" data-height="434" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="VwZQBoj" style="height: 434px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd radar">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/VwZQBoj/">
   chart.xkcd radar</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script><p></p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
 
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart.js_part" href="#radar_chart.js_part">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>JS part</h2>
-
-<pre class="chroma"><span class="kr">const</span> <span class="nx">radar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">Radar</span><span class="p">(</span><span class="nx">svg</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Letters in random words&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">],</span>
-    <span class="nx">datasets</span><span class="o">:</span> <span class="p">[{</span>
-      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;ccharrrt&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;chhaart&#39;</span><span class="p">,</span> <span class="c1">// optional
-</span><span class="c1"></span>      <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">}],</span>
-  <span class="p">},</span>
-  <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// optional
-</span><span class="c1"></span>    <span class="nx">showLegend</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nx">dotSize</span><span class="o">:</span> <span class="mf">.8</span><span class="p">,</span>
-    <span class="nx">showLabels</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nx">legendPosition</span><span class="o">:</span> <span class="nx">chartXkcd</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">positionType</span><span class="p">.</span><span class="nx">upRight</span><span class="p">,</span>
-  <span class="p">},</span>
-<span class="p">});</span>
-</pre>
-
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart.customize_chart_by_defining_options" href="#radar_chart.customize_chart_by_defining_options">
-	<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-</a>Customize chart by defining options</h2>
-
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart.js_part" href="#radar_chart.js_part"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>JS part</h2>
+<pre class="hljs"><code class="hljs"><span class="hljs-keyword">const</span> radar = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Radar</span>(svg, {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'Letters in random words'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">labels</span>: [<span class="hljs-string">'c'</span>, <span class="hljs-string">'h'</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'r'</span>, <span class="hljs-string">'t'</span>],
+    <span class="hljs-attr">datasets</span>: [{
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'ccharrrt'</span>, <span class="hljs-comment">// optional</span>
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>],
+    }, {
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'chhaart'</span>, <span class="hljs-comment">// optional</span>
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+    }],
+  },
+  <span class="hljs-attr">options</span>: { <span class="hljs-comment">// optional</span>
+    <span class="hljs-attr">showLegend</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">dotSize</span>: <span class="hljs-number">.8</span>,
+    <span class="hljs-attr">showLabels</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">legendPosition</span>: chartXkcd.<span class="hljs-property">config</span>.<span class="hljs-property">positionType</span>.<span class="hljs-property">upRight</span>,
+  },
+});
+</code></pre>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="radar_chart.customize_chart_by_defining_options" href="#radar_chart.customize_chart_by_defining_options"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Customize chart by defining options</h2>
 <ul>
 <li><code>showLabels</code>: display labels near every line (default <code>false</code>)</li>
 <li><code>ticksCount</code>: customize tick numbers you want to see on the main line (default <code>3</code>)</li>
 <li><code>dotSize</code>: you can change size of the dots if you want (default <code>1</code>)</li>
 <li><code>showLegend</code>: display legend near chart (default <code>false</code>)</li>
 <li><code>legendPosition</code>: specify where you want to place the legend. (default <code>chartXkcd.config.positionType.upLeft</code>)
-Possible values:
-
-<ul>
+Possible values:<ul>
 <li>up left: <code>chartXkcd.config.positionType.upLeft</code></li>
 <li>up right: <code>chartXkcd.config.positionType.upRight</code></li>
 <li>bottom left: <code>chartXkcd.config.positionType.downLeft</code></li>
 <li>bottom right: <code>chartXkcd.config.positionType.downRight</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>dataColors</code>: array of colors for different datasets</li>
 <li><code>fontFamily</code>: customize font family used in the chart</li>
 <li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
@@ -551,7 +437,53 @@ Possible values:
 </ul>
 
               </div>
-            
+              <div class="Page" id="combined_chart">
+                <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="combined_chart" href="#combined_chart"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Combined chart</h1>
+                <p>A combined chart displays bar datasets and line datasets in the same chart. It is useful when related series share the same labels and y axis but need different visual treatments.</p>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="combined_chart.js_part" href="#combined_chart.js_part"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>JS part</h2>
+<pre class="hljs"><code class="hljs"><span class="hljs-keyword">const</span> combinedChart = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Combined</span>(svg, {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'Monthly visitors and signups'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-attr">xLabel</span>: <span class="hljs-string">'Month'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-attr">yLabel</span>: <span class="hljs-string">'Count'</span>, <span class="hljs-comment">// optional</span>
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">labels</span>: [<span class="hljs-string">'Jan'</span>, <span class="hljs-string">'Feb'</span>, <span class="hljs-string">'Mar'</span>, <span class="hljs-string">'Apr'</span>, <span class="hljs-string">'May'</span>, <span class="hljs-string">'Jun'</span>],
+    <span class="hljs-attr">datasets</span>: [{
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'Visitors'</span>,
+      <span class="hljs-attr">type</span>: <span class="hljs-string">'bar'</span>,
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">120</span>, <span class="hljs-number">180</span>, <span class="hljs-number">150</span>, <span class="hljs-number">220</span>, <span class="hljs-number">260</span>, <span class="hljs-number">310</span>],
+    }, {
+      <span class="hljs-attr">label</span>: <span class="hljs-string">'Signups'</span>,
+      <span class="hljs-attr">type</span>: <span class="hljs-string">'line'</span>,
+      <span class="hljs-attr">data</span>: [<span class="hljs-number">15</span>, <span class="hljs-number">20</span>, <span class="hljs-number">18</span>, <span class="hljs-number">32</span>, <span class="hljs-number">44</span>, <span class="hljs-number">56</span>],
+    }],
+  },
+  <span class="hljs-attr">options</span>: { <span class="hljs-comment">// optional</span>
+    <span class="hljs-attr">yTickCount</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">legendPosition</span>: chartXkcd.<span class="hljs-property">config</span>.<span class="hljs-property">positionType</span>.<span class="hljs-property">upLeft</span>
+  }
+});
+</code></pre>
+<p>Datasets with <code>type: 'bar'</code> render as bars. Datasets with <code>type: 'line'</code> render as lines.</p>
+<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="combined_chart.customize_chart_by_defining_options" href="#combined_chart.customize_chart_by_defining_options"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Customize chart by defining options</h2>
+<ul>
+<li><code>yTickCount</code>: customize tick numbers you want to see on the y axis (default <code>3</code>)</li>
+<li><code>showLegend</code>: display legend near chart (default <code>true</code>)</li>
+<li><code>legendPosition</code>: specify where you want to place the legend. (default <code>chartXkcd.config.positionType.upLeft</code>)
+Possible values:<ul>
+<li>up left: <code>chartXkcd.config.positionType.upLeft</code></li>
+<li>up right: <code>chartXkcd.config.positionType.upRight</code></li>
+<li>bottom left: <code>chartXkcd.config.positionType.downLeft</code></li>
+<li>bottom right: <code>chartXkcd.config.positionType.downRight</code></li>
+</ul>
+</li>
+<li><code>dataColors</code>: array of colors for different datasets</li>
+<li><code>fontFamily</code>: customize font family used in the chart</li>
+<li><code>unxkcdify</code>: disable xkcd effect (default <code>false</code>)</li>
+<li><code>strokeColor</code>: stroke colors (default <code>black</code>)</li>
+<li><code>backgroundColor</code>: color for BG (default <code>white</code>)</li>
+</ul>
+
+              </div>
             <div class="Footer"></div>
             <script src="theme/apex/js/index.js"></script>
           </div>

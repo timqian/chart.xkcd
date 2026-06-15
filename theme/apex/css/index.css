@@ -324,6 +324,93 @@ details > p {
   margin: 0;
 }
 
+/* Syntax highlighting styles for highlight.js */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0;
+  background: var(--light-gray);
+  color: var(--dark);
+}
+
+.hljs-attr { color: #795da3; }
+.hljs-attribute { color: #795da3; }
+.hljs-built_in { color: #0086b3; }
+.hljs-builtin-name { color: #0086b3; }
+.hljs-bullet { color: #ed9d13; }
+.hljs-char { color: #d73a49; }
+.hljs-code { color: #24292e; }
+.hljs-comment { color: #6a737d; }
+.hljs-deletion { color: #b31c23; background-color: #fdeaea; }
+.hljs-doctag { color: #005cc5; }
+.hljs-emphasis { font-style: italic; }
+.hljs-function { color: #6f42c1; }
+.hljs-keyword { color: #d73a49; }
+.hljs-link { color: #032f62; }
+.hljs-literal { color: #005cc5; }
+.hljs-meta { color: #6f42c1; }
+.hljs-name { color: #6f42c1; }
+.hljs-number { color: #005cc5; }
+.hljs-params { }
+.hljs-quote { color: #6a737d; }
+.hljs-regexp { color: #032f62; }
+.hljs-selector-attr { color: #6f42c1; }
+.hljs-selector-class { color: #6f42c1; }
+.hljs-selector-id { color: #6f42c1; }
+.hljs-selector-pseudo { color: #6f42c1; }
+.hljs-selector-tag { color: #22863a; }
+.hljs-string { color: #032f62; }
+.hljs-strong { font-weight: bold; }
+.hljs-subst { color: #24292e; }
+.hljs-symbol { color: #ed9d13; }
+.hljs-tag { color: #22863a; }
+.hljs-template-tag { color: #22863a; }
+.hljs-template-variable { color: #032f62; }
+.hljs-title { color: #005cc5; }
+.hljs-type { color: #d73a49; }
+.hljs-variable { color: #e36209; }
+
+.Hamburger {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  width: 32px;
+  height: 32px;
+  color: var(--fg-dark);
+}
+
+.Hamburger svg {
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.Hamburger .hamburger-icon {
+  opacity: 1;
+}
+
+.Hamburger .close-icon {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.Hamburger.active .hamburger-icon {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.Hamburger.active .close-icon {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @media screen and (max-width: 850px) {
   html, body {
     --header-height: 300px;
@@ -331,16 +418,50 @@ details > p {
     font-size: 14px;
   }
 
+  .Hamburger {
+    display: block;
+  }
+
   .Content-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    position: relative;
   }
 
   .Sidebar {
-    margin-bottom: 30px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 250px;
+    background: white;
+    z-index: 999;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    padding-top: 20px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .Sidebar.active {
+    transform: translateX(0);
+  }
+
+  .Sidebar .Menu {
+    position: static;
+    top: auto;
+    padding: 20px 15px;
   }
 
   .Content {
     width: 100%;
+    margin-left: 0;
+  }
+
+  .Content-wrapper.sidebar-open {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 }
