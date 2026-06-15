@@ -1,6 +1,6 @@
 {
   "name": "chart.xkcd",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "xkcd style chart lib",
   "jsdelivr": "dist/chart.xkcd.min.js",
   "unpkg": "dist/chart.xkcd.min.js",
@@ -11,10 +11,10 @@
   "scripts": {
     "buildUmd": "parcel build src/index.js --dist-dir dist --no-source-maps && mv dist/index.js dist/chart.xkcd.min.js",
     "build": "parcel build src/index.js --dist-dir dist --no-source-maps",
-    "start": "npm run build && echo 'Built dist. Example uses: import chartXkcd from \"../dist/index.js\"'",
+    "start": "npm run build && parcel examples/example.html",
     "prepublishOnly": "rm -rf dist && npm run buildUmd && npm run build",
     "genDoc": "npx docdude --in docs --out docs-dist --title Chart.xkcd --subtitle 'xkcd styled chart lib'",
-    "genExample": "parcel build examples/example.html --dist-dir docs-dist --public-url /chart.xkcd",
+    "genExample": "parcel build --target example",
     "deployDoc": "npm run prepublishOnly && npm run genDoc && npm run genExample && gh-pages -d docs-dist",
     "lint": "eslint ./src"
   },
@@ -44,5 +44,17 @@
     "d3-selection": "^3.0.0",
     "d3-shape": "^3.2.0",
     "dayjs": "^1.11.21"
+  },
+  "targets": {
+    "main": {
+      "source": "src/index.js",
+      "distDir": "dist",
+      "isLibrary": true
+    },
+    "example": {
+      "source": "examples/example.html",
+      "distDir": "docs-dist",
+      "publicUrl": "/chart.xkcd"
+    }
   }
 }
