@@ -1,6 +1,6 @@
 {
   "name": "chart.xkcd",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "xkcd style chart lib",
   "jsdelivr": "dist/chart.xkcd.min.js",
   "unpkg": "dist/chart.xkcd.min.js",
