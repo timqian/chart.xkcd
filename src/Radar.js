@@ -56,8 +56,7 @@ class Radar {
     this.width = this.svgEl.attr('width');
     this.height = this.svgEl.attr('height');
     this.chart = this.svgEl.append('g')
-      .attr('transform',
-        `translate(${this.width / 2},${this.height / 2})`);
+      .attr('transform', `translate(${this.width / 2},${this.height / 2})`);
 
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -245,6 +244,7 @@ class Radar {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   update() {
   }
 }

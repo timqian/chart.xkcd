@@ -1,5 +1,5 @@
 import select from 'd3-selection/src/select';
-import mouse from 'd3-selection/src/mouse';
+import pointer from 'd3-selection/src/pointer';
 import scaleBand from 'd3-scale/src/band';
 import scaleLinear from 'd3-scale/src/linear';
 
@@ -61,8 +61,7 @@ class Bar {
     this.svgEl.selectAll('*').remove();
 
     this.chart = this.svgEl.append('g')
-      .attr('transform',
-        `translate(${margin.left},${margin.top})`);
+      .attr('transform', `translate(${margin.left},${margin.top})`);
     this.width = this.svgEl.attr('width') - margin.left - margin.right;
     this.height = this.svgEl.attr('height') - margin.top - margin.bottom;
 
@@ -143,9 +142,9 @@ class Bar {
         select(nodes[i]).attr('fill', 'none');
         tooltip.hide();
       })
-      .on('mousemove', (d, i, nodes) => {
-        const tipX = mouse(nodes[i])[0] + margin.left + 10;
-        const tipY = mouse(nodes[i])[1] + margin.top + 10;
+      .on('mousemove', (event, d, i, nodes) => {
+        const tipX = pointer(event, nodes[i])[0] + margin.left + 10;
+        const tipY = pointer(event, nodes[i])[1] + margin.top + 10;
 
         let tooltipPositionType = config.positionType.downRight;
         if (tipX > this.width / 2 && tipY < this.height / 2) {
@@ -171,6 +170,7 @@ class Bar {
   }
 
   // TODO: update chart
+  // eslint-disable-next-line class-methods-use-this
   update() {
 
   }

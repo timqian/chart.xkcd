@@ -1,5 +1,5 @@
 import select from 'd3-selection/src/select';
-import mouse from 'd3-selection/src/mouse';
+import pointer from 'd3-selection/src/pointer';
 import pie from 'd3-shape/src/pie';
 import arc from 'd3-shape/src/arc';
 import Tooltip from './components/Tooltip';
@@ -51,9 +51,7 @@ class Pie {
     this.height = this.svgEl.attr('height');
 
     this.chart = this.svgEl.append('g')
-      .attr('transform',
-        `translate(${this.width / 2},${this.height / 2})`);
-
+      .attr('transform', `translate(${this.width / 2},${this.height / 2})`);
 
     addFont(this.svgEl);
     addFilter(this.svgEl);
@@ -106,9 +104,9 @@ class Pie {
         select(nodes[i]).attr('fill-opacity', 1);
         tooltip.hide();
       })
-      .on('mousemove', (d, i, nodes) => {
-        const tipX = mouse(nodes[i])[0] + (this.width / 2) + 10;
-        const tipY = mouse(nodes[i])[1] + (this.height / 2) + 10;
+      .on('mousemove', (event, d, i, nodes) => {
+        const tipX = pointer(event, nodes[i])[0] + (this.width / 2) + 10;
+        const tipY = pointer(event, nodes[i])[1] + (this.height / 2) + 10;
 
         tooltip.update({
           title: this.data.labels[i],
@@ -146,6 +144,7 @@ class Pie {
   }
 
   // TODO: update chart
+  // eslint-disable-next-line class-methods-use-this
   update() {
   }
 }

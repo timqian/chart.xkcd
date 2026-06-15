@@ -1,7 +1,7 @@
 import line from 'd3-shape/src/line';
 import { monotoneX } from 'd3-shape/src/curve/monotone';
 import select from 'd3-selection/src/select';
-import mouse from 'd3-selection/src/mouse';
+import pointer from 'd3-selection/src/pointer';
 import scaleBand from 'd3-scale/src/band';
 import scaleLinear from 'd3-scale/src/linear';
 
@@ -78,8 +78,7 @@ class Combined {
     this.svgEl.selectAll('*').remove();
 
     this.chart = this.svgEl.append('g')
-      .attr('transform',
-        `translate(${margin.left},${margin.top})`);
+      .attr('transform', `translate(${margin.left},${margin.top})`);
     this.width = this.svgEl.attr('width') - margin.left - margin.right;
     this.height = this.svgEl.attr('height') - margin.top - margin.bottom;
 
@@ -219,10 +218,10 @@ class Combined {
         verticalLine.style('visibility', 'hidden');
         tooltip.hide();
       })
-      .on('mousemove', (d, i, nodes) => {
-        const mouseX = mouse(nodes[i])[0];
+      .on('mousemove', (event, d, i, nodes) => {
+        const mouseX = pointer(event, nodes[i])[0];
         const tipX = mouseX + margin.left + 10;
-        const tipY = mouse(nodes[i])[1] + margin.top + 10;
+        const tipY = pointer(event, nodes[i])[1] + margin.top + 10;
 
         const labelXs = this.data.labels.map(
           (label) => xScale(label) + xScale.bandwidth() / 2,
@@ -276,6 +275,7 @@ class Combined {
   }
 
   // TODO: update chart
+  // eslint-disable-next-line class-methods-use-this
   update() {
   }
 }

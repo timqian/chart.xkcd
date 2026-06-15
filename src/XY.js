@@ -70,8 +70,7 @@ class XY {
     this.svgEl.selectAll('*').remove();
 
     this.chart = this.svgEl.append('g')
-      .attr('transform',
-        `translate(${margin.left},${margin.top})`);
+      .attr('transform', `translate(${margin.left},${margin.top})`);
 
     this.width = this.svgEl.attr('width') - margin.left - margin.right;
     this.height = this.svgEl.attr('height') - margin.top - margin.bottom;
@@ -248,6 +247,7 @@ class XY {
   }
 
   // TODO: update chart
+  // eslint-disable-next-line class-methods-use-this
   update() {
   }
 }

@@ -7,3 +7,4 @@ dist
 /insprations.md
 .DS_Store
 .idea/
+.parcel-cache/
