@@ -1,6 +1,6 @@
 {
   "name": "chart.xkcd",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "xkcd style chart lib",
   "jsdelivr": "dist/chart.xkcd.min.js",
   "unpkg": "dist/chart.xkcd.min.js",
@@ -14,7 +14,7 @@
     "start": "npm run build && echo 'Built dist. Example uses: import chartXkcd from \"../dist/index.js\"'",
     "prepublishOnly": "rm -rf dist && npm run buildUmd && npm run build",
     "genDoc": "npx docdude --in docs --out docs-dist --title Chart.xkcd --subtitle 'xkcd styled chart lib'",
-    "genExample": "parcel build examples/example.html --out-dir docs-dist --public-url /chart.xkcd",
+    "genExample": "parcel build examples/example.html --dist-dir docs-dist --public-url /chart.xkcd",
     "deployDoc": "npm run prepublishOnly && npm run genDoc && npm run genExample && gh-pages -d docs-dist",
     "lint": "eslint ./src"
   },
