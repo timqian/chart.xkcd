@@ -1,6 +1,6 @@
 {
   "name": "chart.xkcd",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "xkcd style chart lib",
   "jsdelivr": "dist/chart.xkcd.min.js",
   "unpkg": "dist/chart.xkcd.min.js",
@@ -46,11 +46,6 @@
     "dayjs": "^1.11.21"
   },
   "targets": {
-    "main": {
-      "source": "src/index.js",
-      "distDir": "dist",
-      "isLibrary": true
-    },
     "example": {
       "source": "examples/example.html",
       "distDir": "docs-dist",
