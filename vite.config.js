@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
         outDir: '../docs-dist',
         emptyOutDir: false,
         rollupOptions: {
+          input: path.resolve(__dirname, 'examples/example.html'),
           output: {
             entryFileNames: 'example.js',
           },
