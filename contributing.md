@@ -14,7 +14,7 @@ npm i
 ```
 
 ```bash
-# start examples (example/npm)
+# start examples
 npm start
 ```
 
@@ -23,12 +23,10 @@ Then you can open `localhost:1234` to see the examples, and you can start to edi
 ## Layout
 
 - [docs](./docs): Documentation used to generate timqian.com/chart.xkcd
+  - preview docs: `npm run genDoc` and `npx serve`
 - [examples](./examples): Examples showing how to use chart.xkcd. The npm example is also used for developing and debug features for now.
 - [src](./src): where the meat locates
 
 ## Releases
 
-Notes for myself:
-
-- before building chart.xkcd, shut down parcel server
-- `npm run release`(TODO)
+To release a new version, just update the version number in package.json. New version will be released by github actions.

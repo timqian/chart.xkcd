@@ -1,23 +1,62 @@
 <html>
-    <head>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <title>Chart.xkcd examples</title>
+    <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'ZCOOL KuaiLe', cursive;
+        padding: 24px 32px;
+        max-width: 1300px;
+        margin: 0 auto;
+        background: #fff;
+        color: #333;
+      }
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 8px;
+      }
+      .subtitle {
+        font-size: 1rem;
+        margin-bottom: 24px;
+        line-height: 1.8;
+      }
+      .subtitle a {
+        color: #555;
+      }
+      .charts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .charts > div {
+        width: 400px;
+        height: 300px;
+      }
+    </style>
+  </head>
   <body>
-    <h1><a href="https://github.com/timqian/chart.xkcd/tree/master/examples">Source code of the examples</a></h1>
-    <br/>
+    <h1>Chart.xkcd examples</h1>
+    <p class="subtitle">
+      <a href="https://github.com/timqian/chart.xkcd/tree/main/examples">Source code</a>
+      &nbsp;·&nbsp;
+      <a href="https://timqian.com/chart.xkcd">Docs</a>
+    </p>
 
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="bar-chart"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="stacked-bar-chart"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="pie-chart"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="line-chart"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="combined-chart"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="xyline-chart"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="xyline-chart2"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="radar-chart"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="line-chart-cus"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="line-chart-unxkcdify"></svg></div>
-    <div style="width: 400px; height: 300px; display: inline-block;"><svg class="line-chart-dark"></svg></div>
+    <div class="charts">
+      <div><svg class="bar-chart"></svg></div>
+      <div><svg class="stacked-bar-chart"></svg></div>
+      <div><svg class="pie-chart"></svg></div>
+      <div><svg class="line-chart"></svg></div>
+      <div><svg class="combined-chart"></svg></div>
+      <div><svg class="xyline-chart"></svg></div>
+      <div><svg class="xyline-chart2"></svg></div>
+      <div><svg class="radar-chart"></svg></div>
+      <div><svg class="line-chart-cus"></svg></div>
+      <div><svg class="line-chart-unxkcdify"></svg></div>
+      <div><svg class="line-chart-dark"></svg></div>
+    </div>
 
     <script type="module" src="./index.js"></script>
   </body>
