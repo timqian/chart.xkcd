@@ -59,14 +59,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global credential.helper store
-          echo "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com" > ~/.git-credentials
-
-      - name: Generate and Deploy docs
-        if: steps.check_release.outputs.exists == 'false'
-        run: npm run deployDoc
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate changelog
         if: steps.check_release.outputs.exists == 'false'
