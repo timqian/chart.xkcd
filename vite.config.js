@@ -5,6 +5,7 @@ export default defineConfig(({ mode }) => {
   if (mode === 'example') {
     return {
       root: 'examples',
+      base: './',
       build: {
         outDir: '../docs-dist',
         emptyOutDir: false,

@@ -4,7 +4,7 @@ title: Stacked bar chart
 
 A stacked bar chart provides a way of showing data values represented as vertical bars
 
-<p class="codepen" data-height="429" data-theme-id="default" data-default-tab="result" data-user="timqian" data-slug-hash="KKwPrEm" style="height: 429px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd stacked bar">
+<p class="codepen" data-height="429" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="KKwPrEm" style="height: 429px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd stacked bar">
   <span>See the Pen <a href="https://codepen.io/timqian/pen/KKwPrEm">
   chart.xkcd stacked bar</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
