@@ -7,6 +7,6 @@ import XY from './XY';
 import Radar from './Radar';
 import config from './config';
 
-module.exports = {
+export default {
   config, Bar, StackedBar, Pie, Line, Combined, XY, Radar,
 };
