@@ -68,6 +68,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate changelog
+        if: steps.check_release.outputs.exists == 'false'
+        id: changelog
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          REPO="${{ github.repository }}"
+          if [ -z "$PREV_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${REPO}/commit/%H)" HEAD)
+          else
+            COMMITS=$(git log --pretty=format:"- [%s](https://github.com/${REPO}/commit/%H)" "${PREV_TAG}..HEAD")
+          fi
+          echo "commits<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMITS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create Git Tag
         if: steps.check_release.outputs.exists == 'false'
         run: |
@@ -81,9 +96,9 @@ jobs:
           tag_name: v${{ steps.package.outputs.version }}
           name: Release v${{ steps.package.outputs.version }}
           body: |
-            Release v${{ steps.package.outputs.version }}
+            ## What's Changed
 
-            For more details, see the [changelog](https://github.com/timqian/chart.xkcd/releases).
+            ${{ steps.changelog.outputs.commits }}
           draft: false
           prerelease: false
         env:

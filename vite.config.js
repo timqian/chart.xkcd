@@ -54,11 +54,6 @@ export default defineConfig(({ mode }) => {
         },
       },
       sourcemap: false,
-      rollupOptions: {
-        output: {
-          compact: true,
-        },
-      },
     },
   };
 });
