@@ -70,8 +70,6 @@ We already have lots of great chart libraries like [chart.js](), [echart](), [ch
 <p><a href="https://github.com/timqian/chart.xkcd"><img src="https://flat.badgen.net/github/stars/timqian/chart.xkcd?icon=github" alt="stars"></a>
 <a href="https://www.npmjs.com/package/chart.xkcd"><img src="https://flat.badgen.net/npm/v/chart.xkcd/?color=fb3e44" alt="npm"></a>
 <a href="https://www.jsdelivr.com/package/npm/chart.xkcd"><img src="https://data.jsdelivr.com/v1/package/npm/chart.xkcd/badge" alt="jsdelivr"></a></p>
-<h2 class="Heading"><a class="Anchor" aria-hidden="true" id="introduction.sponsors" href="#introduction.sponsors"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Sponsors</h2>
-<p><a href="https://madao.me/">Madao</a> | <a href="https://www.patreon.com/timqian">Become a sponsor</a></p>
 
               </div>
               <div class="Page" id="getting_started">
@@ -109,7 +107,7 @@ We already have lots of great chart libraries like [chart.js](), [echart](), [ch
                 <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="installation" href="#installation"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Installation</h1>
                 <p>You can install chart.xkcd via script tag in HTML or via npm</p>
 <h2 class="Heading"><a class="Anchor" aria-hidden="true" id="installation.via_script_tag" href="#installation.via_script_tag"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Via Script Tag</h2>
-<pre class="hljs"><code class="hljs">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"</span> integrity=<span class="hljs-string">"sha256-NkH6G4XRcQ5Bsfs7O6yh9mw1SJLEOJWCtWqko6VjF34="</span> crossorigin=<span class="hljs-string">"anonymous"</span>&gt;&lt;/script&gt;
+<pre class="hljs"><code class="hljs">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/chart.xkcd@2/dist/chart.xkcd.min.js"</span> integrity=<span class="hljs-string">"sha256-NkH6G4XRcQ5Bsfs7O6yh9mw1SJLEOJWCtWqko6VjF34="</span> crossorigin=<span class="hljs-string">"anonymous"</span>&gt;&lt;/script&gt;
 <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
     <span class="hljs-keyword">const</span> myChart = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Line</span>(svg, {...});
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
@@ -442,6 +440,13 @@ Possible values:<ul>
               <div class="Page" id="combined_chart">
                 <h1 class="Heading"><a class="Anchor" aria-hidden="true" id="combined_chart" href="#combined_chart"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>Combined chart</h1>
                 <p>A combined chart displays bar datasets and line datasets in the same chart. It is useful when related series share the same labels and y axis but need different visual treatments.</p>
+<p class="codepen" data-height="445" data-theme-id="light" data-default-tab="result" data-user="timqian" data-slug-hash="LExbRQb" style="height: 445px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="chart.xkcd XY">
+  <span>See the Pen <a href="https://codepen.io/timqian/pen/LExbRQb">
+  chart.xkcd combined</a> by timqian (<a href="https://codepen.io/timqian">@timqian</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async="" src="https://static.codepen.io/assets/embed/ei.js"></script>
+
 <h2 class="Heading"><a class="Anchor" aria-hidden="true" id="combined_chart.js_part" href="#combined_chart.js_part"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a>JS part</h2>
 <pre class="hljs"><code class="hljs"><span class="hljs-keyword">const</span> combinedChart = <span class="hljs-keyword">new</span> chartXkcd.<span class="hljs-title class_">Combined</span>(svg, {
   <span class="hljs-attr">title</span>: <span class="hljs-string">'Monthly visitors and signups'</span>, <span class="hljs-comment">// optional</span>
